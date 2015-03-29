@@ -1,0 +1,435 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		848D718D1AC7B48C005A9FD5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 848D718C1AC7B48C005A9FD5 /* main.m */; };
+		848D71901AC7B48C005A9FD5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 848D718F1AC7B48C005A9FD5 /* AppDelegate.m */; };
+		848D71931AC7B48C005A9FD5 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848D71921AC7B48C005A9FD5 /* MasterViewController.m */; };
+		848D71961AC7B48C005A9FD5 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848D71951AC7B48C005A9FD5 /* DetailViewController.m */; };
+		848D71991AC7B48C005A9FD5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 848D71971AC7B48C005A9FD5 /* Main.storyboard */; };
+		848D719B1AC7B48C005A9FD5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 848D719A1AC7B48C005A9FD5 /* Images.xcassets */; };
+		848D719E1AC7B48C005A9FD5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 848D719C1AC7B48C005A9FD5 /* LaunchScreen.xib */; };
+		848D71AA1AC7B48C005A9FD5 /* TNiOSRiderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 848D71A91AC7B48C005A9FD5 /* TNiOSRiderTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		848D71A41AC7B48C005A9FD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 848D717F1AC7B48C005A9FD5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 848D71861AC7B48C005A9FD5;
+			remoteInfo = TNiOSRider;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		848D71871AC7B48C005A9FD5 /* TNiOSRider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TNiOSRider.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		848D718B1AC7B48C005A9FD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		848D718C1AC7B48C005A9FD5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		848D718E1AC7B48C005A9FD5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		848D718F1AC7B48C005A9FD5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		848D71911AC7B48C005A9FD5 /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
+		848D71921AC7B48C005A9FD5 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		848D71941AC7B48C005A9FD5 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		848D71951AC7B48C005A9FD5 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		848D71981AC7B48C005A9FD5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		848D719A1AC7B48C005A9FD5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		848D719D1AC7B48C005A9FD5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		848D71A31AC7B48C005A9FD5 /* TNiOSRiderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TNiOSRiderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		848D71A81AC7B48C005A9FD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		848D71A91AC7B48C005A9FD5 /* TNiOSRiderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TNiOSRiderTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		848D71841AC7B48C005A9FD5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		848D71A01AC7B48C005A9FD5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		848D717E1AC7B48C005A9FD5 = {
+			isa = PBXGroup;
+			children = (
+				848D71891AC7B48C005A9FD5 /* TNiOSRider */,
+				848D71A61AC7B48C005A9FD5 /* TNiOSRiderTests */,
+				848D71881AC7B48C005A9FD5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		848D71881AC7B48C005A9FD5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				848D71871AC7B48C005A9FD5 /* TNiOSRider.app */,
+				848D71A31AC7B48C005A9FD5 /* TNiOSRiderTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		848D71891AC7B48C005A9FD5 /* TNiOSRider */ = {
+			isa = PBXGroup;
+			children = (
+				848D718E1AC7B48C005A9FD5 /* AppDelegate.h */,
+				848D718F1AC7B48C005A9FD5 /* AppDelegate.m */,
+				848D71911AC7B48C005A9FD5 /* MasterViewController.h */,
+				848D71921AC7B48C005A9FD5 /* MasterViewController.m */,
+				848D71941AC7B48C005A9FD5 /* DetailViewController.h */,
+				848D71951AC7B48C005A9FD5 /* DetailViewController.m */,
+				848D71971AC7B48C005A9FD5 /* Main.storyboard */,
+				848D719A1AC7B48C005A9FD5 /* Images.xcassets */,
+				848D719C1AC7B48C005A9FD5 /* LaunchScreen.xib */,
+				848D718A1AC7B48C005A9FD5 /* Supporting Files */,
+			);
+			path = TNiOSRider;
+			sourceTree = "<group>";
+		};
+		848D718A1AC7B48C005A9FD5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				848D718B1AC7B48C005A9FD5 /* Info.plist */,
+				848D718C1AC7B48C005A9FD5 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		848D71A61AC7B48C005A9FD5 /* TNiOSRiderTests */ = {
+			isa = PBXGroup;
+			children = (
+				848D71A91AC7B48C005A9FD5 /* TNiOSRiderTests.m */,
+				848D71A71AC7B48C005A9FD5 /* Supporting Files */,
+			);
+			path = TNiOSRiderTests;
+			sourceTree = "<group>";
+		};
+		848D71A71AC7B48C005A9FD5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				848D71A81AC7B48C005A9FD5 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		848D71861AC7B48C005A9FD5 /* TNiOSRider */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 848D71AD1AC7B48C005A9FD5 /* Build configuration list for PBXNativeTarget "TNiOSRider" */;
+			buildPhases = (
+				848D71831AC7B48C005A9FD5 /* Sources */,
+				848D71841AC7B48C005A9FD5 /* Frameworks */,
+				848D71851AC7B48C005A9FD5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TNiOSRider;
+			productName = TNiOSRider;
+			productReference = 848D71871AC7B48C005A9FD5 /* TNiOSRider.app */;
+			productType = "com.apple.product-type.application";
+		};
+		848D71A21AC7B48C005A9FD5 /* TNiOSRiderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 848D71B01AC7B48C005A9FD5 /* Build configuration list for PBXNativeTarget "TNiOSRiderTests" */;
+			buildPhases = (
+				848D719F1AC7B48C005A9FD5 /* Sources */,
+				848D71A01AC7B48C005A9FD5 /* Frameworks */,
+				848D71A11AC7B48C005A9FD5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				848D71A51AC7B48C005A9FD5 /* PBXTargetDependency */,
+			);
+			name = TNiOSRiderTests;
+			productName = TNiOSRiderTests;
+			productReference = 848D71A31AC7B48C005A9FD5 /* TNiOSRiderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		848D717F1AC7B48C005A9FD5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0620;
+				ORGANIZATIONNAME = admin;
+				TargetAttributes = {
+					848D71861AC7B48C005A9FD5 = {
+						CreatedOnToolsVersion = 6.2;
+					};
+					848D71A21AC7B48C005A9FD5 = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = 848D71861AC7B48C005A9FD5;
+					};
+				};
+			};
+			buildConfigurationList = 848D71821AC7B48C005A9FD5 /* Build configuration list for PBXProject "TNiOSRider" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 848D717E1AC7B48C005A9FD5;
+			productRefGroup = 848D71881AC7B48C005A9FD5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				848D71861AC7B48C005A9FD5 /* TNiOSRider */,
+				848D71A21AC7B48C005A9FD5 /* TNiOSRiderTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		848D71851AC7B48C005A9FD5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				848D71991AC7B48C005A9FD5 /* Main.storyboard in Resources */,
+				848D719E1AC7B48C005A9FD5 /* LaunchScreen.xib in Resources */,
+				848D719B1AC7B48C005A9FD5 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		848D71A11AC7B48C005A9FD5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		848D71831AC7B48C005A9FD5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				848D71901AC7B48C005A9FD5 /* AppDelegate.m in Sources */,
+				848D71931AC7B48C005A9FD5 /* MasterViewController.m in Sources */,
+				848D718D1AC7B48C005A9FD5 /* main.m in Sources */,
+				848D71961AC7B48C005A9FD5 /* DetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		848D719F1AC7B48C005A9FD5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				848D71AA1AC7B48C005A9FD5 /* TNiOSRiderTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		848D71A51AC7B48C005A9FD5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 848D71861AC7B48C005A9FD5 /* TNiOSRider */;
+			targetProxy = 848D71A41AC7B48C005A9FD5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		848D71971AC7B48C005A9FD5 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				848D71981AC7B48C005A9FD5 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		848D719C1AC7B48C005A9FD5 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				848D719D1AC7B48C005A9FD5 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		848D71AB1AC7B48C005A9FD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		848D71AC1AC7B48C005A9FD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		848D71AE1AC7B48C005A9FD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = TNiOSRider/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		848D71AF1AC7B48C005A9FD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = TNiOSRider/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		848D71B11AC7B48C005A9FD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TNiOSRiderTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TNiOSRider.app/TNiOSRider";
+			};
+			name = Debug;
+		};
+		848D71B21AC7B48C005A9FD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TNiOSRiderTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TNiOSRider.app/TNiOSRider";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		848D71821AC7B48C005A9FD5 /* Build configuration list for PBXProject "TNiOSRider" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				848D71AB1AC7B48C005A9FD5 /* Debug */,
+				848D71AC1AC7B48C005A9FD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		848D71AD1AC7B48C005A9FD5 /* Build configuration list for PBXNativeTarget "TNiOSRider" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				848D71AE1AC7B48C005A9FD5 /* Debug */,
+				848D71AF1AC7B48C005A9FD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		848D71B01AC7B48C005A9FD5 /* Build configuration list for PBXNativeTarget "TNiOSRiderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				848D71B11AC7B48C005A9FD5 /* Debug */,
+				848D71B21AC7B48C005A9FD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 848D717F1AC7B48C005A9FD5 /* Project object */;
+}
