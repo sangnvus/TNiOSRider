@@ -45,10 +45,7 @@
                       toCity:(NSString*)tocity
                    toAddress:(NSString*)toAddress
                numberOfSeats:(NSString*)number;
-
-
-
-
-
 +(void)CreateTrip:(NSString*)param owner:(DetailTaxi *)owner;
++(void)updateTrip:(NSString*)RequestID userID:(NSString *)userID status:(NSString *)status owner : (HomeViewController *)owner;
+
 @end

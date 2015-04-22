@@ -69,7 +69,8 @@
     createtrip.paymentMethod=@"cash";
     createtrip.fromCity=@"Ha Noi";
     createtrip.toCity=@"Ha Noi";
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"HidenViewDetail" object:self];
+
     NSString *data = [NSString stringWithFormat:@"{\"riderId\":\"%@\",\"driverId\":\"%@\",\"fromlongitude\":\"%@\",\"fromlatitude\":\"%@\",\"tolongitude\":\"%@\",\"tolatitude\":\"%@\",\"paymentMethod\":\"cash\",\"fromAddress\":\"%@\",\"toAddress\":\"%@\",\"fromCity\":\"Ha Noi\",\"toCity\":\"Ha Noi\"}",RiderID,DriverID,LongitudeFrom,LatitudeFrom,LongitudeTo,LatitudeTo,AdressFrom,AdressTo];
     
    NSLog(@"%@", data);
@@ -80,8 +81,8 @@
 
     
     [unity CreateTrip:base64String owner:self];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"HidenViewDetail" object:self];
-
+    [self.vcParent dismissPopupViewControllerAnimated:YES completion:^{
+    }];
 }
 
 - (IBAction)cancel:(id)sender {

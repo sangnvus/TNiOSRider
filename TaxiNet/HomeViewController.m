@@ -20,6 +20,10 @@
     NSInteger selectTo;
     BOOL fromselect;
     AppDelegate*appdelegate;
+    BOOL finTaxi;
+    BOOL GetPoint;
+    BOOL clickAnnonation;
+    BOOL addAnnonation;
 }
 @property (nonatomic, strong) MKLocalSearch *localSearch;
 @end
@@ -31,6 +35,11 @@
     appdelegate=(AppDelegate *)[[UIApplication sharedApplication] delegate];
     //search setup
     fromselect=FALSE;
+    
+    finTaxi=FALSE;
+    GetPoint=FALSE;
+    clickAnnonation=FALSE;
+    addAnnonation=FALSE;
     arrDataSearched = [[NSMutableArray alloc] init];
     
     //set anchor point focus point
@@ -70,49 +79,103 @@
     selectTo=0;
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"ShowViewDetail" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"getRiderInfo" object:nil];
-    
-    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"HidenViewDetail" object:nil];
+
 }
 -(void) receiveNotification:(NSNotification *) notification
 {
     if ([[notification name]isEqualToString:@"ShowViewDetail"]) {
-        [UIView setAnimationDuration:0.5];
-        CGRect frame= mapview.frame;
-        frame.size.height=390;
-        mapview.frame=frame;
-        [UIView commitAnimations];
-        [UIView setAnimationDuration:0.5];
-        CGRect framedetail= self.ViewDetail.frame;
-        framedetail.origin.y=390;
-        self.ViewDetail.frame=framedetail;
-        [UIView commitAnimations];
+        [self changeViewDetail];
+    }
+    if ([[notification name]isEqualToString:@"HidenViewDetail"])
+    {
+        self.btnWaiting.hidden=NO;
+        [self.btnWaiting addTarget:self
+                            action:@selector(CancelReques)
+                  forControlEvents:UIControlEventTouchUpInside];
+        clickAnnonation=TRUE;
+//        [self.btnWaiting setTitle:@"Waiting Request ......" forState:UIControlStateNormal];
     }
     if ([[notification name]isEqualToString:@"getRiderInfo"]) {
         NSLog(@"push :%@",appdelegate.RiderInfo);
         NSString *status=[appdelegate.RiderInfo objectForKey:@"status"];
         if ([status isEqualToString:@"CA"]) {
-            [UIView setAnimationDuration:0.5];
-            CGRect frame= mapview.frame;
-            frame.size.height=390;
-            mapview.frame=frame;
-            [UIView commitAnimations];
-            [UIView setAnimationDuration:0.5];
-            CGRect framedetail= self.ViewDetail.frame;
-            framedetail.origin.y=390;
-            self.ViewDetail.frame=framedetail;
-            [UIView commitAnimations];
+            self.btnWaiting.hidden=YES;
+            [self changeViewDetail];
             UIAlertView *errorAlert = [[UIAlertView alloc]
                                        initWithTitle:@"Status Request Taxi" message:@"Your request not acepted" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [errorAlert show];
         }
-        else if ([status isEqualToString:@"AC"])
+        else if ([status isEqualToString:@"PI"])
         {
             UIAlertView *errorAlert = [[UIAlertView alloc]
                                        initWithTitle:@"Status Request Taxi" message:@"Your request  acepted" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [errorAlert show];
-            self.btnWaiting.hidden=NO;
+            [self.btnWaiting setTitle:@"Waiting Taxi ......" forState:UIControlStateNormal];
+            [self.btnWaiting addTarget:self
+                                action:@selector(CancelReques)
+             forControlEvents:UIControlEventTouchUpInside];
+        }
+        else if ([status isEqualToString:@"TC"])
+        {
+            UIAlertView *errorAlert = [[UIAlertView alloc]
+                                       initWithTitle:@"Status Request Taxi" message:@"Your Trip Complete" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [errorAlert show];
+            self.btnWaiting.hidden=YES;
+            clickAnnonation=FALSE;
+            [self changeViewDetail];
+            NSInteger toRemoveCount = mapview.annotations.count;
+            NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:toRemoveCount];
+            for (id annotation in mapview.annotations)
+                if (annotation != mapview.userLocation)
+                    [toRemove addObject:annotation];
+            [mapview removeAnnotations:toRemove];
+            [self.findMyTaxi setTitle:@"Find My Taxi" forState:UIControlStateNormal];
+            self.mImageFocus.hidden=NO;
+            GetPoint=FALSE;
+            self.mLocationTo.text=@"";
+            addAnnonation=TRUE;
+            [self selectLocationFrom:gestureFrom];
+            [self.mapview removeOverlays:self.mapview.overlays];
         }
     }
+
+}
+-(void)CancelReques
+{
+    UIAlertView *errorAlert = [[UIAlertView alloc]
+                               initWithTitle:@"Request Taxi" message:@"Do you want cancel Taxi" delegate:self
+                               cancelButtonTitle:@"Cancel"
+                               otherButtonTitles:@"OK", nil];
+    [errorAlert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView
+clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == [alertView cancelButtonIndex]){
+        //cancel clicked ...do your action
+    }else{
+        self.btnWaiting.hidden=YES;
+        clickAnnonation=FALSE;
+        [self changeViewDetail];
+        NSString* requestid = [[NSUserDefaults standardUserDefaults] stringForKey:@"requestid"];
+        NSString* riderid = [[NSUserDefaults standardUserDefaults] stringForKey:@"riderId"];
+        [unity updateTrip:requestid userID:riderid status:@"CA" owner:self];
+        
+    }
+}
+-(void)changeViewDetail
+{
+    [UIView setAnimationDuration:0.5];
+    CGRect frame= mapview.frame;
+    frame.size.height=390;
+    mapview.frame=frame;
+    [UIView commitAnimations];
+    [UIView setAnimationDuration:0.5];
+    CGRect framedetail= self.ViewDetail.frame;
+    framedetail.origin.y=390;
+    self.ViewDetail.frame=framedetail;
+    [UIView commitAnimations];
 }
 - (void)selectLocationFrom:(UITapGestureRecognizer *)recognizer {
     [mImageFocus setImage:[UIImage imageNamed:@"fromMap.png"]];
@@ -140,13 +203,15 @@
         
         [self.mapview addAnnotation:[JPSThumbnailAnnotation annotationWithThumbnail:annotation]];
         
-        
-        NSString *longitudeTo = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitudeTo"];
-        NSString *latitudeTo = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitudeTo"];
-        JPSThumbnail *annotationTo = [[JPSThumbnail alloc] init];
-        annotationTo.coordinate = CLLocationCoordinate2DMake([latitudeTo floatValue], [longitudeTo floatValue]);
-        annotationTo.image = [UIImage imageNamed:@"toMap.png"];
-        [self.mapview addAnnotation:[JPSThumbnailAnnotation annotationWithThumbnail:annotationTo]];
+        if (addAnnonation==FALSE) {
+            NSString *longitudeTo = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitudeTo"];
+            NSString *latitudeTo = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitudeTo"];
+            JPSThumbnail *annotationTo = [[JPSThumbnail alloc] init];
+            annotationTo.coordinate = CLLocationCoordinate2DMake([latitudeTo floatValue], [longitudeTo floatValue]);
+            annotationTo.image = [UIImage imageNamed:@"toMap.png"];
+            [self.mapview addAnnotation:[JPSThumbnailAnnotation annotationWithThumbnail:annotationTo]];
+        }
+        addAnnonation=FALSE;
     }
 
 }
@@ -189,71 +254,82 @@
 
 - (IBAction)BookNow:(id)sender {
     // add anonator map from-to
-    NSInteger toRemoveCount = mapview.annotations.count;
-    NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:toRemoveCount];
-    for (id annotation in mapview.annotations)
-        if (annotation != mapview.userLocation)
-            [toRemove addObject:annotation];
-    [mapview removeAnnotations:toRemove];
-    NSString *longitudeFrom = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitudeFrom"];
-    NSString *latitudeFrom = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitudeFrom"];
-    NSLog(@"location: long: %@ lati: %@",longitudeFrom,latitudeFrom);
-    JPSThumbnail *annotation = [[JPSThumbnail alloc] init];
-    annotation.coordinate = CLLocationCoordinate2DMake([latitudeFrom floatValue], [longitudeFrom floatValue]);
-    annotation.image = [UIImage imageNamed:@"fromMap.png"];
-    [self.mapview addAnnotation:[JPSThumbnailAnnotation annotationWithThumbnail:annotation]];
-    
-    NSString *longitudeTo = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitudeTo"];
-    NSString *latitudeTo = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitudeTo"];
-    JPSThumbnail *annotationTo = [[JPSThumbnail alloc] init];
-    annotationTo.coordinate = CLLocationCoordinate2DMake([latitudeTo floatValue], [longitudeTo floatValue]);
-    annotationTo.image = [UIImage imageNamed:@"toMap.png"];
-    [self.mapview addAnnotation:[JPSThumbnailAnnotation annotationWithThumbnail:annotationTo]];
-    
-    // get near taxi
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [unity getNearTaxi:latitudeFrom andLongtitude:longitudeFrom owner:self];
-        //        [self.mapview addAnnotations:[self annotations]];
-    });
-    
-    // find way
-    [self.mapview removeOverlays:self.mapview.overlays];
-    
-    MKDirectionsRequest *directionsRequest = [[MKDirectionsRequest alloc] init];
-    
-    [directionsRequest setSource:[[MKMapItem alloc] initWithPlacemark:placeFrom]];
-    [directionsRequest setDestination:[[MKMapItem alloc] initWithPlacemark:placeTo]];
-    
-    directionsRequest.transportType = MKDirectionsTransportTypeAutomobile;
-    
-    MKDirections *directions = [[MKDirections alloc] initWithRequest:directionsRequest];
-    
-    [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
-        if (error) {
-            NSLog(@"Error %@", error.description);
-        } else {
-            routeDetails = response.routes.lastObject;
-            [self.mapview addOverlay:routeDetails.polyline];
-            //            for (int i = 0; i < routeDetails.steps.count; i++) {
-            //                MKRouteStep *step = [routeDetails.steps objectAtIndex:i];
-            //                NSString *newStep = step.instructions;
-            //                NSLog(@"Step:%@",newStep);
-            //            }
-        }
-    }];
-    CLLocation *pinLocation = [[CLLocation alloc]
-                               initWithLatitude:placeFrom.coordinate.latitude
-                               longitude:placeFrom.coordinate.longitude];
-    
-    CLLocation *userLocation = [[CLLocation alloc]
-                                initWithLatitude:placeTo.coordinate.latitude
-                                longitude:placeTo.coordinate.longitude];
-    
-    CLLocationDistance distance = [pinLocation distanceFromLocation:userLocation];
-    NSLog(@"distance: %4.0f m",distance);
-    [[NSUserDefaults standardUserDefaults] setFloat:distance forKey:@"distance"];
-    
-    
+    if (finTaxi==FALSE) {
+        NSInteger toRemoveCount = mapview.annotations.count;
+        NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:toRemoveCount];
+        for (id annotation in mapview.annotations)
+            if (annotation != mapview.userLocation)
+                [toRemove addObject:annotation];
+        [mapview removeAnnotations:toRemove];
+        NSString *longitudeFrom = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitudeFrom"];
+        NSString *latitudeFrom = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitudeFrom"];
+        NSLog(@"location: long: %@ lati: %@",longitudeFrom,latitudeFrom);
+        JPSThumbnail *annotation = [[JPSThumbnail alloc] init];
+        annotation.coordinate = CLLocationCoordinate2DMake([latitudeFrom floatValue], [longitudeFrom floatValue]);
+        annotation.image = [UIImage imageNamed:@"fromMap.png"];
+        [self.mapview addAnnotation:[JPSThumbnailAnnotation annotationWithThumbnail:annotation]];
+        
+        NSString *longitudeTo = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitudeTo"];
+        NSString *latitudeTo = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitudeTo"];
+        JPSThumbnail *annotationTo = [[JPSThumbnail alloc] init];
+        annotationTo.coordinate = CLLocationCoordinate2DMake([latitudeTo floatValue], [longitudeTo floatValue]);
+        annotationTo.image = [UIImage imageNamed:@"toMap.png"];
+        [self.mapview addAnnotation:[JPSThumbnailAnnotation annotationWithThumbnail:annotationTo]];
+        
+        // get near taxi
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [unity getNearTaxi:latitudeFrom andLongtitude:longitudeFrom owner:self];
+            //        [self.mapview addAnnotations:[self annotations]];
+        });
+        
+        // find way
+        [self.mapview removeOverlays:self.mapview.overlays];
+        
+        MKDirectionsRequest *directionsRequest = [[MKDirectionsRequest alloc] init];
+        
+        [directionsRequest setSource:[[MKMapItem alloc] initWithPlacemark:placeFrom]];
+        [directionsRequest setDestination:[[MKMapItem alloc] initWithPlacemark:placeTo]];
+        
+        directionsRequest.transportType = MKDirectionsTransportTypeAutomobile;
+        
+        MKDirections *directions = [[MKDirections alloc] initWithRequest:directionsRequest];
+        
+        [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
+            if (error) {
+                NSLog(@"Error %@", error.description);
+            } else {
+                routeDetails = response.routes.lastObject;
+                [self.mapview addOverlay:routeDetails.polyline];
+                //            for (int i = 0; i < routeDetails.steps.count; i++) {
+                //                MKRouteStep *step = [routeDetails.steps objectAtIndex:i];
+                //                NSString *newStep = step.instructions;
+                //                NSLog(@"Step:%@",newStep);
+                //            }
+            }
+        }];
+        CLLocation *pinLocation = [[CLLocation alloc]
+                                   initWithLatitude:placeFrom.coordinate.latitude
+                                   longitude:placeFrom.coordinate.longitude];
+        
+        CLLocation *userLocation = [[CLLocation alloc]
+                                    initWithLatitude:placeTo.coordinate.latitude
+                                    longitude:placeTo.coordinate.longitude];
+        
+        CLLocationDistance distance = [pinLocation distanceFromLocation:userLocation];
+        NSLog(@"distance: %4.0f m",distance);
+        [[NSUserDefaults standardUserDefaults] setFloat:distance forKey:@"distance"];
+        [self.findMyTaxi setTitle:@"Change Trip" forState:UIControlStateNormal];
+        self.mImageFocus.hidden=YES;
+        GetPoint=TRUE;
+        finTaxi=TRUE;
+    }
+    else if(finTaxi==TRUE)
+    {
+        self.mImageFocus.hidden=NO;
+        [self.findMyTaxi setTitle:@"Find My Taxi" forState:UIControlStateNormal];
+        finTaxi=FALSE;
+        GetPoint=FALSE;
+    }
 }
 
 -(void)zoomInToMyLocation
@@ -282,7 +358,7 @@
         empire.disclosureBlock =  ^{
             [UIView beginAnimations:@"animateAddContentView" context:nil];
             [UIView setAnimationDuration:0.4];
-//            self.ViewDetail.hidden=YES;
+            //            self.ViewDetail.hidden=YES;
             [UIView setAnimationDuration:0.5];
             CGRect framedetail= self.ViewDetail.frame;
             framedetail.origin.y=510;
@@ -346,24 +422,25 @@
                  city = @"City Not founded";
              
              if (locationTabPosition == 0) {
-                 mLocationFrom.text = address;
-                 [[NSUserDefaults standardUserDefaults] setObject:address forKey:@"adressFrom"];
-                 if ([address length]>30) {
-                     mLocationFrom.text=[address substringToIndex:[address length] - 27];
+                 if (GetPoint==FALSE) {
+                     mLocationFrom.text = address;
                      [[NSUserDefaults standardUserDefaults] setObject:address forKey:@"adressFrom"];
+                     if ([address length]>30) {
+                         mLocationFrom.text=[address substringToIndex:[address length] - 27];
+                         [[NSUserDefaults standardUserDefaults] setObject:address forKey:@"adressFrom"];
+                     }
                  }
+
                  placeFrom = [[MKPlacemark alloc] initWithCoordinate:myCoOrdinate addressDictionary:placemark.addressDictionary];
                  [[NSUserDefaults standardUserDefaults] setObject:lotu forKey:@"longitudeFrom"];
                  [[NSUserDefaults standardUserDefaults] setObject:lati forKey:@"latitudeFrom"];
                  
              } else {
-                 mLocationTo.text = address;
-                 [[NSUserDefaults standardUserDefaults] setObject:address forKey:@"adressTo"];
-                 if ([address length]>30) {
-                     mLocationTo.text=[address substringToIndex:[address length] - 27];
+                 if (GetPoint==FALSE) {
+                     mLocationTo.text = address;
                      [[NSUserDefaults standardUserDefaults] setObject:address forKey:@"adressTo"];
+                     placeTo = [[MKPlacemark alloc] initWithCoordinate:myCoOrdinate addressDictionary:placemark.addressDictionary];
                  }
-                 placeTo = [[MKPlacemark alloc] initWithCoordinate:myCoOrdinate addressDictionary:placemark.addressDictionary];
                  [[NSUserDefaults standardUserDefaults] setObject:lotu forKey:@"longitudeTo"];
                  [[NSUserDefaults standardUserDefaults] setObject:lati forKey:@"latitudeTo"];
              }
@@ -384,6 +461,8 @@
         coordinateTo = [mapview convertPoint:point toCoordinateFromView:mapview];
         [self getReverseGeocode:coordinateTo];
     }
+
+
 }
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     // If it's the user location, just return nil.

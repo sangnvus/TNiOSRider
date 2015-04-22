@@ -8,12 +8,13 @@
 
 #import "unity.h"
 
-#define URL_SIGNIN @"http://localhost:8080/TN/restServices/riderController/Login"
-#define UPDATE_URL @"http://localhost:8080/TN/restServices/riderController/UpdateRider"
-#define NEAR_TAXI_URL @"http://192.168.125.230:8080/TN/restServices/DriverController/getNearDriver"
-#define FIND_PROMOTION_TRIP_URL @"http://localhost:8080/TN/restServices/PromotionTripController/FindPromotionTip"
-#define CREATETRIP @"http://192.168.43.181:8080/TN/restServices/TripController/CreateTripiOS"
-#define REGISTER_PROMOTION_TRIP_URL @"http://192.168.43.181:8080/TN/restServices/PromotionTripController/RegisterPromotionTip"
+#define URL_SIGNIN @"http://192.168.125.3:8080/TN/restServices/riderController/LoginiOS"
+#define UPDATE_URL @"http://192.168.125.3:8080/TN/restServices/riderController/UpdateRideriOS"
+#define NEAR_TAXI_URL @"http://192.168.125.3:8080/TN/restServices/DriverController/getNearDriver"
+#define FIND_PROMOTION_TRIP_URL @"http://192.168.125.3:8080/TN/restServices/PromotionTripController/FindPromotionTipiOS"
+#define CREATETRIP @"http://192.168.125.3:8080/TN/restServices/TripController/CreateTripiOS"
+#define REGISTER_PROMOTION_TRIP_URL @"http://192.168.125.3:8080/TN/restServices/PromotionTripController/RegisterPromotionTipiOS"
+#define UPDATETRIP @"http://192.168.125.3:8080/TN/restServices/TripController/UpdateTripiOS"
 
 @implementation unity
 {
@@ -148,6 +149,9 @@
        parameters:param1
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               NSLog(@"success");
+              NSLog(@"%@",(NSArray *)responseObject);
+              NSString *requestid=[responseObject objectForKey:@"id"];
+              [[NSUserDefaults standardUserDefaults] setObject:requestid forKey:@"requestid"];
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               NSLog(@"failse");
@@ -198,8 +202,24 @@
               
           }];
 
-    
 }
-
++(void)updateTrip:(NSString*)RequestID userID:(NSString *)userID status:(NSString *)status owner : (HomeViewController *)owner
+{
+    NSString *url = [NSString stringWithFormat:@"%@",UPDATETRIP];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *param = @{@"requestId":RequestID,@"userId":userID,@"status":status};
+    
+    [manager POST:url
+       parameters:param
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              if ([status isEqualToString:@"PI"]) {
+              }
+              NSLog(@"success");
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"failse");
+              
+          }];
+}
 
 @end

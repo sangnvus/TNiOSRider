@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnWaiting;
 - (IBAction)waitingTaxi:(id)sender;
 @property (weak, nonatomic) IBOutlet UIView *homeviewmap;
+@property (weak, nonatomic) IBOutlet UIButton *findMyTaxi;
 
 - (IBAction)BookNow:(id)sender;
 -(void)checkGetnearTaxi;
