@@ -16,6 +16,7 @@
 @property (nonatomic,strong) NSMutableDictionary *yoursefl;
 @property (nonatomic,strong) NSMutableDictionary *promotionDataDe;
 @property (nonatomic,strong) NSMutableArray *promotionDataArray;
+@property (nonatomic,strong) NSDictionary *RiderInfo;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;

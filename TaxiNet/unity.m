@@ -8,9 +8,9 @@
 
 #import "unity.h"
 
-#define URL_SIGNIN @"http://192.168.43.181:8080/TN/restServices/riderController/Login"
-#define UPDATE_URL @"http://192.168.43.181:8080/TN/restServices/riderController/UpdateRider"
-#define NEAR_TAXI_URL @"http://192.168.43.181:8080/TN/restServices/DriverController/getNearDriver"
+#define URL_SIGNIN @"http://localhost:8080/TN/restServices/riderController/Login"
+#define UPDATE_URL @"http://localhost:8080/TN/restServices/riderController/UpdateRider"
+#define NEAR_TAXI_URL @"http://192.168.125.230:8080/TN/restServices/DriverController/getNearDriver"
 #define FIND_PROMOTION_TRIP_URL @"http://localhost:8080/TN/restServices/PromotionTripController/FindPromotionTip"
 #define CREATETRIP @"http://192.168.43.181:8080/TN/restServices/TripController/CreateTripiOS"
 #define REGISTER_PROMOTION_TRIP_URL @"http://192.168.43.181:8080/TN/restServices/PromotionTripController/RegisterPromotionTip"

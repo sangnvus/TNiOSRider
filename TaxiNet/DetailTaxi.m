@@ -80,10 +80,13 @@
 
     
     [unity CreateTrip:base64String owner:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"HidenViewDetail" object:self];
+
 }
 
 - (IBAction)cancel:(id)sender {
     [self.vcParent dismissPopupViewControllerAnimated:YES completion:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowViewDetail" object:self];
     }];
 }
 - (IBAction)Call:(id)sender {

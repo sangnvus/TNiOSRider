@@ -24,6 +24,9 @@
 @property (weak, nonatomic) IBOutlet UIView *viewLocationTo;
 @property (nonatomic, assign) MKCoordinateRegion boundingRegion;
 @property (nonatomic,strong) NSArray *nearTaxi;
+@property (weak, nonatomic) IBOutlet UIButton *btnWaiting;
+- (IBAction)waitingTaxi:(id)sender;
+@property (weak, nonatomic) IBOutlet UIView *homeviewmap;
 
 - (IBAction)BookNow:(id)sender;
 -(void)checkGetnearTaxi;

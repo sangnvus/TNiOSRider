@@ -19,20 +19,16 @@
     NSMutableArray *arrDataSearched;
     NSInteger selectTo;
     BOOL fromselect;
+    AppDelegate*appdelegate;
 }
-
-
 @property (nonatomic, strong) MKLocalSearch *localSearch;
-
 @end
-
 @implementation HomeViewController
-
-
-@synthesize mLocationFrom,mLocationTo,mImageFocus,mapview,viewLocationFrom,viewLocationTo;
+@synthesize mLocationFrom,mLocationTo,mImageFocus,mapview,viewLocationFrom,viewLocationTo,homeviewmap;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    appdelegate=(AppDelegate *)[[UIApplication sharedApplication] delegate];
     //search setup
     fromselect=FALSE;
     arrDataSearched = [[NSMutableArray alloc] init];
@@ -72,9 +68,52 @@
                                                              blue:209.0f/255.0f
                                                             alpha:1.0f]];
     selectTo=0;
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"ShowViewDetail" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"getRiderInfo" object:nil];
+    
     
 }
-
+-(void) receiveNotification:(NSNotification *) notification
+{
+    if ([[notification name]isEqualToString:@"ShowViewDetail"]) {
+        [UIView setAnimationDuration:0.5];
+        CGRect frame= mapview.frame;
+        frame.size.height=390;
+        mapview.frame=frame;
+        [UIView commitAnimations];
+        [UIView setAnimationDuration:0.5];
+        CGRect framedetail= self.ViewDetail.frame;
+        framedetail.origin.y=390;
+        self.ViewDetail.frame=framedetail;
+        [UIView commitAnimations];
+    }
+    if ([[notification name]isEqualToString:@"getRiderInfo"]) {
+        NSLog(@"push :%@",appdelegate.RiderInfo);
+        NSString *status=[appdelegate.RiderInfo objectForKey:@"status"];
+        if ([status isEqualToString:@"CA"]) {
+            [UIView setAnimationDuration:0.5];
+            CGRect frame= mapview.frame;
+            frame.size.height=390;
+            mapview.frame=frame;
+            [UIView commitAnimations];
+            [UIView setAnimationDuration:0.5];
+            CGRect framedetail= self.ViewDetail.frame;
+            framedetail.origin.y=390;
+            self.ViewDetail.frame=framedetail;
+            [UIView commitAnimations];
+            UIAlertView *errorAlert = [[UIAlertView alloc]
+                                       initWithTitle:@"Status Request Taxi" message:@"Your request not acepted" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [errorAlert show];
+        }
+        else if ([status isEqualToString:@"AC"])
+        {
+            UIAlertView *errorAlert = [[UIAlertView alloc]
+                                       initWithTitle:@"Status Request Taxi" message:@"Your request  acepted" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [errorAlert show];
+            self.btnWaiting.hidden=NO;
+        }
+    }
+}
 - (void)selectLocationFrom:(UITapGestureRecognizer *)recognizer {
     [mImageFocus setImage:[UIImage imageNamed:@"fromMap.png"]];
 
@@ -111,7 +150,6 @@
     }
 
 }
-
 - (void)selectLocationTo:(UITapGestureRecognizer *)recognizer {
     [mImageFocus setImage:[UIImage imageNamed:@"toMap.png"]];
     fromselect=TRUE;
@@ -146,150 +184,9 @@
     [self.mapview addAnnotation:[JPSThumbnailAnnotation annotationWithThumbnail:annotation]];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    //add gesture to map
-    [viewLocationFrom removeGestureRecognizer:gestureFrom];
-    [viewLocationTo removeGestureRecognizer:gestureTo];
+- (IBAction)waitingTaxi:(id)sender {
 }
 
-- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
-    
-}
-
-- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
-    [self getCoor];
-}
-
-- (void) getReverseGeocode:(CLLocationCoordinate2D) coordinate
-{
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    CLLocationCoordinate2D myCoOrdinate;
-    
-    myCoOrdinate.latitude = coordinate.latitude;
-    myCoOrdinate.longitude = coordinate.longitude;
-    NSString *lotu = [NSString stringWithFormat:@"%.8f", coordinate.longitude];
-    NSString *lati = [NSString stringWithFormat:@"%.8f", coordinate.latitude];
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:myCoOrdinate.latitude longitude:myCoOrdinate.longitude];
-    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error)
-     {
-         if (error)
-         {
-             NSLog(@"failed with error: %@", error);
-             return;
-         }
-         if(placemarks.count > 0)
-         {
-             NSString *address = @"";
-             NSString *city = @"";
-             CLPlacemark *placemark = placemarks[0];
-             
-             if([placemark.addressDictionary objectForKey:@"FormattedAddressLines"] != NULL) {
-                 address = [[placemark.addressDictionary objectForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
-             } else {
-                 address = @"Address Not founded";
-             }
-             if ([placemark.addressDictionary objectForKey:@"SubAdministrativeArea"] != NULL)
-                 city = [placemark.addressDictionary objectForKey:@"SubAdministrativeArea"];
-             else if([placemark.addressDictionary objectForKey:@"City"] != NULL)
-                 city = [placemark.addressDictionary objectForKey:@"City"];
-             else if([placemark.addressDictionary objectForKey:@"Country"] != NULL)
-                 city = [placemark.addressDictionary objectForKey:@"Country"];
-             else
-                 city = @"City Not founded";
-             
-             if (locationTabPosition == 0) {
-                 mLocationFrom.text = address;
-                 [[NSUserDefaults standardUserDefaults] setObject:address forKey:@"adressFrom"];
-                 if ([address length]>30) {
-                     mLocationFrom.text=[address substringToIndex:[address length] - 27];
-                     [[NSUserDefaults standardUserDefaults] setObject:address forKey:@"adressFrom"];
-                 }
-                 placeFrom = [[MKPlacemark alloc] initWithCoordinate:myCoOrdinate addressDictionary:placemark.addressDictionary];
-                 [[NSUserDefaults standardUserDefaults] setObject:lotu forKey:@"longitudeFrom"];
-                 [[NSUserDefaults standardUserDefaults] setObject:lati forKey:@"latitudeFrom"];
-                 
-             } else {
-                 mLocationTo.text = address;
-                 [[NSUserDefaults standardUserDefaults] setObject:address forKey:@"adressTo"];
-                 if ([address length]>30) {
-                     mLocationTo.text=[address substringToIndex:[address length] - 27];
-                     [[NSUserDefaults standardUserDefaults] setObject:address forKey:@"adressTo"];
-                 }
-                 placeTo = [[MKPlacemark alloc] initWithCoordinate:myCoOrdinate addressDictionary:placemark.addressDictionary];
-                 [[NSUserDefaults standardUserDefaults] setObject:lotu forKey:@"longitudeTo"];
-                 [[NSUserDefaults standardUserDefaults] setObject:lati forKey:@"latitudeTo"];
-             }
-             
-             
-         }
-     }];
-    
-}
-
-
-- (void)getCoor {
-    CGPoint point = mImageFocus.frame.origin;
-    point.x = point.x + mImageFocus.frame.size.width / 2;
-    point.y = point.y + mImageFocus.frame.size.height;
-    if (locationTabPosition == 0) {
-        coordinateFrom = [mapview convertPoint:point toCoordinateFromView:mapview];
-        [self getReverseGeocode:coordinateFrom];
-    } else {
-        coordinateTo = [mapview convertPoint:point toCoordinateFromView:mapview];
-        [self getReverseGeocode:coordinateTo];
-    }
-}
-
--(void)zoomInToMyLocation
-{
-    //    NSString* longitude = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitude"];
-    //    NSString* latitude = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitude"];
-    MKCoordinateRegion region = { {0.0, 0.0 }, { 0.0, 0.0 } };
-    region.center.latitude = 21.0018385 ;
-    region.center.longitude = 105.80524481;
-    region.span.longitudeDelta = 0.05f;
-    region.span.latitudeDelta = 0.05f;
-    [[NSUserDefaults standardUserDefaults] setObject:@"105.80524481" forKey:@"longitudeTo"];
-    [[NSUserDefaults standardUserDefaults] setObject:@"21.0018385" forKey:@"latitudeTo"];
-    [self.mapview setRegion:region animated:YES];
-    mImageFocus.hidden=NO;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)menu:(id)sender {
-    [self.view endEditing:YES];
-    [self.frostedViewController.view endEditing:YES];
-    [self.frostedViewController presentMenuViewController];
-}
-
--(void)checkGetnearTaxi
-{
-    for (id json in self.nearTaxi) {
-        NSLog(@"JSON:%@",json);
-        NSString *latitu=[json objectForKey:@"latitude"];
-        NSString *lontitu=[json objectForKey:@"longitude"];
-        JPSThumbnail *empire = [[JPSThumbnail alloc] init];
-        empire.image = [UIImage imageNamed:@"locatorTaxi.png"];
-        empire.coordinate = CLLocationCoordinate2DMake([latitu floatValue], [lontitu floatValue]);
-        empire.disclosureBlock =  ^{
-            DetailTaxi *detailTaxi = [[DetailTaxi alloc] initWithNibName:@"DetailTaxi" bundle:nil];
-            detailTaxi.vcParent = self;
-            detailTaxi.dataTaxi=json;
-            [self presentPopupViewController:detailTaxi animated:YES completion:^(void) {
-                NSLog(@"popup view presented");
-            }];
-        };
-        [self.mapview addAnnotation:[JPSThumbnailAnnotation annotationWithThumbnail:empire]];
-
-    }
-    
-
-    
-}
 - (IBAction)BookNow:(id)sender {
     // add anonator map from-to
     NSInteger toRemoveCount = mapview.annotations.count;
@@ -359,6 +256,135 @@
     
 }
 
+-(void)zoomInToMyLocation
+{
+    //    NSString* longitude = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitude"];
+    //    NSString* latitude = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitude"];
+    MKCoordinateRegion region = { {0.0, 0.0 }, { 0.0, 0.0 } };
+    region.center.latitude = 21.0018385 ;
+    region.center.longitude = 105.80524481;
+    region.span.longitudeDelta = 0.05f;
+    region.span.latitudeDelta = 0.05f;
+    [[NSUserDefaults standardUserDefaults] setObject:@"105.80524481" forKey:@"longitudeTo"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"21.0018385" forKey:@"latitudeTo"];
+    [self.mapview setRegion:region animated:YES];
+    mImageFocus.hidden=NO;
+}
+-(void)checkGetnearTaxi
+{
+    for (id json in self.nearTaxi) {
+        NSLog(@"JSON:%@",json);
+        NSString *latitu=[json objectForKey:@"latitude"];
+        NSString *lontitu=[json objectForKey:@"longitude"];
+        JPSThumbnail *empire = [[JPSThumbnail alloc] init];
+        empire.image = [UIImage imageNamed:@"locatorTaxi.png"];
+        empire.coordinate = CLLocationCoordinate2DMake([latitu floatValue], [lontitu floatValue]);
+        empire.disclosureBlock =  ^{
+            [UIView beginAnimations:@"animateAddContentView" context:nil];
+            [UIView setAnimationDuration:0.4];
+//            self.ViewDetail.hidden=YES;
+            [UIView setAnimationDuration:0.5];
+            CGRect framedetail= self.ViewDetail.frame;
+            framedetail.origin.y=510;
+            self.ViewDetail.frame=framedetail;
+            [UIView commitAnimations];
+            
+            CGRect frame= mapview.frame;
+            frame.size.height=510;
+            mapview.frame=frame;
+            [UIView commitAnimations];
+            
+            DetailTaxi *detailTaxi = [[DetailTaxi alloc] initWithNibName:@"DetailTaxi" bundle:nil];
+            detailTaxi.vcParent = self;
+            detailTaxi.dataTaxi=json;
+            [self presentPopupViewController:detailTaxi animated:YES completion:^(void) {
+                NSLog(@"popup view presented");
+            }];
+        };
+        [self.mapview addAnnotation:[JPSThumbnailAnnotation annotationWithThumbnail:empire]];
+        
+    }
+    
+    
+    
+}
+- (void) getReverseGeocode:(CLLocationCoordinate2D) coordinate
+{
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    CLLocationCoordinate2D myCoOrdinate;
+    
+    myCoOrdinate.latitude = coordinate.latitude;
+    myCoOrdinate.longitude = coordinate.longitude;
+    NSString *lotu = [NSString stringWithFormat:@"%.8f", coordinate.longitude];
+    NSString *lati = [NSString stringWithFormat:@"%.8f", coordinate.latitude];
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:myCoOrdinate.latitude longitude:myCoOrdinate.longitude];
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         if (error)
+         {
+             NSLog(@"failed with error: %@", error);
+             return;
+         }
+         if(placemarks.count > 0)
+         {
+             NSString *address = @"";
+             NSString *city = @"";
+             CLPlacemark *placemark = placemarks[0];
+             
+             if([placemark.addressDictionary objectForKey:@"FormattedAddressLines"] != NULL) {
+                 address = [[placemark.addressDictionary objectForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
+             } else {
+                 address = @"Address Not founded";
+             }
+             if ([placemark.addressDictionary objectForKey:@"SubAdministrativeArea"] != NULL)
+                 city = [placemark.addressDictionary objectForKey:@"SubAdministrativeArea"];
+             else if([placemark.addressDictionary objectForKey:@"City"] != NULL)
+                 city = [placemark.addressDictionary objectForKey:@"City"];
+             else if([placemark.addressDictionary objectForKey:@"Country"] != NULL)
+                 city = [placemark.addressDictionary objectForKey:@"Country"];
+             else
+                 city = @"City Not founded";
+             
+             if (locationTabPosition == 0) {
+                 mLocationFrom.text = address;
+                 [[NSUserDefaults standardUserDefaults] setObject:address forKey:@"adressFrom"];
+                 if ([address length]>30) {
+                     mLocationFrom.text=[address substringToIndex:[address length] - 27];
+                     [[NSUserDefaults standardUserDefaults] setObject:address forKey:@"adressFrom"];
+                 }
+                 placeFrom = [[MKPlacemark alloc] initWithCoordinate:myCoOrdinate addressDictionary:placemark.addressDictionary];
+                 [[NSUserDefaults standardUserDefaults] setObject:lotu forKey:@"longitudeFrom"];
+                 [[NSUserDefaults standardUserDefaults] setObject:lati forKey:@"latitudeFrom"];
+                 
+             } else {
+                 mLocationTo.text = address;
+                 [[NSUserDefaults standardUserDefaults] setObject:address forKey:@"adressTo"];
+                 if ([address length]>30) {
+                     mLocationTo.text=[address substringToIndex:[address length] - 27];
+                     [[NSUserDefaults standardUserDefaults] setObject:address forKey:@"adressTo"];
+                 }
+                 placeTo = [[MKPlacemark alloc] initWithCoordinate:myCoOrdinate addressDictionary:placemark.addressDictionary];
+                 [[NSUserDefaults standardUserDefaults] setObject:lotu forKey:@"longitudeTo"];
+                 [[NSUserDefaults standardUserDefaults] setObject:lati forKey:@"latitudeTo"];
+             }
+             
+             
+         }
+     }];
+    
+}
+- (void)getCoor {
+    CGPoint point = mImageFocus.frame.origin;
+    point.x = point.x + mImageFocus.frame.size.width / 2;
+    point.y = point.y + mImageFocus.frame.size.height;
+    if (locationTabPosition == 0) {
+        coordinateFrom = [mapview convertPoint:point toCoordinateFromView:mapview];
+        [self getReverseGeocode:coordinateFrom];
+    } else {
+        coordinateTo = [mapview convertPoint:point toCoordinateFromView:mapview];
+        [self getReverseGeocode:coordinateTo];
+    }
+}
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     // If it's the user location, just return nil.
     if ([annotation isKindOfClass:[MKUserLocation class]])
@@ -384,26 +410,38 @@
     }
     return nil;
 }
-
 -(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     MKPolylineRenderer  * routeLineRenderer = [[MKPolylineRenderer alloc] initWithPolyline:routeDetails.polyline];
     routeLineRenderer.strokeColor = [UIColor colorWithRed:255/255.0f green:59/255.0f blue:0/255.0f alpha:1.0f];
     routeLineRenderer.lineWidth = 3;
     return routeLineRenderer;
 }
-
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+    [self getCoor];
+}
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     if ([view conformsToProtocol:@protocol(JPSThumbnailAnnotationViewProtocol)]) {
         [((NSObject<JPSThumbnailAnnotationViewProtocol> *)view) didSelectAnnotationViewInMap:mapView];
     }
 }
-
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
     if ([view conformsToProtocol:@protocol(JPSThumbnailAnnotationViewProtocol)]) {
         [((NSObject<JPSThumbnailAnnotationViewProtocol> *)view) didDeselectAnnotationViewInMap:mapView];
         
     }
 }
-
-
+- (IBAction)menu:(id)sender {
+    [self.view endEditing:YES];
+    [self.frostedViewController.view endEditing:YES];
+    [self.frostedViewController presentMenuViewController];
+}
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    //add gesture to map
+    [viewLocationFrom removeGestureRecognizer:gestureFrom];
+    [viewLocationTo removeGestureRecognizer:gestureTo];
+}
 @end

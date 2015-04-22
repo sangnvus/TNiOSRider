@@ -58,7 +58,7 @@
                                initWithTitle:@"APNS" message:@"You have request" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [errorAlert show];
     
-//    self.RiderInfo=userInfo;
+    self.RiderInfo=userInfo;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"getRiderInfo" object:self];
 }
 - (void)applicationWillResignActive:(UIApplication *)application {
