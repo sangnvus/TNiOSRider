@@ -10,6 +10,8 @@
 	<string>TaxiNet</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>088433697D58883BCE27DAB38747B1F21D1253A7</key>
+		<string>https://github.com/sangnvus/TNiOSRider.git</string>
 		<key>73534E49D8C2C4CAF56D9888DA8B60BD64895620</key>
 		<string>https://github.com/Taxinet/TaxiRider.git</string>
 	</dict>
@@ -17,15 +19,17 @@
 	<string>TaxiNet.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>73534E49D8C2C4CAF56D9888DA8B60BD64895620</key>
+		<key>088433697D58883BCE27DAB38747B1F21D1253A7</key>
 		<string>../..</string>
+		<key>73534E49D8C2C4CAF56D9888DA8B60BD64895620</key>
+		<string>../../../TaxiRider</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/Taxinet/TaxiRider.git</string>
+	<string>https://github.com/sangnvus/TNiOSRider.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>73534E49D8C2C4CAF56D9888DA8B60BD64895620</string>
+	<string>088433697D58883BCE27DAB38747B1F21D1253A7</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -35,6 +39,14 @@
 			<string>73534E49D8C2C4CAF56D9888DA8B60BD64895620</string>
 			<key>IDESourceControlWCCName</key>
 			<string>TaxiRider</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>088433697D58883BCE27DAB38747B1F21D1253A7</string>
+			<key>IDESourceControlWCCName</key>
+			<string>TNiOSRider</string>
 		</dict>
 	</array>
 </dict>
