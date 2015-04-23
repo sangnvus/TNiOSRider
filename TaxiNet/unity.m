@@ -8,18 +8,15 @@
 
 #import "unity.h"
 
-#define URL_SIGNIN @"http://192.168.125.3:8080/TN/restServices/riderController/LoginiOS"
-#define UPDATE_URL @"http://192.168.125.3:8080/TN/restServices/riderController/UpdateRideriOS"
-#define NEAR_TAXI_URL @"http://192.168.125.3:8080/TN/restServices/DriverController/getNearDriver"
-#define FIND_PROMOTION_TRIP_URL @"http://192.168.125.3:8080/TN/restServices/PromotionTripController/FindPromotionTipiOS"
-#define CREATETRIP @"http://192.168.125.3:8080/TN/restServices/TripController/CreateTripiOS"
-#define REGISTER_PROMOTION_TRIP_URL @"http://192.168.125.3:8080/TN/restServices/PromotionTripController/RegisterPromotionTipiOS"
-#define UPDATETRIP @"http://192.168.125.3:8080/TN/restServices/TripController/UpdateTripiOS"
+#define URL_SIGNIN @"http://192.168.125.8:8080/TN/restServices/riderController/LoginiOS"
+#define UPDATE_URL @"http://192.168.125.8:8080/TN/restServices/riderController/UpdateRideriOS"
+#define NEAR_TAXI_URL @"http://192.168.125.8:8080/TN/restServices/DriverController/getNearDriver"
+#define FIND_PROMOTION_TRIP_URL @"http://192.168.125.8:8080/TN/restServices/PromotionTripController/FindPromotionTipiOS"
+#define CREATETRIP @"http://192.168.125.8:8080/TN/restServices/TripController/CreateTripiOS"
+#define REGISTER_PROMOTION_TRIP_URL @"http://192.168.125.8:8080/TN/restServices/PromotionTripController/RegisterPromotionTipiOS"
+#define UPDATETRIP @"http://192.168.125.8:8080/TN/restServices/TripController/UpdateTripiOS"
 
 @implementation unity
-{
-
-}
 
 +(void)login_by_email:(NSString *)email
                  pass:(NSString *)pass

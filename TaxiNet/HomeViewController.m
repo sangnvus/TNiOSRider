@@ -25,7 +25,6 @@
     BOOL clickAnnonation;
     BOOL addAnnonation;
 }
-@property (nonatomic, strong) MKLocalSearch *localSearch;
 @end
 @implementation HomeViewController
 @synthesize mLocationFrom,mLocationTo,mImageFocus,mapview,viewLocationFrom,viewLocationTo,homeviewmap;
@@ -461,7 +460,6 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
         coordinateTo = [mapview convertPoint:point toCoordinateFromView:mapview];
         [self getReverseGeocode:coordinateTo];
     }
-
 
 }
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
