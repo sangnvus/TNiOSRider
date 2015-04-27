@@ -48,19 +48,19 @@ bool checked=NO;
                                                otherButtonTitles:nil, nil];
         [alertTmp show];
     }
-    else
-        if(whiteSpacea.location != NSNotFound)
-        {
-            UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
-                                                             message:NSLocalizedString(@"Ten khong duoc chua ki tu dac biet",nil)
-                                                            delegate:self
-                                                   cancelButtonTitle:NSLocalizedString(@"OK",nil)
-                                                   otherButtonTitles:nil, nil];
-            [alertTmp show];
-            
-            
-            
-        }
+//    else
+//        if(whiteSpacea.location != NSNotFound)
+//        {
+//            UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
+//                                                             message:NSLocalizedString(@"Ten khong duoc chua ki tu dac biet",nil)
+//                                                            delegate:self
+//                                                   cancelButtonTitle:NSLocalizedString(@"OK",nil)
+//                                                   otherButtonTitles:nil, nil];
+//            [alertTmp show];
+//            
+//            
+//            
+//        }
     else
         if([self.EmailUser.text isEqualToString:@""]||self.EmailUser.text==nil)
         {
@@ -126,10 +126,14 @@ bool checked=NO;
                         }
                         else
                         {
-                            [unity register_by_email:self.EmailUser.text password:self.PassUser.text firstname:@"ha" lastname:self.NameUser.text phone:self.PhoneUser.text language:@"VI" usergroup:@"RD" countrycode:@"VN"];
+                            [unity register_by_email:self.EmailUser.text
+                                            password:self.PassUser.text
+                                           firstname:self.lastName.text
+                                            lastname:self.NameUser.text
+                                               phone:self.PhoneUser.text
+                                            language:@"en" usergroup:@"RD" countrycode:@"VN"];
                             // show alert
-                            UIAlertView *successReg = [[UIAlertView alloc] initWithTitle:@"THÔNG BÁO" message:@"Đăng ký thành công" delegate:nil cancelButtonTitle:@"Đồng ý" otherButtonTitles:nil, nil];
-                            [successReg show];
+                            
                             // return MAIN screen
                             UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
                             ViewController *controller = (ViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"ViewController"];

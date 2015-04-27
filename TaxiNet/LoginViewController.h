@@ -19,14 +19,5 @@
 @property (weak,nonatomic) NSDictionary *dataUser;
 -(void)checkLogin;
 
-@property (strong, nonatomic) IBOutlet FBSDKLoginButton *FBButtonLoginTaxinet;
-
-- (IBAction)FBLoginBtn:(id)sender;
-
-- (void)loginButton:(FBSDKLoginButton *)loginButton
-didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
-              error:	(NSError *)error;
-
-- (void) loginButtonDidLogOut:(FBSDKLoginButton *)loginButton;
 
 @end

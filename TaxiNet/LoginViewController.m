@@ -82,39 +82,39 @@
 -(void)checkLogin
 {
 
-    NSUserDefaults *loginInfo = [NSUserDefaults standardUserDefaults];
+    //NSUserDefaults *loginInfo = [NSUserDefaults standardUserDefaults];
     // set data to NSDictionary
     appdelegate.yoursefl=(NSMutableDictionary*)self.dataUser;
     NSLog(@"data9999:%@",[appdelegate.yoursefl objectForKey:@"email"]);
-    // save data login
-    //NSString *passLog = @"******";
-    [loginInfo setObject:self.emailLogin.text forKey:@"username"];
-    [loginInfo setObject:self.passLogin.text forKey:@"password"];
-    [loginInfo setObject:[self.dataUser objectForKey:@"email"] forKey:@"email"];
-    [loginInfo setObject:[self.dataUser objectForKey:@"firstName"] forKey:@"firstName"];
-    [loginInfo setObject:[self.dataUser objectForKey:@"lastName"] forKey:@"lastName"];
-    [loginInfo setObject:[self.dataUser objectForKey:@"phone"] forKey:@"phone"];
-    //    [loginInfo setObject:[self.dataUser objectForKey:@"homeAddress"] forKey:@"homeAddress"];
-    //    [loginInfo setObject:[self.dataUser objectForKey:@"homeAddressLng"] forKey:@"homeAddressLng"];
-    //    [loginInfo setObject:[self.dataUser objectForKey:@"homeAddressLat"] forKey:@"homeAddressLat"];
-    //    [loginInfo setObject:[self.dataUser objectForKey:@"image"] forKey:@"image"];
-    //    [loginInfo setObject:[self.dataUser objectForKey:@"latitude"] forKey:@"latitude"];
-    //    [loginInfo setObject:[self.dataUser objectForKey:@"longitude"] forKey:@"longitude"];
-    //    [loginInfo setObject:[self.dataUser objectForKey:@"message"] forKey:@"message"];
-    //    [loginInfo setObject:[self.dataUser objectForKey:@"officeAddress"] forKey:@"officeAddress"];
-    //    [loginInfo setObject:[self.dataUser objectForKey:@"officeAddressLng"] forKey:@"officeAddressLng"];
-    //    [loginInfo setObject:[self.dataUser objectForKey:@"officeAddressLat"] forKey:@"officeAddressLat"];
-    [loginInfo setObject:[self.dataUser objectForKey:@"riderId"] forKey:@"riderId"];
-    [[NSUserDefaults standardUserDefaults] setObject:[self.dataUser objectForKey:@"riderId"] forKey:@"riderId"];
+    if ([[appdelegate.yoursefl objectForKey:@"message"] isEqualToString:@"1"] ) {
+        
+        
+        UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
+                                                         message:NSLocalizedString(@"User is not exist",nil)
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"OK",nil)
+                                               otherButtonTitles:nil, nil];
+        [alertTmp show];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"offLoginloading" object:self];
+    }else if([[appdelegate.yoursefl objectForKey:@"message"] isEqualToString:@"0"]){
+        UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
+                                                         message:NSLocalizedString(@"Wrong password!",nil)
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"OK",nil)
+                                               otherButtonTitles:nil, nil];
+        [alertTmp show];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"offLoginloading" object:self];
+        
+    }else{
 
-    //    [loginInfo setObject:[self.dataUser objectForKey:@"role"] forKey:@"role"];
-    //    [loginInfo setObject:[self.dataUser objectForKey:@"type"] forKey:@"type"];
+         [[NSUserDefaults standardUserDefaults] setObject:[self.dataUser objectForKey:@"riderId"] forKey:@"riderId"];
+        
+        NSLog(@"Test login data: %@",self.dataUser);
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"HomeView" bundle: nil];
+        HomeViewController *controller = (HomeViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"HomeViewController"];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
     
-    
-    NSLog(@"Test login data: %@",self.dataUser);
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"HomeView" bundle: nil];
-    HomeViewController *controller = (HomeViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"HomeViewController"];
-    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end

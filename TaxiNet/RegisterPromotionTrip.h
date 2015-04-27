@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface RegisterPromotionTrip : UIViewController
+@interface RegisterPromotionTrip : UIViewController <CLLocationManagerDelegate,MKMapViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *viewDetails;
 @property (strong, nonatomic) IBOutlet UIView *viewFrom;
@@ -17,13 +17,17 @@
 @property (strong, nonatomic) IBOutlet UIView *viewNo;
 @property (strong, nonatomic) IBOutlet UIView *viewBanner;
 @property (strong, nonatomic) IBOutlet UIButton *viewSendBtn;
-@property (strong, nonatomic) IBOutlet MKMapView *mapView;
-@property (strong, nonatomic) IBOutlet UIImageView *pointLocation;
+@property (retain, nonatomic) IBOutlet MKMapView *mapView;
+
+@property (strong, nonatomic) IBOutlet UITextField *fromCityField;
+@property (strong, nonatomic) IBOutlet UITextField *toCityField;
 
 @property (strong, nonatomic) IBOutlet UITextField *fromField;
 @property (strong, nonatomic) IBOutlet UITextField *toField;
 @property (strong, nonatomic) IBOutlet UITextField *numberField;
 - (IBAction)doBack:(id)sender;
+- (IBAction)doRegisterPromotionTrip:(id)sender;
 
-
+@property (nonatomic, retain) MKPolyline *routeLine; //your line
+@property (nonatomic, retain) MKPolylineView *routeLineView; //overlay view
 @end

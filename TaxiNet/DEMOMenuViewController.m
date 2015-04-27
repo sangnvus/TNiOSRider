@@ -30,7 +30,7 @@
 @end
 
 @implementation DEMOMenuViewController
-
+@synthesize myPromotionTripRider;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -41,7 +41,7 @@
     navigationController.viewControllers = @[controller];
 
     [navigationController setViewControllers:@[controller]];
-    
+   // appDelegate=(AppDelegate *)[[UIApplication sharedApplication] delegate];
     
     self.tableView.separatorColor = [UIColor colorWithRed:150/255.0f green:161/255.0f blue:177/255.0f alpha:1.0f];
     self.tableView.delegate = self;
@@ -78,6 +78,11 @@
 
 #pragma mark -
 #pragma mark UITableView Delegate
+// set data my promotiin trip rider
+-(void)setDataArray{
+   // appDelegate.myPromotionTripArr = (NSMutableArray*)self.myPromotionTripRider;
+    ///NSLog(@"AAA%@",appDelegate.myPromotionTripArr);
+}
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -113,6 +118,7 @@
     }
     else if (indexPath.row == 4)
     {
+        //[unity getMyPromotionTrip:@"2" owner:self];
         ShowMyPromotionTrip *controller = (ShowMyPromotionTrip *)[mainStoryboard instantiateViewControllerWithIdentifier: @"ShowMyPromotionTrip"];
         [navigationController pushViewController:controller animated:YES];
     }

@@ -13,7 +13,7 @@
 @end
 
 @implementation AppDelegate
-@synthesize yoursefl, promotionDataArray;
+@synthesize yoursefl, promotionDataArray, myPromotionTripArr;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

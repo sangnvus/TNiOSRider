@@ -16,6 +16,7 @@
 - (IBAction)passwordChange:(id)sender;
 - (IBAction)addAddress:(id)sender;
 - (IBAction)addMoreJob:(id)sender;
+- (void)checkUpdateRider;
 
 @property (strong, nonatomic) IBOutlet UIButton *editBtn;
 @property (strong, nonatomic) IBOutlet UIButton *doneEditBtn;
@@ -35,19 +36,18 @@
 
 @property (strong, nonatomic) IBOutlet UIView *bannerView;
 
+@property (strong, nonatomic) NSDictionary *message;
+
 
 @property (strong, nonatomic) IBOutlet UIImageView *riderAvatar;
-@property (strong, nonatomic) IBOutlet UILabel *userName;
 
--(void)showRiderDetailsToEditingWithUserName:(NSString*)userName
-                               loginWithPass:(NSString*)password
-                                   withFname:(NSString*)firstName
-                                   withLname:(NSString*)lastName
-                                   withEmail:(NSString*)email
-                                 withPhoneNo:(NSString*)phoneNo;
+-(void)showRiderDetailsToEditingWithPass:(NSString*)password
+                               withFname:(NSString*)firstName
+                               withLname:(NSString*)lastName
+                               withEmail:(NSString*)email
+                             withPhoneNo:(NSString*)phoneNo;
 
--(void)showRiderDetailsReadOnlyWithUserName:(NSString*)userName
-                              loginWithPass:(NSString*)password
+-(void)showRiderDetailsReadOnlyWithPass:(NSString*)password
                                   withFname:(NSString*)firstName
                                   withLname:(NSString*)lastName
                                   withEmail:(NSString*)email

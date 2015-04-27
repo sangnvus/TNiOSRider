@@ -8,14 +8,25 @@
 
 #import "unity.h"
 
-#define URL_SIGNIN @"http://192.168.125.8:8080/TN/restServices/riderController/LoginiOS"
-#define UPDATE_URL @"http://192.168.125.8:8080/TN/restServices/riderController/UpdateRideriOS"
-#define NEAR_TAXI_URL @"http://192.168.125.8:8080/TN/restServices/DriverController/getNearDriver"
-#define FIND_PROMOTION_TRIP_URL @"http://192.168.125.8:8080/TN/restServices/PromotionTripController/FindPromotionTipiOS"
-#define CREATETRIP @"http://192.168.125.8:8080/TN/restServices/TripController/CreateTripiOS"
-#define REGISTER_PROMOTION_TRIP_URL @"http://192.168.125.8:8080/TN/restServices/PromotionTripController/RegisterPromotionTipiOS"
-#define UPDATETRIP @"http://192.168.125.8:8080/TN/restServices/TripController/UpdateTripiOS"
+#define URL_SIGNIN @"http://192.168.43.157:8080/TN/restServices/riderController/LoginiOS"
+#define CHANGE_PASSWORD_URL @"http://192.168.43.157:8080/TN/restServices/riderController/ChangePassword"
+#define REGISTER_URL @"http://192.168.43.157:8080/TN/restServices/CommonController/register"
 
+#define UPDATE_URL @"http://192.168.43.157:8080/TN/restServices/riderController/UpdateRider"
+#define NEAR_TAXI_URL @"http://192.168.43.157:8080/TN/restServices/DriverController/getNearDriver"
+#define FIND_PROMOTION_TRIP_URL @"http://192.168.43.157:8080/TN/restServices/PromotionTripController/FindPromotionTripiOS"
+#define MY_PROMOTION_URL @"http://192.168.43.157:8080/TN/restServices/PromotionTripController/GetListPromotionTripRideriOS"
+#define CREATETRIP @"http://192.168.43.157:8080/TN/restServices/TripController/CreateTripiOS"
+#define REGISTER_PROMOTION_TRIP_URL @"http://192.168.43.157:8080/TN/restServices/PromotionTripController/RegisterPromotionTripiOS"
+#define UPDATETRIP @"http://192.168.43.157:8080/TN/restServices/TripController/UpdateTripiOS"
+
+//#define URL_SIGNIN @"http://localhost:8080/TN/restServices/riderController/LoginiOS"
+//#define UPDATE_URL @"http://localhost:8080/TN/restServices/riderController/UpdateRideriOS"
+//#define NEAR_TAXI_URL @"http://localhost:8080/TN/restServices/DriverController/getNearDriver"
+//#define FIND_PROMOTION_TRIP_URL @"http://localhost:8080/TN/restServices/PromotionTripController/FindPromotionTipiOS"
+//#define CREATETRIP @"http://localhost:8080/TN/restServices/TripController/CreateTripiOS"
+//#define REGISTER_PROMOTION_TRIP_URL @"http://localhost:8080/TN/restServices/PromotionTripController/RegisterPromotionTipiOS"
+//#define UPDATETRIP @"http://localhost:8080/TN/restServices/TripController/UpdateTripiOS"
 @implementation unity
 
 +(void)login_by_email:(NSString *)email
@@ -38,12 +49,12 @@
          [owner checkLogin];
          [[NSNotificationCenter defaultCenter] postNotificationName:@"offLoginloading" object:self];
          
-
      }
           failure:
      ^(AFHTTPRequestOperation *operation, NSError *error) {
+        // NSLog(@"%@");
          UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
-                                                          message:NSLocalizedString(@"please check info login",nil)
+                                                          message:NSLocalizedString(@"Please check your internet connection",nil)
                                                          delegate:self
                                                 cancelButtonTitle:NSLocalizedString(@"OK",nil)
                                                 otherButtonTitles:nil, nil];
@@ -56,20 +67,27 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 
-    NSString *api=[NSString stringWithFormat:@"http://192.168.125.10:8080/TN/restServices/CommonController/register?email=%@&password=%@&firstname=%@&lastname=%@&phone=%@&language=%@&usergroup=%@&countrycode=%@",email,pass,firstname,lastname,phone,language,usergroup,countrycode];
-    NSLog(@"api:%@",api);
+    NSString *url=[NSString stringWithFormat:@"%@",REGISTER_URL];
+    NSDictionary *parram = @{@"email":email, @"password":pass ,@"firstname":firstname, @"lastname":lastname,@"phone":phone, @"language":language,@"usergroup":usergroup, @"countrycode":countrycode} ;
 
-    [manager GET:api parameters:nil
+    [manager POST:url
+       parameters:parram
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"JSON: %@", responseObject);
-             
+             UIAlertView *successReg = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Register successfull" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+             [successReg show];
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"Error: %@", error);
          }];
 }
 
-+(void)updateByRiderById:(NSString *)riderId firstName:(NSString *)firstName lastName:(NSString *)lastName email:(NSString *)email phoneNo:(NSString *)phoneNo
++(void)updateByRiderById:(NSString *)riderId
+               firstName:(NSString *)firstName
+                lastName:(NSString *)lastName
+                   email:(NSString *)email
+                 phoneNo:(NSString *)phoneNo
+                   owner:(ProfileViewController *)owner
 {
     NSString *url=[NSString stringWithFormat:@"%@",UPDATE_URL];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -77,13 +95,15 @@
     [manager POST:url
        parameters:params2  success:^(AFHTTPRequestOperation *operation, id responseObject) {
            
-           
+           owner.message = [NSDictionary dictionaryWithDictionary:responseObject];
+           NSLog(@"RESTPONSE: %@", [owner.message objectForKey:@"message"]);
+           [owner checkUpdateRider];
        }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@"LỖI"
-                                                               message:NSLocalizedString(@"Cap nhat du lieu khong thanh cong ",nil)
+              UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@"ERROR"
+                                                               message:NSLocalizedString(@"Please check your internet connection",nil)
                                                               delegate:self
-                                                     cancelButtonTitle:NSLocalizedString(@"Đồng ý",nil)
+                                                     cancelButtonTitle:NSLocalizedString(@"OK",nil)
                                                      otherButtonTitles:nil, nil];
               [alertTmp show];
               
@@ -110,27 +130,28 @@
           }];
 }
 
-+(void)findPromotionTrips:(double)fromLatitude
-         andfromLongitude:(double)fromLongitude
-           withToLatitude:(double)toLatitude
-           andToLongitude:(double)toLongitude
-                    owner:(FindPromotionTrip*)owner
++(void)findPromotionTrips:(NSString*)fromLatitude
+         andfromLongitude:(NSString*)fromLongitude
+           withToLatitude:(NSString*)toLatitude
+           andToLongitude:(NSString*)toLongitude
+            numberOfSeats:(NSString*)noOfSeats
+                startTime:(NSString *)startDate
+                    owner:(FindPromotionTripResult *)owner
+
 
 {
-    NSString *fromLat,*fromLong;
-    NSString *tolat,*toLong;
-    // convert double to string
-    fromLat =[NSString stringWithFormat:@"%f",fromLatitude];
-    fromLong = [NSString stringWithFormat:@"%f",fromLongitude];
-    tolat = [NSString stringWithFormat:@"%f", toLatitude];
-    toLong = [NSString stringWithFormat:@"%f", toLongitude];
-    
+
     PromotionInfo *promotionData = [[PromotionInfo alloc]init];
     NSString *url = [NSString stringWithFormat:@"%@",FIND_PROMOTION_TRIP_URL];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *param = @{@"fromLatitude":fromLat, @"fromLongitude":fromLong, @"toLatitude":tolat, @"toLongitude":toLong};
-    [manager POST:url parameters:param
+    NSDictionary *param = @{@"fromLatitude":fromLatitude, @"fromLongitude":fromLongitude, @"toLatitude":toLatitude, @"toLongitude":toLongitude, @"numberOfSeats":noOfSeats, @"startTime":startDate};
+    [manager POST:url
+       parameters:param
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              promotionData.promotionDataArr = [NSArray arrayWithArray:responseObject];
+              
+              owner.promotionTripResult = promotionData.promotionDataArr;
+              [owner checkAndSetData];
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 
@@ -167,33 +188,23 @@
 //         }];
 }
 
-+(void)registerPromotionTrip:(NSString *)promotionTripId
-                     riderId:(NSString *)riderId
-                    fromCity:(NSString *)fromCity
-                 fromAddress:(NSString *)fromAddress
-                      toCity:(NSString *)tocity
-                   toAddress:(NSString *)toAddress
-               numberOfSeats:(NSString *)number
++(void)registerPromotionTrip:(NSString *)dataEncode owner:(RegisterPromotionTrip *)owner
 {
- 
-    
-    
-    
     
     NSString *url=[NSString stringWithFormat:@"%@",REGISTER_PROMOTION_TRIP_URL];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *params = @ {@"promotionTripId":promotionTripId, @"riderId":riderId, @"fromCity":fromAddress, @"fromAddress":fromCity, @"toCity":tocity,@"toAddress":toAddress, @"numberOfseat":number};
+    NSDictionary *param1 = @{@"json":dataEncode};
     [manager POST:url
-       parameters:params
+       parameters:param1
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"Succesfull, %@",responseObject);
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@"Error"
-                                                               message:NSLocalizedString(@"Cap nhat du lieu khong thanh cong ",nil)
+                                                               message:NSLocalizedString(@"ERROR ",nil)
                                                               delegate:self
-                                                     cancelButtonTitle:NSLocalizedString(@"Đồng ý",nil)
+                                                     cancelButtonTitle:NSLocalizedString(@"OK",nil)
                                                      otherButtonTitles:nil, nil];
               [alertTmp show];
               
@@ -218,5 +229,45 @@
               
           }];
 }
+
++(void) getMyPromotionTrip:(NSString *)riderId owner:(ShowMyPromotionTrip *)owner{
+    NSString *url = [NSString stringWithFormat:@"%@",MY_PROMOTION_URL];
+    MyPromotionTrip *myPro = [[MyPromotionTrip alloc]init];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *param = @{@"id":riderId};
+    
+    [manager POST:url
+       parameters:param
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              myPro.myPromotionTrip = [NSArray arrayWithArray:responseObject];
+              owner.myPromotionTrips = myPro.myPromotionTrip;
+              [owner showdata];
+              NSLog(@"success");
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"failse");
+              
+          }];
+}
+
++(void)changePasswordByRiderId:(NSString *)riderId oldPassword:(NSString *)oldPassword nPassword:(NSString *)nPassword
+{
+    NSString *url = [NSString stringWithFormat:@"%@",CHANGE_PASSWORD_URL];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *param = @{@"id":riderId,@"oldpassword":oldPassword,@"newpassword":nPassword};
+    
+    [manager POST:url
+       parameters:param
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"response:%@",responseObject);
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"ERROR:%@",error);
+          }];
+}
+
+
+
+
+
 
 @end
