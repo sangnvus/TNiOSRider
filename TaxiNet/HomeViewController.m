@@ -62,19 +62,18 @@
     [self.viewLocationTo addGestureRecognizer:gestureTo];
     
     [self selectLocationFrom:gestureFrom];
-    [self.viewLocationFrom setBackgroundColor:[UIColor colorWithRed:84.0f/255.0f
-                                                              green:142.0f/255.0f
-                                                               blue:209.0f/255.0f
-                                                              alpha:1.0f]];
     
-    [self.viewLocationTo setBackgroundColor:[UIColor colorWithRed:84.0f/255.0f
-                                                            green:142.0f/255.0f
-                                                             blue:209.0f/255.0f
-                                                            alpha:1.0f]];
-    [self.ViewDetail setBackgroundColor:[UIColor colorWithRed:84.0f/255.0f
-                                                            green:142.0f/255.0f
-                                                             blue:209.0f/255.0f
-                                                            alpha:1.0f]];
+    [self.viewLocationTo setBackgroundColor:[UIColor colorWithRed:224.0f/255.0f
+                                                      green:244.0f/255.0f
+                                                       blue:254.0f/255.0f
+                                                      alpha:1.0f]];
+    [self.findMyTaxi setBackgroundColor:[UIColor colorWithRed:27.0f/255.0f
+                                                        green:159.0f/255.0f
+                                                         blue:252.0f/255.0f
+                                                        alpha:1.0f]];
+    
+
+
     selectTo=0;
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"ShowViewDetail" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"getRiderInfo" object:nil];
@@ -217,7 +216,10 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
 - (void)selectLocationTo:(UITapGestureRecognizer *)recognizer {
     [mImageFocus setImage:[UIImage imageNamed:@"toMap.png"]];
     fromselect=TRUE;
-
+    mLocationTo.hidden=NO;
+    self.mSuggest.hidden=YES;
+    [self.viewLocationTo setBackgroundColor:[UIColor whiteColor]];
+    self.mLocationCityTo.hidden=NO;
     NSString *longitudeTo = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitudeTo"];
     NSString *latitudeTo = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitudeTo"];
     MKCoordinateRegion region = { {0.0, 0.0 }, { 0.0, 0.0 } };
@@ -404,30 +406,41 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
          {
              NSString *address = @"";
              NSString *city = @"";
+             NSString *nameStreet = @"";
+
              CLPlacemark *placemark = placemarks[0];
-             
              if([placemark.addressDictionary objectForKey:@"FormattedAddressLines"] != NULL) {
                  address = [[placemark.addressDictionary objectForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
              } else {
-                 address = @"Address Not founded";
+                 address = @"Address Not Founded";
              }
-             if ([placemark.addressDictionary objectForKey:@"SubAdministrativeArea"] != NULL)
-                 city = [placemark.addressDictionary objectForKey:@"SubAdministrativeArea"];
-             else if([placemark.addressDictionary objectForKey:@"City"] != NULL)
+             if([placemark.addressDictionary objectForKey:@"Name"] != NULL) {
+                 nameStreet = [placemark.addressDictionary objectForKey:@"Name"];
+             } else {
+                 nameStreet = @"Address Not Founded";
+             }
+             if ([placemark.addressDictionary objectForKey:@"City"] != NULL)
                  city = [placemark.addressDictionary objectForKey:@"City"];
-             else if([placemark.addressDictionary objectForKey:@"Country"] != NULL)
-                 city = [placemark.addressDictionary objectForKey:@"Country"];
              else
-                 city = @"City Not founded";
-             
+             {
+                 NSArray *myArrayAdress = [address componentsSeparatedByString:@","];
+                 if (myArrayAdress.count==2) {
+                     city=[NSString stringWithFormat:@"%@",[myArrayAdress objectAtIndex:0]];
+                 }
+                 else if (myArrayAdress.count==3)
+                 {
+                     city=[NSString stringWithFormat:@"%@",[myArrayAdress objectAtIndex:1]];
+                 }
+                 else if (myArrayAdress.count==4)
+                 {
+                     city=[NSString stringWithFormat:@"%@",[myArrayAdress objectAtIndex:2]];
+                 }
+             }
              if (locationTabPosition == 0) {
                  if (GetPoint==FALSE) {
-                     mLocationFrom.text = address;
-                     [[NSUserDefaults standardUserDefaults] setObject:address forKey:@"adressFrom"];
-                     if ([address length]>30) {
-                         mLocationFrom.text=[address substringToIndex:[address length] - 27];
-                         [[NSUserDefaults standardUserDefaults] setObject:address forKey:@"adressFrom"];
-                     }
+                     mLocationFrom.text = nameStreet;
+                     self.mLocationCityFrom.text=city;
+                     [[NSUserDefaults standardUserDefaults] setObject:nameStreet forKey:@"adressFrom"];
                  }
 
                  placeFrom = [[MKPlacemark alloc] initWithCoordinate:myCoOrdinate addressDictionary:placemark.addressDictionary];
@@ -436,9 +449,10 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
                  
              } else {
                  if (GetPoint==FALSE) {
-                     mLocationTo.text = address;
-                     [[NSUserDefaults standardUserDefaults] setObject:address forKey:@"adressTo"];
-                     placeTo = [[MKPlacemark alloc] initWithCoordinate:myCoOrdinate addressDictionary:placemark.addressDictionary];
+                     mLocationTo.text = nameStreet;
+                     [[NSUserDefaults standardUserDefaults] setObject:nameStreet forKey:@"adressTo"];
+                     self.mLocationCityTo.text=city;
+                    placeTo = [[MKPlacemark alloc] initWithCoordinate:myCoOrdinate addressDictionary:placemark.addressDictionary];
                  }
                  [[NSUserDefaults standardUserDefaults] setObject:lotu forKey:@"longitudeTo"];
                  [[NSUserDefaults standardUserDefaults] setObject:lati forKey:@"latitudeTo"];

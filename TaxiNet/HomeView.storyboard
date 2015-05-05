@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <scenes>
         <!--Home View Controller-->
@@ -21,80 +21,92 @@
                                 <rect key="frame" x="0.0" y="55" width="320" height="513"/>
                                 <subviews>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xtt-u2-obl">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="390"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="513"/>
                                         <connections>
                                             <outlet property="delegate" destination="SRb-6o-AC9" id="fzu-vM-DMv"/>
                                         </connections>
                                     </mapView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pinMap.png" translatesAutoresizingMaskIntoConstraints="NO" id="Mjm-Zk-AGT">
-                                        <rect key="frame" x="142" y="172" width="36" height="46"/>
+                                        <rect key="frame" x="142" y="234" width="36" height="46"/>
                                     </imageView>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VIc-aW-Yy9">
-                                        <rect key="frame" x="0.0" y="390" width="320" height="123"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ane-Pk-LAK">
+                                        <rect key="frame" x="20" y="469" width="280" height="38"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <state key="normal" title="Find My Taxi">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="BookNow:" destination="SRb-6o-AC9" eventType="touchUpInside" id="azy-Oz-Ksc"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f45-D1-scg">
+                                        <rect key="frame" x="10" y="5" width="300" height="90"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ihz-mB-7aZ">
-                                                <rect key="frame" x="0.0" y="40" width="320" height="40"/>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gKi-uP-yjq">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="45"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="inputMap.png" translatesAutoresizingMaskIntoConstraints="NO" id="Xna-pe-e12">
-                                                        <rect key="frame" x="90" y="3" width="222" height="36"/>
-                                                    </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YdL-vj-JBk">
-                                                        <rect key="frame" x="93" y="4" width="215" height="32"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="adress from" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RZN-e0-1ZZ">
+                                                        <rect key="frame" x="64" y="5" width="230" height="22"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="14"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="From City" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CcT-He-Ow5">
+                                                        <rect key="frame" x="75" y="23" width="215" height="22"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="olb-wy-hHs">
-                                                        <rect key="frame" x="39" y="4" width="36" height="32"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ef0-OX-DzB">
+                                                        <rect key="frame" x="26" y="8" width="40" height="32"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="14"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.85546795949999999" green="0.85428905200000005" blue="0.87488162879999998" alpha="1" colorSpace="calibratedRGB"/>
-                                            </view>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="toMap.png" translatesAutoresizingMaskIntoConstraints="NO" id="cLU-ud-DCX">
-                                                <rect key="frame" x="12" y="43" width="22" height="30"/>
-                                            </imageView>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jYA-9U-gh4">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
-                                                <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="inputMap.png" translatesAutoresizingMaskIntoConstraints="NO" id="a5Q-LC-GMJ">
-                                                        <rect key="frame" x="90" y="3" width="222" height="36"/>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="fromMap.png" translatesAutoresizingMaskIntoConstraints="NO" id="nqG-Yd-mpj">
+                                                        <rect key="frame" x="3" y="6" width="24" height="34"/>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7YG-gS-rmF">
-                                                        <rect key="frame" x="93" y="4" width="215" height="32"/>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zWA-iS-ddP">
+                                                <rect key="frame" x="0.0" y="45" width="300" height="45"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JBW-hv-Lan">
+                                                        <rect key="frame" x="29" y="5" width="24" height="32"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="14"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="toMap.png" translatesAutoresizingMaskIntoConstraints="NO" id="5Sk-56-KeC">
+                                                        <rect key="frame" x="4" y="6" width="22" height="30"/>
+                                                    </imageView>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="adress to" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xw-mc-dYh">
+                                                        <rect key="frame" x="64" y="5" width="230" height="22"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="13"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="to City" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DSE-uW-UcG">
+                                                        <rect key="frame" x="75" y="23" width="215" height="22"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y4R-Y2-4pj">
-                                                        <rect key="frame" x="38" y="4" width="40" height="32"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap to search or move map" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="foI-3k-zYT">
+                                                        <rect key="frame" x="69" y="10" width="231" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <color key="textColor" red="0.1080410768" green="0.44113693900000001" blue="0.81269728539999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="fromMap.png" translatesAutoresizingMaskIntoConstraints="NO" id="Skb-10-b1P">
-                                                        <rect key="frame" x="12" y="5" width="22" height="30"/>
-                                                    </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.1687540471" green="0.59700758470000004" blue="0.69625946969999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ane-Pk-LAK">
-                                                <rect key="frame" x="190" y="82" width="120" height="35"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                <state key="normal" title="Find My Taxi" backgroundImage="btn_regis.png">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="BookNow:" destination="SRb-6o-AC9" eventType="touchUpInside" id="azy-Oz-Ksc"/>
-                                                </connections>
-                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -131,17 +143,20 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="ViewDetail" destination="VIc-aW-Yy9" id="BGM-i2-0dR"/>
+                        <outlet property="ViewDetail" destination="f45-D1-scg" id="GbH-LF-w2w"/>
                         <outlet property="btnWaiting" destination="LPt-tD-4K0" id="Gj2-PP-1K7"/>
                         <outlet property="findMyTaxi" destination="Ane-Pk-LAK" id="zZl-KT-lqO"/>
                         <outlet property="homeviewmap" destination="lEu-rl-zPp" id="krL-gM-gLo"/>
                         <outlet property="mImageFocus" destination="Mjm-Zk-AGT" id="A7b-Yg-o3E"/>
-                        <outlet property="mLocationFrom" destination="7YG-gS-rmF" id="VGE-QT-2HI"/>
-                        <outlet property="mLocationTo" destination="YdL-vj-JBk" id="Lne-YE-4bE"/>
+                        <outlet property="mLocationCityFrom" destination="CcT-He-Ow5" id="HS6-Q4-WtP"/>
+                        <outlet property="mLocationCityTo" destination="DSE-uW-UcG" id="JQJ-it-F8v"/>
+                        <outlet property="mLocationFrom" destination="RZN-e0-1ZZ" id="DfN-ep-MVv"/>
+                        <outlet property="mLocationTo" destination="1Xw-mc-dYh" id="JGg-Lt-MTS"/>
+                        <outlet property="mSuggest" destination="foI-3k-zYT" id="Uk9-CB-DJo"/>
                         <outlet property="mapview" destination="Xtt-u2-obl" id="Yto-YO-S10"/>
                         <outlet property="searchDisplayController" destination="7OH-TE-BK7" id="96A-lK-s2A"/>
-                        <outlet property="viewLocationFrom" destination="jYA-9U-gh4" id="DO2-oO-dgO"/>
-                        <outlet property="viewLocationTo" destination="ihz-mB-7aZ" id="uQW-bK-ccB"/>
+                        <outlet property="viewLocationFrom" destination="gKi-uP-yjq" id="5gt-f4-Imr"/>
+                        <outlet property="viewLocationTo" destination="zWA-iS-ddP" id="66l-Jr-IQ5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bnt-SL-hzp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1191,10 +1206,8 @@
         <image name="BarButton.png" width="24" height="34"/>
         <image name="BarLogin.png" width="1080" height="152"/>
         <image name="address.png" width="45" height="51"/>
-        <image name="btn_regis.png" width="691" height="147"/>
         <image name="fromMap.png" width="128" height="128"/>
         <image name="iconlocation.png" width="46" height="46"/>
-        <image name="inputMap.png" width="470" height="76"/>
         <image name="pinMap.png" width="63" height="96"/>
         <image name="toMap.png" width="128" height="128"/>
     </resources>
