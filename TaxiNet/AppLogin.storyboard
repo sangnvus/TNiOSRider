@@ -218,8 +218,8 @@
                                     <action selector="back:" destination="1cq-4Q-pTU" eventType="touchUpInside" id="qbz-PR-6IZ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TaxiNet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhe-KE-PtP">
-                                <rect key="frame" x="81" y="40" width="179" height="38"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Register" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhe-KE-PtP">
+                                <rect key="frame" x="16" y="40" width="288" height="38"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <color key="textColor" red="1" green="0.1927034611" blue="0.1532262549" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>

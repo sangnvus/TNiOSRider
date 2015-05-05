@@ -31,7 +31,19 @@
      [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"offLoginloading" object:nil];
     
     appdelegate=(AppDelegate *)[[UIApplication sharedApplication] delegate];
+    // hide keyboard when tap other arena
+    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]
+                                           initWithTarget:self
+                                           action:@selector(hideKeyBoard)];
+    
+    [self.view addGestureRecognizer:tapGesture];
 
+}
+-(void)hideKeyBoard{
+    [self.emailLogin resignFirstResponder];
+    [self.passLogin resignFirstResponder];
+    
+    
 }
 -(void) receiveNotification:(NSNotification *) notification
 {

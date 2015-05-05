@@ -68,16 +68,19 @@
     [self selectLocationFrom:gestureFrom];
     //
     //set color for app
-    ///*#3b5998 mau 1*/ [UIColor colorWithRed:0.231 green:0.349 blue:0.596 alpha:1] /*#3b5998*/
-    [self.bannerView setBackgroundColor:[UIColor colorWithRed:0.231 green:0.349 blue:0.596 alpha:1]];
-    [self.findBtn setBackgroundColor:[UIColor colorWithRed:0.231 green:0.349 blue:0.596 alpha:1]];
-    ///*#8b9dc3 mau 2*/ [UIColor colorWithRed:0.545 green:0.616 blue:0.765 alpha:1] /*#8b9dc3*/
+    [self.viewDetails setBackgroundColor:[UIColor colorWithRed:1 green:0.922 blue:0.898 alpha:1]];
+    ///*#3b5998 mau 1*/ [UIColor colorWithRed:0.231 green:0.349 blue:0.596 alpha:1] /*#3b5998*/ blue 1
+//    [UIColor colorWithRed:1 green:0.251 blue:0 alpha:1] orange 1
+    [self.bannerView setBackgroundColor:[UIColor colorWithRed:1 green:0.251 blue:0 alpha:1]];
+    [self.findBtn setBackgroundColor:[UIColor colorWithRed:1 green:0.251 blue:0 alpha:1]];
+    ///*#8b9dc3 mau 2*/ [UIColor colorWithRed:0.545 green:0.616 blue:0.765 alpha:1] /*#8b9dc3*/ blue 2
+//    [UIColor colorWithRed:1 green:0.922 blue:0.898 alpha:1] /*#ffebe5*/ orange 2
     [self.viewLocationFrom setBackgroundColor:[UIColor colorWithRed:0.875 green:0.89 blue:0.933 alpha:1]];
     [self.viewLocationTo setBackgroundColor:[UIColor colorWithRed:0.875 green:0.89 blue:0.933 alpha:1]];
     
-    //[UIColor colorWithRed:0.875 green:0.89 blue:0.933 alpha:1] /*#dfe3ee*/ mau 3
+    //[UIColor colorWithRed:0.875 green:0.89 blue:0.933 alpha:1] /*#dfe3ee*/ mau 3 blue 3
     
-    //[UIColor colorWithRed:0.969 green:0.969 blue:0.969 alpha:1] /*#f7f7f7*/ mau 4
+    //[UIColor colorWithRed:0.969 green:0.969 blue:0.969 alpha:1] /*#f7f7f7*/ mau 4 blue 4
     [self.viewNumber setBackgroundColor:[UIColor colorWithRed:0.875 green:0.89 blue:0.933 alpha:1]];
     
     // hide keyboard when tap other arena
@@ -99,6 +102,8 @@
     [self.fromAddress resignFirstResponder];
     [self.toAddress resignFirstResponder];
     [self.noOfSeatsField resignFirstResponder];
+    [self.toCityField resignFirstResponder];
+    [self.fromCityField resignFirstResponder];
 }
 /*
 #pragma mark - Navigation

@@ -12,7 +12,6 @@
 #import "NavigationController.h"
 #import "AppDelegate.h"
 #import "ProfileViewController.h"
-#import "CompanyInfoViewController.h"
 #import "ShowPromotionTrips.h"
 #import "ShowMyPromotionTrip.h"
 #import "ViewController.h"
@@ -109,8 +108,8 @@
     }
     else if (indexPath.row == 2)
     {
-        CompanyInfoViewController *controller = (CompanyInfoViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"CompanyInfoViewController"];
-        [navigationController pushViewController:controller animated:YES];
+        
+    
     }
     else if (indexPath.row == 3)
     {
@@ -153,7 +152,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return 7;
+    return 8;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -165,7 +164,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-        NSArray *titles = @[@"Home", @"Profile", @"History", @"Promotion Trips",@"My Promotion Trips", @"Contact",@"Logout"];
+        NSArray *titles = @[@"Home", @"Profile", @"History", @"Promotion Trips",@"My Promotion Trips", @"About Us",@" Support",@"Logout"];
         cell.textLabel.text = titles[indexPath.row];
     
     return cell;

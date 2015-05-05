@@ -1,19 +1,18 @@
 //
-//  CompanyInfoViewController.m
+//  SupportViewController.m
 //  TaxiNet
 //
-//  Created by Louis Nhat on 3/9/15.
+//  Created by Nguyen Hoai Nam on 5/5/15.
 //  Copyright (c) 2015 Louis Nhat. All rights reserved.
 //
 
-#import "CompanyInfoViewController.h"
-#import "REFrostedViewController.h"
+#import "SupportViewController.h"
 
-@interface CompanyInfoViewController ()
+@interface SupportViewController ()
 
 @end
 
-@implementation CompanyInfoViewController
+@implementation SupportViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,9 +34,4 @@
 }
 */
 
-- (IBAction)menu:(id)sender {
-    [self.view endEditing:YES];
-    [self.frostedViewController.view endEditing:YES];
-    [self.frostedViewController presentMenuViewController];
-}
 @end
