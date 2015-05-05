@@ -62,19 +62,18 @@
     [self.viewLocationTo addGestureRecognizer:gestureTo];
     
     [self selectLocationFrom:gestureFrom];
-    [self.viewLocationFrom setBackgroundColor:[UIColor colorWithRed:84.0f/255.0f
-                                                              green:142.0f/255.0f
-                                                               blue:209.0f/255.0f
-                                                              alpha:1.0f]];
     
-    [self.viewLocationTo setBackgroundColor:[UIColor colorWithRed:84.0f/255.0f
-                                                            green:142.0f/255.0f
-                                                             blue:209.0f/255.0f
-                                                            alpha:1.0f]];
-    [self.ViewDetail setBackgroundColor:[UIColor colorWithRed:84.0f/255.0f
-                                                            green:142.0f/255.0f
-                                                             blue:209.0f/255.0f
-                                                            alpha:1.0f]];
+    [self.viewLocationTo setBackgroundColor:[UIColor colorWithRed:224.0f/255.0f
+                                                      green:244.0f/255.0f
+                                                       blue:254.0f/255.0f
+                                                      alpha:1.0f]];
+    [self.findMyTaxi setBackgroundColor:[UIColor colorWithRed:27.0f/255.0f
+                                                        green:159.0f/255.0f
+                                                         blue:252.0f/255.0f
+                                                        alpha:1.0f]];
+    
+
+
     selectTo=0;
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"ShowViewDetail" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"getRiderInfo" object:nil];
@@ -217,7 +216,10 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
 - (void)selectLocationTo:(UITapGestureRecognizer *)recognizer {
     [mImageFocus setImage:[UIImage imageNamed:@"toMap.png"]];
     fromselect=TRUE;
-
+    mLocationTo.hidden=NO;
+    self.mSuggest.hidden=YES;
+    [self.viewLocationTo setBackgroundColor:[UIColor whiteColor]];
+    self.mLocationCityTo.hidden=NO;
     NSString *longitudeTo = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitudeTo"];
     NSString *latitudeTo = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitudeTo"];
     MKCoordinateRegion region = { {0.0, 0.0 }, { 0.0, 0.0 } };

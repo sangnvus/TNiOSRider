@@ -15,7 +15,6 @@
 @interface HomeViewController : UIViewController<CLLocationManagerDelegate,MKMapViewDelegate,UITextFieldDelegate>
 - (IBAction)menu:(id)sender;
 @property (weak, nonatomic) IBOutlet MKMapView *mapview;
-@property (weak, nonatomic) IBOutlet UIView *ViewDetail;
 
 @property (weak, nonatomic) IBOutlet UILabel *mLocationTo;
 @property (weak, nonatomic) IBOutlet UIImageView *mImageFocus;
@@ -28,6 +27,10 @@
 - (IBAction)waitingTaxi:(id)sender;
 @property (weak, nonatomic) IBOutlet UIView *homeviewmap;
 @property (weak, nonatomic) IBOutlet UIButton *findMyTaxi;
+@property (weak, nonatomic) IBOutlet UILabel *mSuggest;
+@property (weak, nonatomic) IBOutlet UIView *ViewDetail;
+@property (weak, nonatomic) IBOutlet UILabel *mLocationCityFrom;
+@property (weak, nonatomic) IBOutlet UILabel *mLocationCityTo;
 
 - (IBAction)BookNow:(id)sender;
 -(void)checkGetnearTaxi;
