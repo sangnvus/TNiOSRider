@@ -18,6 +18,7 @@
 @property (nonatomic,strong) NSMutableArray *promotionDataArray;
 @property (nonatomic,retain) NSMutableArray *myPromotionTripArr;
 @property (nonatomic,strong) NSDictionary *RiderInfo;
+@property (nonatomic,strong) NSString *profileFlag;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;

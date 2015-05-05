@@ -9,6 +9,7 @@
 #import "RegisterViewController.h"
 #import "unity.h"
 #import "ViewController.h"
+#import "LoginViewController.h"
 @interface RegisterViewController ()
 
 @end
@@ -29,14 +30,17 @@ bool checked=NO;
 
 
 - (IBAction)back:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"AppLogin" bundle: nil];
+    LoginViewController *controller = (LoginViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"LoginViewController"];
+    
+    [self.navigationController pushViewController:controller animated:YES];
     
 }
 - (IBAction)save:(id)sender {
     NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
     // check white space
-    NSRange whiteSpacea = [self.NameUser.text rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]];
+   // NSRange whiteSpacea = [self.NameUser.text rangeOfCharacterFromSet:[NSCharacterSet whitespaceCharacterSet]];
     
     if ( [self.NameUser.text isEqualToString:@""])
     {
@@ -48,19 +52,6 @@ bool checked=NO;
                                                otherButtonTitles:nil, nil];
         [alertTmp show];
     }
-//    else
-//        if(whiteSpacea.location != NSNotFound)
-//        {
-//            UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
-//                                                             message:NSLocalizedString(@"Ten khong duoc chua ki tu dac biet",nil)
-//                                                            delegate:self
-//                                                   cancelButtonTitle:NSLocalizedString(@"OK",nil)
-//                                                   otherButtonTitles:nil, nil];
-//            [alertTmp show];
-//            
-//            
-//            
-//        }
     else
         if([self.EmailUser.text isEqualToString:@""]||self.EmailUser.text==nil)
         {

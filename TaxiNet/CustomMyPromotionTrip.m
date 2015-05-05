@@ -14,6 +14,12 @@
 @synthesize viewDriver,viewFrom,viewNumber,viewPrice,viewTo,labelView;
 - (void)awakeFromNib {
     // Initialization code
+//    [UIColor colorWithRed:1 green:0.475 blue:0.298 alpha:1] /*#ff794c*/
+//    [UIColor colorWithRed:1 green:0.922 blue:0.898 alpha:1] /*#ffebe5*/
+    [labelView setBackgroundColor:[UIColor colorWithRed:0.698 green:0.173 blue:0 alpha:1]];
+    [viewTo setBackgroundColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]];
+    [viewPrice setBackgroundColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]];
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -40,8 +40,9 @@
     appDelegate = (AppDelegate * )[[UIApplication sharedApplication] delegate];
     
     // set color
-    [self.bannerView setBackgroundColor:[UIColor colorWithRed:0.231 green:0.349 blue:0.596 alpha:1]];
-    [self.nextToFindPro setBackgroundColor:[UIColor colorWithRed:0.231 green:0.349 blue:0.596 alpha:1]];
+//    [UIColor colorWithRed:1 green:0.251 blue:0 alpha:1] #ff4000
+    [self.bannerView setBackgroundColor:[UIColor colorWithRed:1 green:0.251 blue:0 alpha:1]];
+    [self.nextToFindPro setBackgroundColor:[UIColor colorWithRed:1 green:0.251 blue:0 alpha:1]];
 }
 -(void)showdata
 {
@@ -59,6 +60,7 @@
     
     //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
      CustomMyPromotionTrip *cell = (CustomMyPromotionTrip *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    [cell.labelView setBackgroundColor:[UIColor colorWithRed:0.839 green:0.129 blue:0.129 alpha:1]];
     
     if (cell == nil) {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CustomMyPromotion"

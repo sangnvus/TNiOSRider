@@ -8,25 +8,40 @@
 
 #import "unity.h"
 
-#define URL_SIGNIN @"http://192.168.43.157:8080/TN/restServices/riderController/LoginiOS"
-#define CHANGE_PASSWORD_URL @"http://192.168.43.157:8080/TN/restServices/riderController/ChangePassword"
-#define REGISTER_URL @"http://192.168.43.157:8080/TN/restServices/CommonController/register"
+#define URL_SIGNIN @"http://192.168.0.102:8080/TN/restServices/riderController/LoginiOS"
+#define CHANGE_PASSWORD_URL @"http://192.168.0.102:8080/TN/restServices/riderController/ChangePassword"
+#define REGISTER_URL @"http://192.168.0.102:8080/TN/restServices/CommonController/register"
 
-#define UPDATE_URL @"http://192.168.43.157:8080/TN/restServices/riderController/UpdateRider"
-#define NEAR_TAXI_URL @"http://192.168.43.157:8080/TN/restServices/DriverController/getNearDriver"
-#define FIND_PROMOTION_TRIP_URL @"http://192.168.43.157:8080/TN/restServices/PromotionTripController/FindPromotionTripiOS"
-#define MY_PROMOTION_URL @"http://192.168.43.157:8080/TN/restServices/PromotionTripController/GetListPromotionTripRideriOS"
-#define CREATETRIP @"http://192.168.43.157:8080/TN/restServices/TripController/CreateTripiOS"
-#define REGISTER_PROMOTION_TRIP_URL @"http://192.168.43.157:8080/TN/restServices/PromotionTripController/RegisterPromotionTripiOS"
-#define UPDATETRIP @"http://192.168.43.157:8080/TN/restServices/TripController/UpdateTripiOS"
+#define UPDATE_URL @"http://192.168.0.102:8080/TN/restServices/riderController/UpdateRider"
+#define NEAR_TAXI_URL @"http://192.168.0.102:8080/TN/restServices/DriverController/getNearDriver"
+#define FIND_PROMOTION_TRIP_URL @"http://192.168.0.102:8080/TN/restServices/PromotionTripController/FindPromotionTripiOS"
+#define MY_PROMOTION_URL @"http://192.168.0.102:8080/TN/restServices/PromotionTripController/GetListPromotionTripRideriOS"
+#define CREATETRIP @"http://192.168.0.102:8080/TN/restServices/TripController/CreateTripiOS"
+#define REGISTER_PROMOTION_TRIP_URL @"http://192.168.0.102:8080/TN/restServices/PromotionTripController/RegisterPromotionTripiOS"
+#define UPDATETRIP @"http://192.168.0.102:8080/TN/restServices/TripController/UpdateTripiOS"
 
+
+// localhost
 //#define URL_SIGNIN @"http://localhost:8080/TN/restServices/riderController/LoginiOS"
-//#define UPDATE_URL @"http://localhost:8080/TN/restServices/riderController/UpdateRideriOS"
+//
+//#define CHANGE_PASSWORD_URL @"http://localhost:8080/TN/restServices/riderController/ChangePassword"
+//
+//#define REGISTER_URL @"http://localhost:8080/TN/restServices/CommonController/register"
+//
+//#define UPDATE_URL @"http://localhost:8080/TN/restServices/riderController/UpdateRider"
+//
 //#define NEAR_TAXI_URL @"http://localhost:8080/TN/restServices/DriverController/getNearDriver"
-//#define FIND_PROMOTION_TRIP_URL @"http://localhost:8080/TN/restServices/PromotionTripController/FindPromotionTipiOS"
+//
+//#define FIND_PROMOTION_TRIP_URL @"http://localhost:8080/TN/restServices/PromotionTripController/FindPromotionTripiOS"
+//
+//#define MY_PROMOTION_URL @"http://localhost:8080/TN/restServices/PromotionTripController/GetListPromotionTripRideriOS"
+//
 //#define CREATETRIP @"http://localhost:8080/TN/restServices/TripController/CreateTripiOS"
-//#define REGISTER_PROMOTION_TRIP_URL @"http://localhost:8080/TN/restServices/PromotionTripController/RegisterPromotionTipiOS"
+//
+//#define REGISTER_PROMOTION_TRIP_URL @"http://localhost:8080/TN/restServices/PromotionTripController/RegisterPromotionTripiOS"
+//
 //#define UPDATETRIP @"http://localhost:8080/TN/restServices/TripController/UpdateTripiOS"
+
 @implementation unity
 
 +(void)login_by_email:(NSString *)email
@@ -36,10 +51,10 @@
                 owner:(LoginViewController*)owner
 {
     UserInfo *model = [[UserInfo alloc] init];
-    
+    NSString *regId1= @"111";
     NSString *url=[NSString stringWithFormat:@"%@",URL_SIGNIN];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *params2 = @ {@"username":email, @"password":pass ,@"regId":regId, @"deviceType":deviceType};
+    NSDictionary *params2 = @ {@"username":email, @"password":pass ,@"regId":regId1, @"deviceType":deviceType};
     
     [manager POST:url parameters:params2
           success:^(AFHTTPRequestOperation *operation, id responseObject)
@@ -52,7 +67,9 @@
      }
           failure:
      ^(AFHTTPRequestOperation *operation, NSError *error) {
-        // NSLog(@"%@");
+         NSLog(@"regID:%@",params2);
+         NSLog(@"ERROR:%@",error);
+         
          UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
                                                           message:NSLocalizedString(@"Please check your internet connection",nil)
                                                          delegate:self

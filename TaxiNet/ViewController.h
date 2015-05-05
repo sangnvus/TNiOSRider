@@ -10,8 +10,7 @@
 
 @interface ViewController : UIViewController
 
-- (IBAction)Register:(id)sender;
-- (IBAction)Login:(id)sender;
+
 
 @end
 

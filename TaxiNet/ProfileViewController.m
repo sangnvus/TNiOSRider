@@ -24,6 +24,8 @@
 
 // init count param to control edit profiles
 int countBtnClicked = 0;
+
+//int profileFlag = 0;
 // init data ()
 NSString *a2 = @"";
 NSString *a3 = @"";
@@ -31,19 +33,15 @@ NSString *a4 = @"";
 NSString *a5 = @"";
 NSString *a6 = @"";
 //NSString *userName = [];
--(void)showRiderDetailsToEditingWithPass:(NSString *)password withFname:(NSString *)firstName withLname:(NSString *)lastName withEmail:(NSString *)email withPhoneNo:(NSString *)phoneNo
+-(void)showRiderDetailsToEditingWithFname:(NSString *)firstName withLname:(NSString *)lastName withEmail:(NSString *)email withPhoneNo:(NSString *)phoneNo
 {
-    
-    self.passwordField.text = password;
     self.firstNameField.text = firstName;
     self.lastNameField.text = lastName;
     self.emailField.text = email;
     self.phoneNoField.text = phoneNo;
 }
--(void)showRiderDetailsReadOnlyWithPass:(NSString *)password withFname:(NSString *)firstName withLname:(NSString *)lastName withEmail:(NSString *)email withPhoneNo:(NSString *)phoneNo
+-(void)showRiderDetailsReadOnlyWithFname:(NSString *)firstName withLname:(NSString *)lastName withEmail:(NSString *)email withPhoneNo:(NSString *)phoneNo
 {
-
-    self.passwordLb.text = password;
     self.firstNameLb.text = firstName;
     self.lastNameLb.text = lastName;
     self.emailLb.text = email;
@@ -51,32 +49,42 @@ NSString *a6 = @"";
 }
 
 
+//[UIColor colorWithRed:0.992 green:0 blue:0 alpha:1] /*#fd0000*/
+//[UIColor colorWithRed:0.839 green:0.129 blue:0.129 alpha:1] /*#d62121*/
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    NSLog(@"%@",appDelegate.profileFlag);
     appDelegate=(AppDelegate *)[[UIApplication sharedApplication] delegate];
     // set corlor
-    [self.bannerView setBackgroundColor:[UIColor colorWithRed:0.231 green:0.349 blue:0.596 alpha:1]];
+    [self.bannerView setBackgroundColor:[UIColor colorWithRed:1 green:0.251 blue:0 alpha:1]];
     
     // set data
-    a2 = @"*********";
-    a3 = [appDelegate.yoursefl objectForKey:@"firstName"];
-    a4 = [appDelegate.yoursefl objectForKey:@"lastName"];
-    a5 = [appDelegate.yoursefl objectForKey:@"email"];
-    a6 = [appDelegate.yoursefl objectForKey:@"phone"];
-    NSLog(@"Username: %@",[appDelegate.yoursefl objectForKey:@"email"]);
-    NSLog(@"Rider ID:%@", [ appDelegate.yoursefl objectForKey:@"riderId"]);
+    if ([appDelegate.profileFlag isEqualToString:@"0"]) {
+        a3 = [appDelegate.yoursefl objectForKey:@"firstName"];
+        a4 = [appDelegate.yoursefl objectForKey:@"lastName"];
+        a5 = [appDelegate.yoursefl objectForKey:@"email"];
+        a6 = [appDelegate.yoursefl objectForKey:@"phone"];
+        NSLog(@"vao%@", appDelegate.profileFlag);
+    }else if([appDelegate.profileFlag isEqualToString:@"1"]){
+        NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+        a3 = [userDefault valueForKey:@"firstName"];
+        a4 = [userDefault valueForKey:@"lastName"];
+        a5 = [userDefault valueForKey:@"email"];
+        a6 = [userDefault valueForKey:@"phone"];
+        NSLog(@"LOG vao:%@",appDelegate.profileFlag);
+    }
+
     // disable to change profiles
     self.firstNameField.hidden = YES;
     self.lastNameField.hidden = YES;
     self.emailField.hidden = YES;
     self.phoneNoField.hidden = YES;
-    self.passwordField.hidden = YES;
     // show Label
     NSLog(@"COUNT load:%d",countBtnClicked);
     countBtnClicked = 0;
-    [self showRiderDetailsReadOnlyWithPass:a2
-                                     withFname:a3
+    [self showRiderDetailsReadOnlyWithFname:a3
                                      withLname:a4
                                      withEmail:a5
                                    withPhoneNo:a6];
@@ -86,6 +94,12 @@ NSString *a6 = @"";
                                            action:@selector(hideKeyBoard)];
     
     [self.view addGestureRecognizer:tapGesture];
+    // set color
+    //[self.ViewAll setBackgroundColor:[UIColor colorWithRed:0.231 green:0.349 blue:0.596 alpha:1]];
+//    [UIColor colorWithRed:1 green:0.251 blue:0 alpha:1] /*#ff4000*/
+    [self.viewAccount setBackgroundColor:[UIColor colorWithRed:1 green:0.251 blue:0 alpha:1]];
+    [self.viewUsualLocation setBackgroundColor:[UIColor colorWithRed:1 green:0.251 blue:0 alpha:1]];
+    
     
 }
 
@@ -104,33 +118,29 @@ NSString *a6 = @"";
     
     self.editBtn.hidden =YES;
     self.doneEditBtn.hidden = NO;
-    self.passwordChangeBtn.hidden = NO;
+    //self.passwordChangeBtn.hidden = NO;
     //enable editing
     self.firstNameField.hidden = NO;
     self.lastNameField.hidden = NO;
     self.emailField.hidden = NO;
     self.phoneNoField.hidden = NO;
-    self.passwordField.hidden = NO;
     // hiding label
     self.firstNameLb.hidden = YES;
     self.lastNameLb.hidden = YES;
     self.emailLb.hidden = YES;
     self.phoneNoLb.hidden = YES;
-    self.passwordLb.hidden = YES;
     
     
     if (countBtnClicked==0) {
-        [self showRiderDetailsToEditingWithPass:a2 withFname:a3 withLname:a4 withEmail:a5 withPhoneNo:a6];
+        [self showRiderDetailsToEditingWithFname:a3 withLname:a4 withEmail:a5 withPhoneNo:a6];
     }
     if(countBtnClicked>0){
         NSLog(@"COUNT on if:%d",countBtnClicked);
-        [self showRiderDetailsReadOnlyWithPass:a2
-                                         withFname:self.firstNameField.text
+        [self showRiderDetailsReadOnlyWithFname:self.firstNameField.text
                                          withLname:self.lastNameField.text
                                          withEmail:self.emailField.text
                                        withPhoneNo:self.phoneNoField.text];
-        [self showRiderDetailsToEditingWithPass:a2
-                                          withFname:self.firstNameField.text
+        [self showRiderDetailsToEditingWithFname:self.firstNameField.text
                                           withLname:self.lastNameField.text
                                           withEmail:self.emailField.text
                                         withPhoneNo:self.phoneNoField.text];
@@ -145,32 +155,28 @@ NSString *a6 = @"";
     [self.phoneNoField resignFirstResponder];
 }
 - (IBAction)doneEditProfile:(id)sender {
+    appDelegate.profileFlag = @"1";
     self.editBtn.hidden =NO;
     self.doneEditBtn.hidden = YES;
-    self.passwordChangeBtn.hidden = YES;
+    //self.passwordChangeBtn.hidden = YES;
     // disable to change profile
     self.firstNameField.hidden = YES;
     self.lastNameField.hidden = YES;
     self.emailField.hidden = YES;
     self.phoneNoField.hidden = YES;
-    self.passwordField.hidden = YES;
+
     // hiding label
     self.firstNameLb.hidden = NO;
     self.lastNameLb.hidden = NO;
     self.emailLb.hidden = NO;
     self.phoneNoLb.hidden = NO;
-    self.passwordLb.hidden = NO;
+
     // show data change
     NSUserDefaults *userChange = [NSUserDefaults standardUserDefaults];
     [userChange setValue:self.firstNameField.text forKey:@"firstName"];
     [userChange setValue:self.lastNameField.text forKey:@"lastName"];
     [userChange setValue:self.emailField.text forKey:@"email"];
     [userChange setValue:self.phoneNoField.text forKey:@"phone"];
-//
-//    [appDelegate.yoursefl setObject:self.firstNameField.text forKey:@"firstName"];
-//    [appDelegate.yoursefl setObject:self.lastNameField.text forKey:@"lastName"];
-//    [appDelegate.yoursefl setObject:self.emailField.text forKey:@"email"];
-//    [appDelegate.yoursefl setObject:self.phoneNoField.text forKey:@"phone"];
 
     //check data
     NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";

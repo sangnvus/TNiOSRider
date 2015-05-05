@@ -42,6 +42,7 @@
 
     [navigationController setViewControllers:@[controller]];
    // appDelegate=(AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NSUserDefaults *userDF = [NSUserDefaults standardUserDefaults];
     
     self.tableView.separatorColor = [UIColor colorWithRed:150/255.0f green:161/255.0f blue:177/255.0f alpha:1.0f];
     self.tableView.delegate = self;
@@ -63,7 +64,7 @@
         
         label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
         label.textAlignment=NSTextAlignmentCenter;
-        label.text = @"Louis Nhat";
+        label.text = [userDF objectForKey:@"RiderFullName"];
         label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
         label.backgroundColor = [UIColor clearColor];
         label.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];

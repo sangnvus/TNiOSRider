@@ -11,6 +11,7 @@
 #import "MBProgressHUD.h"
 #import "unity.h"
 #import "UserInfo.h"
+#import "RegisterViewController.h"
 @interface LoginViewController ()
 
 @end
@@ -44,15 +45,11 @@
 }
 
 
-- (IBAction)back:(id)sender {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
-
 - (IBAction)Login:(id)sender {
     
     if (self.emailLogin==nil|| [self.emailLogin.text isEqualToString:@""]) {
         UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
-                                                         message:NSLocalizedString(@"please input username",nil)
+                                                         message:NSLocalizedString(@"Please enter your username",nil)
                                                         delegate:self
                                                cancelButtonTitle:NSLocalizedString(@"OK",nil)
                                                otherButtonTitles:nil, nil];
@@ -61,7 +58,7 @@
     else if (self.passLogin.text==nil|| [self.passLogin.text isEqualToString:@""])
     {
         UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
-                                                         message:NSLocalizedString(@"please input Password",nil)
+                                                         message:NSLocalizedString(@"Please enter your password",nil)
                                                         delegate:self
                                                cancelButtonTitle:NSLocalizedString(@"OK",nil)
                                                otherButtonTitles:nil, nil];
@@ -82,10 +79,15 @@
 -(void)checkLogin
 {
 
-    //NSUserDefaults *loginInfo = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *loginInfo = [NSUserDefaults standardUserDefaults];
+    
     // set data to NSDictionary
     appdelegate.yoursefl=(NSMutableDictionary*)self.dataUser;
-    NSLog(@"data9999:%@",[appdelegate.yoursefl objectForKey:@"email"]);
+    NSString *rFirstName = [appdelegate.yoursefl objectForKey:@"firstName"];
+    NSString *rLastName = [appdelegate.yoursefl objectForKey:@"lastName"];
+    NSLog(@"%@,%@ ",rFirstName,rLastName);
+    [loginInfo setObject:[NSString stringWithFormat:@"%@ %@",rFirstName,rLastName] forKey:@"RiderFullName"];
+    
     if ([[appdelegate.yoursefl objectForKey:@"message"] isEqualToString:@"1"] ) {
         
         
@@ -115,6 +117,16 @@
         [self.navigationController pushViewController:controller animated:YES];
     }
     
+}
+
+- (IBAction)registerRider:(id)sender {
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"AppLogin" bundle: nil];
+    RegisterViewController *controller = (RegisterViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"RegisterViewController"];
+    
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (IBAction)forgotPassword:(id)sender {
 }
 
 @end

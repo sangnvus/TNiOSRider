@@ -100,11 +100,9 @@
 		8F025F3A1ADC3EA00044087F /* CustomMyPromotionTrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F025F391ADC3EA00044087F /* CustomMyPromotionTrip.m */; };
 		8F025F3C1ADC3EC50044087F /* CustomMyPromotion.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F025F3B1ADC3EC50044087F /* CustomMyPromotion.xib */; };
 		8F1CA0281ADEB86400FD7405 /* iconlocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F1CA0271ADEB86400FD7405 /* iconlocation.png */; };
-		8F1CA02D1ADEC95500FD7405 /* book.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 8F1CA0291ADEC95400FD7405 /* book.PNG */; };
-		8F1CA02E1ADEC95500FD7405 /* calendar.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 8F1CA02A1ADEC95400FD7405 /* calendar.PNG */; };
-		8F1CA02F1ADEC95500FD7405 /* infouser.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 8F1CA02B1ADEC95400FD7405 /* infouser.PNG */; };
-		8F1CA0301ADEC95500FD7405 /* location.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 8F1CA02C1ADEC95400FD7405 /* location.PNG */; };
 		8F1CA0331ADED18900FD7405 /* RegisterPromotionTrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F1CA0321ADED18900FD7405 /* RegisterPromotionTrip.m */; };
+		8F2D60EB1AF7DFB800DA064E /* service_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2D60EA1AF7DFB800DA064E /* service_icon.png */; };
+		8F2D60ED1AF7E61600DA064E /* service.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F2D60EC1AF7E61600DA064E /* service.png */; };
 		8F3DC47F1AD97FC9009A2FEF /* ChangeAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3DC47E1AD97FC9009A2FEF /* ChangeAddressViewController.m */; };
 		8F4146841AEBD8E2006CD28E /* MyPromotionTrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4146831AEBD8E2006CD28E /* MyPromotionTrip.m */; };
 		8F7232211AED707600F6F24F /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7232201AED707600F6F24F /* ChangePasswordViewController.m */; };
@@ -273,12 +271,10 @@
 		8F025F391ADC3EA00044087F /* CustomMyPromotionTrip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMyPromotionTrip.m; sourceTree = "<group>"; };
 		8F025F3B1ADC3EC50044087F /* CustomMyPromotion.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomMyPromotion.xib; sourceTree = "<group>"; };
 		8F1CA0271ADEB86400FD7405 /* iconlocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconlocation.png; sourceTree = "<group>"; };
-		8F1CA0291ADEC95400FD7405 /* book.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = book.PNG; sourceTree = "<group>"; };
-		8F1CA02A1ADEC95400FD7405 /* calendar.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.PNG; sourceTree = "<group>"; };
-		8F1CA02B1ADEC95400FD7405 /* infouser.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = infouser.PNG; sourceTree = "<group>"; };
-		8F1CA02C1ADEC95400FD7405 /* location.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.PNG; sourceTree = "<group>"; };
 		8F1CA0311ADED18900FD7405 /* RegisterPromotionTrip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterPromotionTrip.h; sourceTree = "<group>"; };
 		8F1CA0321ADED18900FD7405 /* RegisterPromotionTrip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterPromotionTrip.m; sourceTree = "<group>"; };
+		8F2D60EA1AF7DFB800DA064E /* service_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = service_icon.png; sourceTree = "<group>"; };
+		8F2D60EC1AF7E61600DA064E /* service.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = service.png; sourceTree = "<group>"; };
 		8F3DC47D1AD97FC9009A2FEF /* ChangeAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeAddressViewController.h; sourceTree = "<group>"; };
 		8F3DC47E1AD97FC9009A2FEF /* ChangeAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeAddressViewController.m; sourceTree = "<group>"; };
 		8F3DC4811AD98F46009A2FEF /* address.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = address.png; path = ../../../../../../Desktop/picTN/address.png; sourceTree = "<group>"; };
@@ -377,28 +373,26 @@
 			path = "UIKit+AFNetworking";
 			sourceTree = "<group>";
 		};
-		772BBE161ABF127E0098AB20 /* untity */ = {
+		772BBE161ABF127E0098AB20 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				772BBE171ABF12BA0098AB20 /* unity.h */,
 				772BBE181ABF12BA0098AB20 /* unity.m */,
 			);
-			name = untity;
+			name = Model;
 			sourceTree = "<group>";
 		};
-		7733C36B1AC6937B007A15ED /* Model */ = {
+		7733C36B1AC6937B007A15ED /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				7733C36C1AC6938F007A15ED /* UserInfo.h */,
-				7733C36D1AC6938F007A15ED /* UserInfo.m */,
-				8F9D13BA1ADD70F900EE8AB4 /* PromotionInfo.h */,
-				8F9D13BB1ADD70F900EE8AB4 /* PromotionInfo.m */,
-				770C60991AE4FD8600D80A71 /* CreateTrip.h */,
-				770C609A1AE4FD8600D80A71 /* CreateTrip.m */,
-				8F4146821AEBD8E2006CD28E /* MyPromotionTrip.h */,
-				8F4146831AEBD8E2006CD28E /* MyPromotionTrip.m */,
+				774318D11AA74751001CF128 /* AppMain */,
+				774318D21AA7476C001CF128 /* AppLogin */,
+				774318F11AA96359001CF128 /* HomeView */,
+				8F025F2A1ADBF8580044087F /* promotiontrip */,
+				8F4146811AEBC93F006CD28E /* profiles */,
+				8F7BAD071AF23827007AE386 /* Data */,
 			);
-			name = Model;
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		7733C36F1AC6955C007A15ED /* MBProgressHUD */ = {
@@ -441,12 +435,10 @@
 		7743189D1AA73DB9001CF128 /* TaxiNet */ = {
 			isa = PBXGroup;
 			children = (
-				7733C36B1AC6937B007A15ED /* Model */,
-				772BBE161ABF127E0098AB20 /* untity */,
+				8F7BAD051AF237C3007AE386 /* View */,
+				7733C36B1AC6937B007A15ED /* Controller */,
+				772BBE161ABF127E0098AB20 /* Model */,
 				774318F71AAC414C001CF128 /* Lib */,
-				774318F11AA96359001CF128 /* HomeView */,
-				774318D21AA7476C001CF128 /* AppLogin */,
-				774318D11AA74751001CF128 /* AppMain */,
 				774318C81AA74568001CF128 /* Image */,
 				7743189E1AA73DBA001CF128 /* Supporting Files */,
 			);
@@ -485,11 +477,9 @@
 		774318C81AA74568001CF128 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				8F2D60EC1AF7E61600DA064E /* service.png */,
+				8F2D60EA1AF7DFB800DA064E /* service_icon.png */,
 				77DE944A1AE3EDA20049B2E8 /* call_btn.png */,
-				8F1CA0291ADEC95400FD7405 /* book.PNG */,
-				8F1CA02A1ADEC95400FD7405 /* calendar.PNG */,
-				8F1CA02B1ADEC95400FD7405 /* infouser.PNG */,
-				8F1CA02C1ADEC95400FD7405 /* location.PNG */,
 				775B5F761AE02BF100765F4F /* button_find.png */,
 				775B5F721AE02A6100765F4F /* setting_bg.png */,
 				775B5F731AE02A6100765F4F /* setting_button.png */,
@@ -537,7 +527,6 @@
 				774318A31AA73DBA001CF128 /* AppDelegate.m */,
 				774318A81AA73DBA001CF128 /* ViewController.h */,
 				774318A91AA73DBA001CF128 /* ViewController.m */,
-				774318AB1AA73DBA001CF128 /* Main.storyboard */,
 			);
 			name = AppMain;
 			sourceTree = "<group>";
@@ -545,7 +534,6 @@
 		774318D21AA7476C001CF128 /* AppLogin */ = {
 			isa = PBXGroup;
 			children = (
-				774318D31AA74794001CF128 /* AppLogin.storyboard */,
 				774318D51AA747C1001CF128 /* LoginViewController.h */,
 				774318D61AA747C1001CF128 /* LoginViewController.m */,
 				774318E61AA7564D001CF128 /* RegisterViewController.h */,
@@ -557,16 +545,12 @@
 		774318F11AA96359001CF128 /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
-				8F4146811AEBC93F006CD28E /* profiles */,
-				8F025F2A1ADBF8580044087F /* promotiontrip */,
-				774318F21AA9636A001CF128 /* HomeView.storyboard */,
 				774318F41AA9637D001CF128 /* HomeViewController.h */,
 				774318F51AA9637D001CF128 /* HomeViewController.m */,
 				776090D51AADD86D00C21D94 /* CompanyInfoViewController.h */,
 				776090D61AADD86D00C21D94 /* CompanyInfoViewController.m */,
 				7741833E1AC9CCFE00ABC5E6 /* DetailTaxi.h */,
 				7741833F1AC9CCFE00ABC5E6 /* DetailTaxi.m */,
-				774183401AC9CCFE00ABC5E6 /* DetailTaxi.xib */,
 			);
 			name = HomeView;
 			sourceTree = "<group>";
@@ -680,6 +664,32 @@
 			name = profiles;
 			sourceTree = "<group>";
 		};
+		8F7BAD051AF237C3007AE386 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				774318AB1AA73DBA001CF128 /* Main.storyboard */,
+				774318D31AA74794001CF128 /* AppLogin.storyboard */,
+				774318F21AA9636A001CF128 /* HomeView.storyboard */,
+				774183401AC9CCFE00ABC5E6 /* DetailTaxi.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		8F7BAD071AF23827007AE386 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				7733C36C1AC6938F007A15ED /* UserInfo.h */,
+				7733C36D1AC6938F007A15ED /* UserInfo.m */,
+				8F9D13BA1ADD70F900EE8AB4 /* PromotionInfo.h */,
+				8F9D13BB1ADD70F900EE8AB4 /* PromotionInfo.m */,
+				770C60991AE4FD8600D80A71 /* CreateTrip.h */,
+				770C609A1AE4FD8600D80A71 /* CreateTrip.m */,
+				8F4146821AEBD8E2006CD28E /* MyPromotionTrip.h */,
+				8F4146831AEBD8E2006CD28E /* MyPromotionTrip.m */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -763,9 +773,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F9D13B71ADD5FDC00EE8AB4 /* like.png in Resources */,
+				8F2D60ED1AF7E61600DA064E /* service.png in Resources */,
 				8F1CA0281ADEB86400FD7405 /* iconlocation.png in Resources */,
 				774318DC1AA74DAE001CF128 /* text_email.png in Resources */,
-				8F1CA0301ADEC95500FD7405 /* location.PNG in Resources */,
 				775B5F711ADEE00E00765F4F /* mapto.png in Resources */,
 				774318ED1AA96029001CF128 /* checkBox.png in Resources */,
 				774318AD1AA73DBA001CF128 /* Main.storyboard in Resources */,
@@ -778,11 +788,11 @@
 				7772F4461AD7CFCD00467247 /* to.png in Resources */,
 				774318E51AA75604001CF128 /* backgro_login.png in Resources */,
 				776090AD1AAD722400C21D94 /* BarLogin.png in Resources */,
-				8F1CA02F1ADEC95500FD7405 /* infouser.PNG in Resources */,
 				774318EE1AA96029001CF128 /* user_register.png in Resources */,
 				8F025F311ADC294A0044087F /* CustomPromotionCell.xib in Resources */,
 				775B5F6C1ADEDE2F00765F4F /* inputMap.png in Resources */,
 				775B5F751AE02A6100765F4F /* setting_button.png in Resources */,
+				8F2D60EB1AF7DFB800DA064E /* service_icon.png in Resources */,
 				7772F4451AD7CFCD00467247 /* From.png in Resources */,
 				774318EC1AA96029001CF128 /* checkbox_non.png in Resources */,
 				774318D01AA7465A001CF128 /* splast.png in Resources */,
@@ -803,9 +813,7 @@
 				775B5F681ADEDA3C00765F4F /* fromMap.png in Resources */,
 				774319031AAC41AD001CF128 /* pinMap.png in Resources */,
 				776090AF1AAD728F00C21D94 /* BarButton.png in Resources */,
-				8F1CA02D1ADEC95500FD7405 /* book.PNG in Resources */,
 				774318AF1AA73DBA001CF128 /* Images.xcassets in Resources */,
-				8F1CA02E1ADEC95500FD7405 /* calendar.PNG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

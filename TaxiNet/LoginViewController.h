@@ -11,13 +11,14 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "AppDelegate.h"
 @interface LoginViewController : UIViewController
-- (IBAction)back:(id)sender;
 - (IBAction)Login:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *emailLogin;
 @property (weak, nonatomic) IBOutlet UITextField *passLogin;
 @property (weak, nonatomic) IBOutlet UIButton *FBLogin;
 @property (weak,nonatomic) NSDictionary *dataUser;
 -(void)checkLogin;
+- (IBAction)registerRider:(id)sender;
+- (IBAction)forgotPassword:(id)sender;
 
 
 @end
