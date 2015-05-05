@@ -17,8 +17,17 @@
 @property (strong, nonatomic) IBOutlet UIView *viewLocationFrom;
 @property (strong, nonatomic) IBOutlet UIView *viewLocationTo;
 @property (strong, nonatomic) IBOutlet UIView *viewNumber;
+@property (strong, nonatomic) IBOutlet UIView *viewDateTime;
+@property (strong, nonatomic) IBOutlet UIView *viewToCity;
+@property (strong, nonatomic) IBOutlet UIDatePicker *dateTime;
+@property (strong, nonatomic) IBOutlet UIView *viewFromCity;
+@property (strong, nonatomic) IBOutlet UILabel *dateTimeLb;
+
+
 
 - (IBAction)backBtn:(id)sender;
+@property (strong, nonatomic) IBOutlet UITextField *fromCityField;
+@property (strong, nonatomic) IBOutlet UITextField *toCityField;
 @property (strong, nonatomic) IBOutlet UITextField *fromAddress;
 @property (strong, nonatomic) IBOutlet UITextField *toAddress;
 @property (strong, nonatomic) IBOutlet UITextField *noOfSeatsField;

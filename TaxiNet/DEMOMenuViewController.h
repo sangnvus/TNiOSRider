@@ -11,4 +11,7 @@
 
 @interface DEMOMenuViewController : UITableViewController
 @property (strong, nonatomic) NSString*strAvatar;
+
+@property (strong, nonatomic) NSArray *myPromotionTripRider;
+-(void)setDataArray;
 @end

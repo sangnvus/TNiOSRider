@@ -24,19 +24,22 @@
     double fromLongitude;
     double toLatitude;
     double toLongitude;
-    UITapGestureRecognizer *gestureFrom, *gestureTo;
+    UITapGestureRecognizer *gestureFrom, *gestureTo, *gestureDate;
     MKPlacemark *placeFrom, *placeTo;
     CLLocationCoordinate2D coordinateFrom;
     CLLocationCoordinate2D coordinateTo;
     int locationTabPosition;
     AppDelegate *appDelegate;
     FindPromotionTripResult *findProResult;
+    UIDatePicker *datePicker;
+    UILabel *dateLabel;
     
 }
-@synthesize fromAddress, toAddress, noOfSeatsField, pointPick, mapViewPro;
+@synthesize fromAddress, toAddress, noOfSeatsField, pointPick, mapViewPro,fromCityField,toCityField;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view.
     // delegate
     appDelegate=(AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -44,6 +47,7 @@
     pointPick.layer.anchorPoint = CGPointMake(0.5, 1.0);
     mapViewPro.delegate = self;
     // set mapview
+    
     [self performSelector:@selector(zoomInToMyLocation)
                withObject:nil
                afterDelay:1];
@@ -55,6 +59,11 @@
     gestureTo = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                         action:@selector(selectLocationTo:)];
     [self.viewLocationTo addGestureRecognizer:gestureTo];
+    // set current date time
+    gestureDate = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                          action:@selector(selectDateTime:)];
+    [self.viewDateTime addGestureRecognizer:gestureDate];
+    //[self selectDateTime:gestureDate];
     
     [self selectLocationFrom:gestureFrom];
     //
@@ -71,8 +80,12 @@
     //[UIColor colorWithRed:0.969 green:0.969 blue:0.969 alpha:1] /*#f7f7f7*/ mau 4
     [self.viewNumber setBackgroundColor:[UIColor colorWithRed:0.875 green:0.89 blue:0.933 alpha:1]];
     
+    // hide keyboard when tap other arena
+    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]
+                                           initWithTarget:self
+                                           action:@selector(hideKeyBoard)];
     
-
+    [self.view addGestureRecognizer:tapGesture];
 
     
     
@@ -82,7 +95,11 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)hideKeyBoard {
+    [self.fromAddress resignFirstResponder];
+    [self.toAddress resignFirstResponder];
+    [self.noOfSeatsField resignFirstResponder];
+}
 /*
 #pragma mark - Navigation
 
@@ -93,10 +110,11 @@
 }
 */
 
+
 - (IBAction)backBtn:(id)sender {
-    homeStoryboard = [UIStoryboard storyboardWithName:@"HomeView" bundle:nil];
-    ShowMyPromotionTrip *controller = (ShowMyPromotionTrip*)[homeStoryboard instantiateViewControllerWithIdentifier:@"ShowMyPromotionTrip"];
-    [self.navigationController pushViewController:controller animated:YES];
+    [self.view endEditing:YES];
+    [self.frostedViewController.view endEditing:YES];
+    [self.frostedViewController presentMenuViewController];
 }
 - (IBAction)getCurrentLocation:(id)sender {
     
@@ -108,10 +126,8 @@
     [userdef setObject:noOfSeatsField.text forKey:@"noOfSeatsField"];
 
     appDelegate.promotionDataArray = (NSMutableArray*)self.promotionDataArr;
+    NSLog(@"PRO DATA: %@",self.promotionDataArr);
     
-    homeStoryboard = [UIStoryboard storyboardWithName:@"HomeView" bundle:nil];
-    FindPromotionTripResult *controller = (FindPromotionTripResult*)[homeStoryboard instantiateViewControllerWithIdentifier:@"FindPromotionTripResult"];
-    [self.navigationController pushViewController:controller animated:YES];
 
    //NSLog(@"data test:%@", appDelegate.promotionDataArray);
 //    NSInteger count;
@@ -126,7 +142,7 @@
 - (IBAction)findPromotion:(id)sender {
     if (self.fromAddress==nil|| [self.fromAddress.text isEqualToString:@""]) {
         UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
-                                                         message:NSLocalizedString(@"Please input start place",nil)
+                                                         message:NSLocalizedString(@"Please pick your start place",nil)
                                                         delegate:self
                                                cancelButtonTitle:NSLocalizedString(@"OK",nil)
                                                otherButtonTitles:nil, nil];
@@ -134,7 +150,7 @@
     }
     else if (self.toAddress==nil|| [self.toAddress.text isEqualToString:@""]) {
         UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
-                                                         message:NSLocalizedString(@"Please input stop place",nil)
+                                                         message:NSLocalizedString(@"Please pick your stop place",nil)
                                                         delegate:self
                                                cancelButtonTitle:NSLocalizedString(@"OK",nil)
                                                otherButtonTitles:nil, nil];
@@ -142,31 +158,34 @@
     }
     else if (self.noOfSeatsField==nil|| [self.noOfSeatsField.text isEqualToString:@""]) {
         UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
-                                                         message:NSLocalizedString(@"Please input number of seats",nil)
+                                                         message:NSLocalizedString(@"Please enter number of seats",nil)
                                                         delegate:self
                                                cancelButtonTitle:NSLocalizedString(@"OK",nil)
                                                otherButtonTitles:nil, nil];
         [alertTmp show];
     }
     else{
-        NSLog(@"Longiude Lat:%f",fromLongitude);
+        NSLog(@"Longiude Lat:%f %f %f %f",fromLongitude, fromLatitude, toLongitude, toLatitude);
         //store data
         NSUserDefaults *registerProData = [NSUserDefaults standardUserDefaults];
-        //[registerProData setObject:fromAddress forKey:@"registerProFromAdd"];
+        [registerProData setObject:[NSString stringWithFormat:@"%@",fromAddress.text] forKey:@"registerProFromAdd"];
         [registerProData setObject:[NSString stringWithFormat:@"%f",fromLatitude] forKey:@"registerProFromLat"];
         [registerProData setObject:[NSString stringWithFormat:@"%f",fromLongitude] forKey:@"registerProFromLong"];
+        [registerProData setObject:[NSString stringWithFormat:@"%@",fromCityField.text] forKey:@"registerProFromCity"];
         
-        //[registerProData setObject:toAddress forKey:@"registerProToAdd"];
+        [registerProData setObject:[NSString stringWithFormat:@"%@",toAddress.text] forKey:@"registerProToAdd"];
         [registerProData setObject:[NSString stringWithFormat:@"%f",toLatitude] forKey:@"registerProToLat"];
         [registerProData setObject:[NSString stringWithFormat:@"%f",toLongitude] forKey:@"registerProToLong"];
+        [registerProData setObject:[NSString stringWithFormat:@"%@",toCityField.text] forKey:@"registerProToCity"];
         
-        [unity findPromotionTrips:fromLatitude andfromLongitude:fromLongitude withToLatitude:toLatitude andToLongitude:toLongitude owner:self];
-        //send data to next screen
+        [registerProData setObject:self.noOfSeatsField.text forKey:@"noOfSeats"];
+        [registerProData setObject:@"2015-04-29 12:00:00" forKey:@"dataTime"];
         
-        //appDelegate.promotionDataArray = (NSMutableArray*)self.promotionDataArr;
-        //findProResult.proArray = (NSMutableArray*)self.promotionDataArr;
         
         // goto next screen
+        homeStoryboard = [UIStoryboard storyboardWithName:@"HomeView" bundle:nil];
+        FindPromotionTripResult *controller = (FindPromotionTripResult*)[homeStoryboard instantiateViewControllerWithIdentifier:@"FindPromotionTripResult"];
+        [self.navigationController pushViewController:controller animated:YES];
 
         //NSLog(@"%@")
     }
@@ -193,41 +212,66 @@
          if(placemarks.count > 0)
          {
              NSString *address = @"";
+             NSString *address1 = @"";
+             NSString *distric = @"";
              NSString *city = @"";
              CLPlacemark *placemark = placemarks[0];
              
              if([placemark.addressDictionary objectForKey:@"FormattedAddressLines"] != NULL) {
-                 address = [[placemark.addressDictionary objectForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
+                 address1 = [[placemark.addressDictionary objectForKey:@"FormattedAddressLines"]componentsJoinedByString:@", "];
              } else {
-                 address = @"Address Not founded";
+                 address1 = @"Address Not founded";
              }
              if ([placemark.addressDictionary objectForKey:@"SubAdministrativeArea"] != NULL)
-                 city = [placemark.addressDictionary objectForKey:@"SubAdministrativeArea"];
+                 distric = [placemark.addressDictionary objectForKey:@"SubAdministrativeArea"];
              else if([placemark.addressDictionary objectForKey:@"City"] != NULL)
+                 distric = [placemark.addressDictionary objectForKey:@"City"];
+             else if([placemark.addressDictionary objectForKey:@"Country"] != NULL)
+                 distric = [placemark.addressDictionary objectForKey:@"Country"];
+             else{
+                 distric = @"City Not founded";
+             }
+             //get city
+             if([placemark.addressDictionary objectForKey:@"City"] != NULL)
                  city = [placemark.addressDictionary objectForKey:@"City"];
              else if([placemark.addressDictionary objectForKey:@"Country"] != NULL)
                  city = [placemark.addressDictionary objectForKey:@"Country"];
-             else
+             else{
                  city = @"City Not founded";
+             }
+             address = [NSString stringWithFormat:@"%@, %@",address1,distric];
              
              if (locationTabPosition == 0) {
                  fromAddress.text = address;
                  fromLatitude = myCoOrdinate.latitude;
                  fromLongitude = myCoOrdinate.longitude;
+                 fromCityField.text = city;
                  //NSLog(@"Latitude: %f",myCoOrdinate.latitude);
                  //NSLog(@"Longitude: %f",myCoOrdinate.longitude);
-                 if ([address length]>30) {
-                     fromAddress.text=[address substringToIndex:[address length] - 27];
-                 }
+//                 if ([address length]>30) {
+//                     fromAddress.text=[address substringToIndex:[address length] - 27];
+//                 }
                  placeFrom = [[MKPlacemark alloc] initWithCoordinate:myCoOrdinate addressDictionary:placemark.addressDictionary];
-             } else {
+             } else if(locationTabPosition==1){
                  toAddress.text = address;
+                 toCityField.text = city;
                  toLatitude = myCoOrdinate.latitude;
                  toLongitude = myCoOrdinate.longitude;
-                 if ([address length]>30) {
-                     toAddress.text=[address substringToIndex:[address length] - 27];
-                 }
+//                 if ([address length]>30) {
+//                     toAddress.text=[address substringToIndex:[address length] - 27];
+//                 }
                  placeTo = [[MKPlacemark alloc] initWithCoordinate:myCoOrdinate addressDictionary:placemark.addressDictionary];
+             }
+             if(locationTabPosition==2){
+                     self.viewDateTime.hidden = NO;
+                     NSLocale *usLocale = [[NSLocale alloc]
+                                           initWithLocaleIdentifier:@"en_US"];
+                 
+                     NSDate *pickerDate = [_dateTime date];
+                     NSString *selectionString = [[NSString alloc]
+                                                  initWithFormat:@"%@",
+                                                  [pickerDate descriptionWithLocale:usLocale]];
+                     _dateTimeLb.text = selectionString;
              }
              
              
@@ -243,7 +287,7 @@
         coordinateFrom = [mapViewPro convertPoint:point toCoordinateFromView:mapViewPro];
         
         [self getReverseGeocode:coordinateFrom];
-    } else {
+    } else if(locationTabPosition == 1){
         coordinateTo = [mapViewPro convertPoint:point toCoordinateFromView:mapViewPro];
         [self getReverseGeocode:coordinateTo];
     }
@@ -256,6 +300,7 @@
     locationTabPosition = 0;
 }
 
+
 - (void)selectLocationTo:(UITapGestureRecognizer *)recognizer {
     //    [viewLocationTo setBackgroundColor:[UIColor colorWithRed:255/255.0f green:59/255.0f blue:0/255.0f alpha:1.0f]];
     //    [viewLocationFrom setBackgroundColor:[UIColor whiteColor]];
@@ -263,11 +308,24 @@
     //    [mLocationFrom setTextColor:[UIColor blackColor]];
     locationTabPosition = 1;
 }
+- (void)selectDateTime:(UITapGestureRecognizer *)recognizer {
+    locationTabPosition = 2;
+    //    self.viewDateTime.hidden = NO;
+    //    NSLocale *usLocale = [[NSLocale alloc]
+    //                          initWithLocaleIdentifier:@"en_US"];
+    //
+    //    NSDate *pickerDate = [_dateTime date];
+    //    NSString *selectionString = [[NSString alloc]
+    //                                 initWithFormat:@"%@",
+    //                                 [pickerDate descriptionWithLocale:usLocale]];
+    //    _dateTimeLb.text = selectionString;
+}
 
 - (void)viewDidDisappear:(BOOL)animated {
     //add gesture to map
     [self.viewLocationFrom removeGestureRecognizer:gestureFrom];
     [self.viewLocationTo removeGestureRecognizer:gestureTo];
+    [self.viewDateTime removeGestureRecognizer:gestureDate];
     
 }
 - (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {

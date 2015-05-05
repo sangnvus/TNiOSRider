@@ -12,8 +12,11 @@
 
 @end
 
-@implementation AppDelegate
-@synthesize yoursefl, promotionDataArray;
+@implementation AppDelegate{
+    
+}
+@synthesize yoursefl, promotionDataArray, myPromotionTripArr,profileFlag;
+
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -43,12 +46,13 @@
     
     NSLog(@"%@",deviceToke1n);
     [[NSUserDefaults standardUserDefaults] setObject:deviceToke1n forKey:@"deviceToken"];
-
+    profileFlag = @"0";
 //    NSLog(@"My token is: %@", deviceToken);
     
 }
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
+    profileFlag = @"0";
     NSLog(@"Failed to get token, error: %@", error);
 }
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:

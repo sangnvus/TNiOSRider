@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *RepassUser;
 @property (weak, nonatomic) IBOutlet UITextField *PhoneUser;
 - (IBAction)checkRule:(id)sender;
+@property (strong, nonatomic) IBOutlet UITextField *lastName;
 @property (weak, nonatomic) IBOutlet UIButton *checkBox;
 @property (weak, nonatomic) IBOutlet UIScrollView *scroolview;
 
