@@ -14,6 +14,7 @@
 - (IBAction)menuBtn:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *backPromotionView;
 @property (strong, nonatomic) IBOutlet UIView *bannerView;
+
 @property (strong, nonatomic) NSArray *promotionTripResult;
 @property (strong, nonatomic) NSArray *proArray;
 @property (strong, nonatomic) NSArray *driverArray;

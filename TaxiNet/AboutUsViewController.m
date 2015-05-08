@@ -1,23 +1,25 @@
 //
-//  CompanyInfoViewController.m
+//  AboutUsViewController.m
 //  TaxiNet
 //
-//  Created by Louis Nhat on 3/9/15.
+//  Created by Nguyen Hoai Nam on 5/5/15.
 //  Copyright (c) 2015 Louis Nhat. All rights reserved.
 //
 
-#import "CompanyInfoViewController.h"
+#import "AboutUsViewController.h"
 #import "REFrostedViewController.h"
 
-@interface CompanyInfoViewController ()
+
+@interface AboutUsViewController ()
 
 @end
 
-@implementation CompanyInfoViewController
+@implementation AboutUsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.viewBar setBackgroundColor:[UIColor colorWithRed:1 green:0.251 blue:0 alpha:1]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -35,7 +37,8 @@
 }
 */
 
-- (IBAction)menu:(id)sender {
+- (IBAction)showMenu:(id)sender {
+    
     [self.view endEditing:YES];
     [self.frostedViewController.view endEditing:YES];
     [self.frostedViewController presentMenuViewController];

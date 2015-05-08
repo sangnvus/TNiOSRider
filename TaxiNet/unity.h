@@ -21,13 +21,18 @@
 #import "DEMOMenuViewController.h"
 #import "RegisterPromotionTrip.h"
 #import "FindPromotionTripResult.h"
+#import "RegisterViewController.h"
+#import "HistoryViewController.h"
+#import "TripHistory.h"
+
+
 @class HomeViewController;
 @class DetailTaxi;
 @interface unity : NSObject
 
 +(void)login_by_email : (NSString*)email pass:(NSString *)pass regId:(NSString*)regId deviceType:(NSString*)deviceType owner:(LoginViewController*)owner;
 
-+(void)register_by_email : (NSString*)email password:(NSString *)pass firstname:(NSString *)firstname lastname:(NSString *)lastname phone:(NSString *)phone language:(NSString *)language usergroup:(NSString *)usergroup countrycode:(NSString *)countrycode;
++(void)registerByEmail:(NSString*)jsonData owner:(RegisterViewController*)owner;
 
 +(void)updateByRiderById : (NSString*)riderId
                 firstName:(NSString*)firstName
@@ -55,6 +60,7 @@
 +(void)getMyPromotionTrip: (NSString*)riderId owner:(ShowMyPromotionTrip*)owner;
 +(void)changePasswordByRiderId:(NSString*)riderId oldPassword:(NSString*)oldPassword nPassword:(NSString*)nPassword;
 
-
++(void)getTripHistoryWithRiderId:(NSString*)riderId
+                           owner:(HistoryViewController*)owner;
 
 @end

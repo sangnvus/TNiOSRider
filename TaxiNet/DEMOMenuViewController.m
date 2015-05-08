@@ -12,10 +12,12 @@
 #import "NavigationController.h"
 #import "AppDelegate.h"
 #import "ProfileViewController.h"
-#import "CompanyInfoViewController.h"
 #import "ShowPromotionTrips.h"
 #import "ShowMyPromotionTrip.h"
-#import "ViewController.h"
+#import "LoginViewController.h"
+#import "SupportViewController.h"
+#import "HistoryViewController.h"
+#import "AboutUsViewController.h"
 
 @interface DEMOMenuViewController (){
     AppDelegate*appDelegate;
@@ -23,6 +25,7 @@
     UILabel *label;
     UIStoryboard *mainStoryboard;
     UIStoryboard *mainStoryboard1;
+    UIStoryboard *menuStoryboard;
     NavigationController *navigationController;
     
 }
@@ -36,13 +39,14 @@
     [super viewDidLoad];
     mainStoryboard1 = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     mainStoryboard = [UIStoryboard storyboardWithName:@"HomeView" bundle: nil];
+    menuStoryboard = [UIStoryboard storyboardWithName:@"Menu" bundle:nil];
     navigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationController"];
     HomeViewController *controller = (HomeViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"HomeViewController"];
     navigationController.viewControllers = @[controller];
 
     [navigationController setViewControllers:@[controller]];
    // appDelegate=(AppDelegate *)[[UIApplication sharedApplication] delegate];
-    NSUserDefaults *userDF = [NSUserDefaults standardUserDefaults];
+   // NSUserDefaults *userDF = [NSUserDefaults standardUserDefaults];
     
     self.tableView.separatorColor = [UIColor colorWithRed:150/255.0f green:161/255.0f blue:177/255.0f alpha:1.0f];
     self.tableView.delegate = self;
@@ -64,7 +68,7 @@
         
         label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
         label.textAlignment=NSTextAlignmentCenter;
-        label.text = [userDF objectForKey:@"RiderFullName"];
+        label.text = @"RIDER APPLICATION";//[userDF objectForKey:@"RiderFullName"];
         label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
         label.backgroundColor = [UIColor clearColor];
         label.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
@@ -109,8 +113,10 @@
     }
     else if (indexPath.row == 2)
     {
-        CompanyInfoViewController *controller = (CompanyInfoViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"CompanyInfoViewController"];
+        HistoryViewController  *controller = (HistoryViewController *)[menuStoryboard instantiateViewControllerWithIdentifier: @"HistoryViewController"];
         [navigationController pushViewController:controller animated:YES];
+
+    
     }
     else if (indexPath.row == 3)
     {
@@ -125,12 +131,19 @@
     }
     else if (indexPath.row == 5)
     {
-        
+        AboutUsViewController  *controller = (AboutUsViewController *)[menuStoryboard instantiateViewControllerWithIdentifier: @"AboutUsViewController"];
+        [navigationController pushViewController:controller animated:YES];
+
     }
     else if (indexPath.row == 6)
     {
-        ViewController  *controller = (ViewController *)[mainStoryboard1 instantiateViewControllerWithIdentifier: @"ViewController"];
+        SupportViewController  *controller = (SupportViewController *)[menuStoryboard instantiateViewControllerWithIdentifier: @"SupportViewController"];
         [navigationController pushViewController:controller animated:YES];
+    }
+    else if (indexPath.row == 7 ){
+        LoginViewController  *controller = (LoginViewController *)[mainStoryboard1 instantiateViewControllerWithIdentifier: @"LoginViewController"];
+        [navigationController pushViewController:controller animated:YES];
+
     }
     
     self.frostedViewController.contentViewController = navigationController;
@@ -153,7 +166,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return 7;
+    return 8;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -165,7 +178,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-        NSArray *titles = @[@"Home", @"Profile", @"History", @"Promotion Trips",@"My Promotion Trips", @"Contact",@"Logout"];
+        NSArray *titles = @[@"Home", @"Profile", @"History", @"Promotion Trips",@"My Promotion Trips", @"About Us",@"Support",@"Logout"];
         cell.textLabel.text = titles[indexPath.row];
     
     return cell;

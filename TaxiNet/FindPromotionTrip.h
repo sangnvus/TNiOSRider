@@ -24,7 +24,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *dateTimeLb;
 
 
-
 - (IBAction)backBtn:(id)sender;
 @property (strong, nonatomic) IBOutlet UITextField *fromCityField;
 @property (strong, nonatomic) IBOutlet UITextField *toCityField;

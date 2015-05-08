@@ -78,13 +78,12 @@
     
     // init delegate
     appDelegate=[self appdelegate];
-
-    NSLog(@"USERDATA:%@",appDelegate.yoursefl);
-    NSLog(@"PROMOTION DATA %@:",appDelegate.promotionDataArray);
     
     // set color
-    [customTrip.labelView setBackgroundColor:[UIColor colorWithRed:0.875 green:0.89 blue:0.933 alpha:1]];
-    [self.bannerView setBackgroundColor:[UIColor colorWithRed:0.231 green:0.349 blue:0.596 alpha:1]];
+    //    [UIColor colorWithRed:1 green:0.251 blue:0 alpha:1] orange 1
+    //[customTrip.labelView setBackgroundColor:[UIColor colorWithRed:1 green:0.251 blue:0 alpha:1]];
+    [self.bannerView setBackgroundColor:[UIColor colorWithRed:1 green:0.251 blue:0 alpha:1]];
+
     
 }
 
