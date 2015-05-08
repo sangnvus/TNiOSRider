@@ -63,7 +63,7 @@
     
     [self selectLocationFrom:gestureFrom];
     
-    [self.viewLocationTo setBackgroundColor:[UIColor colorWithRed:224.0f/255.0f
+    [self.viewLocationFrom setBackgroundColor:[UIColor colorWithRed:224.0f/255.0f
                                                       green:244.0f/255.0f
                                                        blue:254.0f/255.0f
                                                       alpha:1.0f]];
@@ -164,14 +164,14 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
 }
 -(void)changeViewDetail
 {
-    [UIView setAnimationDuration:0.5];
-    CGRect frame= mapview.frame;
-    frame.size.height=390;
-    mapview.frame=frame;
-    [UIView commitAnimations];
+//    [UIView setAnimationDuration:0.5];
+//    CGRect frame= mapview.frame;
+//    frame.size.height=390;
+//    mapview.frame=frame;
+//    [UIView commitAnimations];
     [UIView setAnimationDuration:0.5];
     CGRect framedetail= self.ViewDetail.frame;
-    framedetail.origin.y=390;
+    framedetail.origin.y=5;
     self.ViewDetail.frame=framedetail;
     [UIView commitAnimations];
 }
@@ -179,6 +179,11 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
     [mImageFocus setImage:[UIImage imageNamed:@"fromMap.png"]];
 
     if (fromselect==TRUE) {
+        [self.viewLocationFrom setBackgroundColor:[UIColor colorWithRed:224.0f/255.0f
+                                                                green:244.0f/255.0f
+                                                                 blue:254.0f/255.0f
+                                                                alpha:1.0f]];
+        [self.viewLocationTo setBackgroundColor:[UIColor whiteColor]];
         NSString *longitudeFrom = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitudeFrom"];
         NSString *latitudeFrom = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitudeFrom"];
         MKCoordinateRegion region = { {0.0, 0.0 }, { 0.0, 0.0 } };
@@ -214,11 +219,17 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
 
 }
 - (void)selectLocationTo:(UITapGestureRecognizer *)recognizer {
+    
+    [self.viewLocationTo setBackgroundColor:[UIColor colorWithRed:224.0f/255.0f
+                                                            green:244.0f/255.0f
+                                                             blue:254.0f/255.0f
+                                                            alpha:1.0f]];
+    
+    [self.viewLocationFrom setBackgroundColor:[UIColor whiteColor]];
     [mImageFocus setImage:[UIImage imageNamed:@"toMap.png"]];
     fromselect=TRUE;
     mLocationTo.hidden=NO;
     self.mSuggest.hidden=YES;
-    [self.viewLocationTo setBackgroundColor:[UIColor whiteColor]];
     self.mLocationCityTo.hidden=NO;
     NSString *longitudeTo = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitudeTo"];
     NSString *latitudeTo = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitudeTo"];
@@ -255,6 +266,15 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
 
 - (IBAction)BookNow:(id)sender {
     // add anonator map from-to
+        NSString* longitude = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitudeFrom"];
+        NSString* latitude = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitudeFrom"];
+    MKCoordinateRegion region = { {0.0, 0.0 }, { 0.0, 0.0 } };
+    region.center.latitude = [latitude floatValue] ;
+    region.center.longitude = [longitude floatValue];
+    region.span.longitudeDelta = 0.05f;
+    region.span.latitudeDelta = 0.05f;
+    [self.mapview setRegion:region animated:YES];
+    
     if (finTaxi==FALSE) {
         NSInteger toRemoveCount = mapview.annotations.count;
         NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:toRemoveCount];
@@ -362,14 +382,13 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
             //            self.ViewDetail.hidden=YES;
             [UIView setAnimationDuration:0.5];
             CGRect framedetail= self.ViewDetail.frame;
-            framedetail.origin.y=510;
+            framedetail.origin.y=-500;
             self.ViewDetail.frame=framedetail;
             [UIView commitAnimations];
-            
-            CGRect frame= mapview.frame;
-            frame.size.height=510;
-            mapview.frame=frame;
-            [UIView commitAnimations];
+//            CGRect frame= mapview.frame;
+//            frame.size.height=510;
+//            mapview.frame=frame;
+//            [UIView commitAnimations];
             
             DetailTaxi *detailTaxi = [[DetailTaxi alloc] initWithNibName:@"DetailTaxi" bundle:nil];
             detailTaxi.vcParent = self;
