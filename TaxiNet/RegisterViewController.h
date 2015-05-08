@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface RegisterViewController : UIViewController
-- (IBAction)back:(id)sender;
+
 - (IBAction)save:(id)sender;
+- (IBAction)doCancel:(id)sender;
+
+
 @property (weak, nonatomic) IBOutlet UITextField *NameUser;
 @property (weak, nonatomic) IBOutlet UITextField *EmailUser;
 @property (weak, nonatomic) IBOutlet UITextField *PassUser;
@@ -20,5 +23,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *lastName;
 @property (weak, nonatomic) IBOutlet UIButton *checkBox;
 @property (weak, nonatomic) IBOutlet UIScrollView *scroolview;
+
+-(void)checkResponseData:(NSString*)data;
 
 @end

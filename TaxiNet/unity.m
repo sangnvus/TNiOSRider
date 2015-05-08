@@ -8,20 +8,22 @@
 
 #import "unity.h"
 
-#define URL_SIGNIN @"http://192.168.0.102:8080/TN/restServices/riderController/LoginiOS"
-#define CHANGE_PASSWORD_URL @"http://192.168.0.102:8080/TN/restServices/riderController/ChangePassword"
-#define REGISTER_URL @"http://192.168.0.102:8080/TN/restServices/CommonController/register"
+#define URL_SIGNIN @"http://192.168.43.157:8080/TN/restServices/riderController/LoginiOS"
+#define CHANGE_PASSWORD_URL @"http://192.168.43.157:8080/TN/restServices/riderController/ChangePassword"
+#define REGISTER_URL @"http://192.168.43.157:8080/TN/restServices/riderController/registeriOS"
 
-#define UPDATE_URL @"http://192.168.0.102:8080/TN/restServices/riderController/UpdateRider"
-#define NEAR_TAXI_URL @"http://192.168.0.102:8080/TN/restServices/DriverController/getNearDriver"
-#define FIND_PROMOTION_TRIP_URL @"http://192.168.0.102:8080/TN/restServices/PromotionTripController/FindPromotionTripiOS"
-#define MY_PROMOTION_URL @"http://192.168.0.102:8080/TN/restServices/PromotionTripController/GetListPromotionTripRideriOS"
-#define CREATETRIP @"http://192.168.0.102:8080/TN/restServices/TripController/CreateTripiOS"
-#define REGISTER_PROMOTION_TRIP_URL @"http://192.168.0.102:8080/TN/restServices/PromotionTripController/RegisterPromotionTripiOS"
-#define UPDATETRIP @"http://192.168.0.102:8080/TN/restServices/TripController/UpdateTripiOS"
+#define UPDATE_URL @"http://192.168.43.157:8080/TN/restServices/riderController/UpdateRider"
+#define NEAR_TAXI_URL @"http://192.168.43.157:8080/TN/restServices/DriverController/getNearDriver"
+#define FIND_PROMOTION_TRIP_URL @"http://192.168.43.157:8080/TN/restServices/PromotionTripController/FindPromotionTripiOS"
+#define MY_PROMOTION_URL @"http://192.168.43.157:8080/TN/restServices/PromotionTripController/GetListPromotionTripRideriOS"
+#define CREATETRIP @"http://192.168.43.157:8080/TN/restServices/TripController/CreateTripiOS"
+#define REGISTER_PROMOTION_TRIP_URL @"http://192.168.43.157:8080/TN/restServices/PromotionTripController/RegisterPromotionTripiOS"
+#define UPDATETRIP @"http://192.168.43.157:8080/TN/restServices/TripController/UpdateTripiOS"
+
+#define HISTORY_URL @"http://192.168.43.157:8080/TN/restServices/TripController/GetListCompleteTripRideriOS"
 
 
-// localhost
+//// localhost
 //#define URL_SIGNIN @"http://localhost:8080/TN/restServices/riderController/LoginiOS"
 //
 //#define CHANGE_PASSWORD_URL @"http://localhost:8080/TN/restServices/riderController/ChangePassword"
@@ -41,6 +43,9 @@
 //#define REGISTER_PROMOTION_TRIP_URL @"http://localhost:8080/TN/restServices/PromotionTripController/RegisterPromotionTripiOS"
 //
 //#define UPDATETRIP @"http://localhost:8080/TN/restServices/TripController/UpdateTripiOS"
+//#define HISTORY_URL @"http://localhost:8080/TN/restServices/TripController/GetListCompleteTripRider"
+
+
 
 @implementation unity
 
@@ -79,24 +84,29 @@
          [[NSNotificationCenter defaultCenter] postNotificationName:@"offLoginloading" object:self];
      }];
 }
-+(void)register_by_email : (NSString*)email password:(NSString *)pass firstname:(NSString *)firstname lastname:(NSString *)lastname phone:(NSString *)phone language:(NSString *)language usergroup:(NSString *)usergroup countrycode:(NSString *)countrycode
+
+
+
++(void)registerByEmail:(NSString *)jsonData owner:(RegisterViewController *)owner
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-
     NSString *url=[NSString stringWithFormat:@"%@",REGISTER_URL];
-    NSDictionary *parram = @{@"email":email, @"password":pass ,@"firstname":firstname, @"lastname":lastname,@"phone":phone, @"language":language,@"usergroup":usergroup, @"countrycode":countrycode} ;
-
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *param = @{@"json":jsonData};
     [manager POST:url
-       parameters:parram
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             NSLog(@"JSON: %@", responseObject);
-             UIAlertView *successReg = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Register successfull" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-             [successReg show];
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             NSLog(@"Error: %@", error);
-         }];
+       parameters:param
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+              [owner checkResponseData:[responseObject objectForKey:@"message"]];
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@"Error"
+                                                               message:NSLocalizedString(@"Please check your internet connection. ",nil)
+                                                              delegate:self
+                                                     cancelButtonTitle:NSLocalizedString(@"OK",nil)
+                                                     otherButtonTitles:nil, nil];
+              [alertTmp show];
+              
+          }];
 }
 
 +(void)updateByRiderById:(NSString *)riderId
@@ -282,8 +292,27 @@
           }];
 }
 
-
-
++(void)getTripHistoryWithRiderId:(NSString *)riderId owner:(HistoryViewController *)owner
+{
+    TripHistory *history = [[TripHistory alloc]init];
+    NSString *url = [NSString stringWithFormat:@"%@",HISTORY_URL];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *param = @{@"id":riderId};
+    
+    [manager POST:url
+       parameters:param
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              history.myTripsHistory = [NSArray arrayWithArray:responseObject];
+              owner.myHistoryTrips = history.myTripsHistory;
+              [owner showResponseData];
+              NSLog(@"response:%@",responseObject);
+              
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"ERROR:%@",error);
+          }];
+    
+    
+}
 
 
 

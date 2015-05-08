@@ -7,6 +7,8 @@
 //
 
 #import "AboutUsViewController.h"
+#import "REFrostedViewController.h"
+
 
 @interface AboutUsViewController ()
 
@@ -17,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.viewBar setBackgroundColor:[UIColor colorWithRed:1 green:0.251 blue:0 alpha:1]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,4 +37,10 @@
 }
 */
 
+- (IBAction)showMenu:(id)sender {
+    
+    [self.view endEditing:YES];
+    [self.frostedViewController.view endEditing:YES];
+    [self.frostedViewController presentMenuViewController];
+}
 @end

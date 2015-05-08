@@ -23,13 +23,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     //set color for app
-    ///*#3b5998 mau 1*/ [UIColor colorWithRed:0.231 green:0.349 blue:0.596 alpha:1] /*#3b5998*/
-    ///*#8b9dc3 mau 2*/ [UIColor colorWithRed:0.545 green:0.616 blue:0.765 alpha:1] /*#8b9dc3*/
-    //[UIColor colorWithRed:0.875 green:0.89 blue:0.933 alpha:1] /*#dfe3ee*/ mau 3
-    //[UIColor colorWithRed:0.969 green:0.969 blue:0.969 alpha:1] /*#f7f7f7*/ mau 4
-    [self.viewBanner setBackgroundColor:[UIColor colorWithRed:0.231 green:0.349 blue:0.596 alpha:1]];
+    
+    //[UIColor colorWithRed:0.996 green:0.937 blue:0.906 alpha:1] /*#feefe7*/
+    [self.viewBanner setBackgroundColor:[UIColor colorWithRed:1 green:0.251 blue:0 alpha:1]];
+    
 
-    [self.viewContent setBackgroundColor:[UIColor colorWithRed:0.875 green:0.89 blue:0.933 alpha:1]];
+    [self.viewContent setBackgroundColor:[UIColor colorWithRed:0.996 green:0.937 blue:0.906 alpha:1]];
     
     
 }

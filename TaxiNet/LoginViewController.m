@@ -59,34 +59,30 @@
 
 - (IBAction)Login:(id)sender {
     
-//    if (self.emailLogin==nil|| [self.emailLogin.text isEqualToString:@""]) {
-//        UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
-//                                                         message:NSLocalizedString(@"please input username",nil)
-//                                                        delegate:self
-//                                               cancelButtonTitle:NSLocalizedString(@"OK",nil)
-//                                               otherButtonTitles:nil, nil];
-//        [alertTmp show];
-//    }
-//    else if (self.passLogin.text==nil|| [self.passLogin.text isEqualToString:@""])
-//    {
-//        UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
-//                                                         message:NSLocalizedString(@"please input Password",nil)
-//                                                        delegate:self
-//                                               cancelButtonTitle:NSLocalizedString(@"OK",nil)
-//                                               otherButtonTitles:nil, nil];
-//        [alertTmp show];
-//    }
-//    else
-//    {
-//        NSString *deviceType = @"iOS";
-//        [HUD show:YES];
-//        NSString *deviceToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"deviceToken"];
-//        [unity login_by_email:self.emailLogin.text pass:self.passLogin.text regId:deviceToken deviceType:deviceType  owner:self];
-//    }
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"HomeView" bundle: nil];
-    HomeViewController *controller = (HomeViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"HomeViewController"];
-    [self.navigationController pushViewController:controller animated:YES];
-
+    if (self.emailLogin==nil|| [self.emailLogin.text isEqualToString:@""]) {
+        UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
+                                                         message:NSLocalizedString(@"Please enter your e-mail",nil)
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"OK",nil)
+                                               otherButtonTitles:nil, nil];
+        [alertTmp show];
+    }
+    else if (self.passLogin.text==nil|| [self.passLogin.text isEqualToString:@""])
+    {
+        UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
+                                                         message:NSLocalizedString(@"Please enter your password",nil)
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"OK",nil)
+                                               otherButtonTitles:nil, nil];
+        [alertTmp show];
+    }
+    else
+    {
+        NSString *deviceType = @"iOS";
+        [HUD show:YES];
+        NSString *deviceToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"deviceToken"];
+        [unity login_by_email:self.emailLogin.text pass:self.passLogin.text regId:deviceToken deviceType:deviceType  owner:self];
+    }
 
 }
 -(void)checkLogin

@@ -109,6 +109,9 @@
 		8F3DC47F1AD97FC9009A2FEF /* ChangeAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F3DC47E1AD97FC9009A2FEF /* ChangeAddressViewController.m */; };
 		8F4146841AEBD8E2006CD28E /* MyPromotionTrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F4146831AEBD8E2006CD28E /* MyPromotionTrip.m */; };
 		8F7232211AED707600F6F24F /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7232201AED707600F6F24F /* ChangePasswordViewController.m */; };
+		8F7933411AFBCCB100126521 /* CustomHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F7933401AFBCCB100126521 /* CustomHistoryCell.xib */; };
+		8F7933471AFBD0FF00126521 /* CustomHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7933461AFBD0FF00126521 /* CustomHistoryTableViewCell.m */; };
+		8F79334A1AFBE24F00126521 /* TripHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7933491AFBE24F00126521 /* TripHistory.m */; };
 		8F9D13B31ADD56AD00EE8AB4 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F9D13B11ADD56AD00EE8AB4 /* FBSDKCoreKit.framework */; };
 		8F9D13B41ADD56AD00EE8AB4 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F9D13B21ADD56AD00EE8AB4 /* FBSDKLoginKit.framework */; };
 		8F9D13B71ADD5FDC00EE8AB4 /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F9D13B51ADD5FDC00EE8AB4 /* like.png */; };
@@ -293,6 +296,11 @@
 		8F4146831AEBD8E2006CD28E /* MyPromotionTrip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPromotionTrip.m; sourceTree = "<group>"; };
 		8F72321F1AED707600F6F24F /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		8F7232201AED707600F6F24F /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		8F7933401AFBCCB100126521 /* CustomHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomHistoryCell.xib; sourceTree = "<group>"; };
+		8F7933451AFBD0FF00126521 /* CustomHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomHistoryTableViewCell.h; sourceTree = "<group>"; };
+		8F7933461AFBD0FF00126521 /* CustomHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomHistoryTableViewCell.m; sourceTree = "<group>"; };
+		8F7933481AFBE24F00126521 /* TripHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripHistory.h; sourceTree = "<group>"; };
+		8F7933491AFBE24F00126521 /* TripHistory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripHistory.m; sourceTree = "<group>"; };
 		8F9D13B11ADD56AD00EE8AB4 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = TaxiNet/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		8F9D13B21ADD56AD00EE8AB4 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = TaxiNet/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		8F9D13B51ADD5FDC00EE8AB4 /* like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like.png; sourceTree = "<group>"; };
@@ -627,12 +635,10 @@
 		8F025F2A1ADBF8580044087F /* promotiontrip */ = {
 			isa = PBXGroup;
 			children = (
-				8F025F301ADC294A0044087F /* CustomPromotionCell.xib */,
 				8F025F2B1ADBF9380044087F /* ShowPromotionTrips.h */,
 				8F025F2C1ADBF9380044087F /* ShowPromotionTrips.m */,
 				8F025F321ADC2D090044087F /* CustomCellPromotionTableViewCell.h */,
 				8F025F331ADC2D090044087F /* CustomCellPromotionTableViewCell.m */,
-				8F025F3B1ADC3EC50044087F /* CustomMyPromotion.xib */,
 				8F025F351ADC3E3A0044087F /* ShowMyPromotionTrip.h */,
 				8F025F361ADC3E3A0044087F /* ShowMyPromotionTrip.m */,
 				8F025F381ADC3EA00044087F /* CustomMyPromotionTrip.h */,
@@ -670,6 +676,8 @@
 			children = (
 				8F2D60F91AF90F6000DA064E /* HistoryViewController.h */,
 				8F2D60FA1AF90F6000DA064E /* HistoryViewController.m */,
+				8F7933451AFBD0FF00126521 /* CustomHistoryTableViewCell.h */,
+				8F7933461AFBD0FF00126521 /* CustomHistoryTableViewCell.m */,
 			);
 			name = History;
 			sourceTree = "<group>";
@@ -700,9 +708,20 @@
 			name = profiles;
 			sourceTree = "<group>";
 		};
+		8F79333F1AFBCC4200126521 /* CustomCell */ = {
+			isa = PBXGroup;
+			children = (
+				8F025F301ADC294A0044087F /* CustomPromotionCell.xib */,
+				8F025F3B1ADC3EC50044087F /* CustomMyPromotion.xib */,
+				8F7933401AFBCCB100126521 /* CustomHistoryCell.xib */,
+			);
+			name = CustomCell;
+			sourceTree = "<group>";
+		};
 		8F7BAD051AF237C3007AE386 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8F79333F1AFBCC4200126521 /* CustomCell */,
 				774318AB1AA73DBA001CF128 /* Main.storyboard */,
 				774318D31AA74794001CF128 /* AppLogin.storyboard */,
 				774318F21AA9636A001CF128 /* HomeView.storyboard */,
@@ -723,6 +742,8 @@
 				770C609A1AE4FD8600D80A71 /* CreateTrip.m */,
 				8F4146821AEBD8E2006CD28E /* MyPromotionTrip.h */,
 				8F4146831AEBD8E2006CD28E /* MyPromotionTrip.m */,
+				8F7933481AFBE24F00126521 /* TripHistory.h */,
+				8F7933491AFBE24F00126521 /* TripHistory.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -844,6 +865,7 @@
 				774183421AC9CCFE00ABC5E6 /* DetailTaxi.xib in Resources */,
 				776090D91AADDA4F00C21D94 /* 10487216_687099491374102_218448137921331276_n.jpg in Resources */,
 				775B5F6D1ADEDE2F00765F4F /* inputmap2.png in Resources */,
+				8F7933411AFBCCB100126521 /* CustomHistoryCell.xib in Resources */,
 				774318B21AA73DBA001CF128 /* LaunchScreen.xib in Resources */,
 				774318F31AA9636A001CF128 /* HomeView.storyboard in Resources */,
 				8F025F3C1ADC3EC50044087F /* CustomMyPromotion.xib in Resources */,
@@ -873,6 +895,7 @@
 				774318A71AA73DBA001CF128 /* TaxiNet.xcdatamodeld in Sources */,
 				774318A41AA73DBA001CF128 /* AppDelegate.m in Sources */,
 				8F9D13BC1ADD70F900EE8AB4 /* PromotionInfo.m in Sources */,
+				8F79334A1AFBE24F00126521 /* TripHistory.m in Sources */,
 				8F1CA0331ADED18900FD7405 /* RegisterPromotionTrip.m in Sources */,
 				7741833D1AC9CC8F00ABC5E6 /* UIViewController+CWPopup.m in Sources */,
 				774318AA1AA73DBA001CF128 /* ViewController.m in Sources */,
@@ -888,6 +911,7 @@
 				8F2D60F51AF90F2800DA064E /* SupportViewController.m in Sources */,
 				776090C91AADD59C00C21D94 /* UIImage+REFrostedViewController.m in Sources */,
 				774318E01AA750BD001CF128 /* NavigationController.m in Sources */,
+				8F7933471AFBD0FF00126521 /* CustomHistoryTableViewCell.m in Sources */,
 				774318FF1AAC415A001CF128 /* JPSThumbnailAnnotation.m in Sources */,
 				774318E81AA7564D001CF128 /* RegisterViewController.m in Sources */,
 				772BBE0E1ABF0EDA0098AB20 /* AFNetworkActivityIndicatorManager.m in Sources */,

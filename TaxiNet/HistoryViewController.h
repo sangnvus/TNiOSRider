@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HistoryViewController : UIViewController
+@interface HistoryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
+- (IBAction)showMenu:(id)sender;
+@property (strong, nonatomic) IBOutlet UIView *viewBar;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+
+@property (nonatomic,retain) NSArray *myHistoryTrips;
+
+-(void)showResponseData;
 @end

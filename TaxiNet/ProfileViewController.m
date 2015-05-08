@@ -59,7 +59,7 @@ NSString *a6 = @"";
     appDelegate=(AppDelegate *)[[UIApplication sharedApplication] delegate];
     // set corlor
     [self.bannerView setBackgroundColor:[UIColor colorWithRed:1 green:0.251 blue:0 alpha:1]];
-    
+    NSLog(@"YOURDATA:%@",appDelegate.yoursefl);
     // set data
     if ([appDelegate.profileFlag isEqualToString:@"0"]) {
         a3 = [appDelegate.yoursefl objectForKey:@"firstName"];

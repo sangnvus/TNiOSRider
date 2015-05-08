@@ -10,4 +10,8 @@
 
 @interface AboutUsViewController : UIViewController
 
+- (IBAction)showMenu:(id)sender;
+@property (strong, nonatomic) IBOutlet UIView *viewBar;
+
+
 @end
