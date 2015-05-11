@@ -34,11 +34,7 @@
 
 +(void)registerByEmail:(NSString*)jsonData owner:(RegisterViewController*)owner;
 
-+(void)updateByRiderById : (NSString*)riderId
-                firstName:(NSString*)firstName
-                 lastName:(NSString*)lastName
-                    email:(NSString*)email
-                  phoneNo:(NSString*)phoneNo owner:(ProfileViewController*)owner;
++(void)updateByRiderById:(NSString*)dataEncode owner:(ProfileViewController*)owner;
 
 +(void)getNearTaxi:(NSString*)latitude
      andLongtitude:(NSString*)longtitude owner:(HomeViewController *)owner;

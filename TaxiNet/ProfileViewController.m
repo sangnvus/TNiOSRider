@@ -227,13 +227,17 @@ NSString *a6 = @"";
                                                        otherButtonTitles:nil, nil];
                 [alertTmp show];
             }else{
+                NSUserDefaults *userData = [NSUserDefaults standardUserDefaults];
+                NSString *riderId = [NSString stringWithFormat:@"%@",[userData objectForKey:@"riderId"]];
+                NSString *data = [NSString stringWithFormat:   @"{\"id\":\"%@\",\"email\":\"%@\",\"firstname\":\"%@\",\"lastname\":\"%@\",\"phone\":\"%@\"}",riderId,self.firstNameField.text,self.lastNameField.text,self.phoneNoField.text,self.emailField.text];
                 
+                NSLog(@"%@", data);
                 
-                [unity updateByRiderById:[appDelegate.yoursefl objectForKey:@"riderId"]
-                               firstName:self.firstNameField.text
-                                lastName:self.lastNameField.text
-                                   email:self.emailField.text
-                                 phoneNo:self.phoneNoField.text owner:self];
+                NSData *plainData = [data dataUsingEncoding:NSUTF8StringEncoding];
+                NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+                NSLog(@"BASE%@,",base64String);
+                
+                [unity updateByRiderById:base64String owner:self];
                 NSLog(@"COUNT done:%d",countBtnClicked);
             }
         }

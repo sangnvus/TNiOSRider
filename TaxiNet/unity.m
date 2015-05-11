@@ -83,16 +83,12 @@
           }];
 }
 
-+(void)updateByRiderById:(NSString *)riderId
-               firstName:(NSString *)firstName
-                lastName:(NSString *)lastName
-                   email:(NSString *)email
-                 phoneNo:(NSString *)phoneNo
++(void)updateByRiderById:(NSString*)dataEncode
                    owner:(ProfileViewController *)owner
 {
     NSString *url=[NSString stringWithFormat:@"%@%@",URL,UPDATE_URL];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *params2 = @ {@"id":riderId, @"firstname":firstName, @"lastname":lastName, @"phoneNumber":phoneNo, @"email":email};
+    NSDictionary *params2 = @ {@"json":dataEncode};
     [manager POST:url
        parameters:params2  success:^(AFHTTPRequestOperation *operation, id responseObject) {
            
@@ -269,12 +265,12 @@
 +(void)getTripHistoryWithRiderId:(NSString *)riderId owner:(HistoryViewController *)owner
 {
     TripHistory *history = [[TripHistory alloc]init];
-    NSString *url = [NSString stringWithFormat:@"%@%@",URL,HISTORY_URL];
+    NSString *url = [NSString stringWithFormat:@"%@%@?id=%@",URL,HISTORY_URL,riderId];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *param = @{@"id":riderId};
+   // NSDictionary *param = @{@"id":riderId};
     
     [manager POST:url
-       parameters:param
+       parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               history.myTripsHistory = [NSArray arrayWithArray:responseObject];
               owner.myHistoryTrips = history.myTripsHistory;
