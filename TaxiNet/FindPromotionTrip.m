@@ -184,7 +184,7 @@
         [registerProData setObject:[NSString stringWithFormat:@"%@",toCityField.text] forKey:@"registerProToCity"];
         
         [registerProData setObject:self.noOfSeatsField.text forKey:@"noOfSeats"];
-        [registerProData setObject:@"2015-04-29 12:00:00" forKey:@"dataTime"];
+        [registerProData setObject:@"2015-05-17 12:00:00" forKey:@"dataTime"];
         
         
         // goto next screen

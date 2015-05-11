@@ -12,7 +12,6 @@
 #import "NavigationController.h"
 #import "AppDelegate.h"
 #import "ProfileViewController.h"
-#import "ShowPromotionTrips.h"
 #import "ShowMyPromotionTrip.h"
 #import "LoginViewController.h"
 #import "SupportViewController.h"
@@ -120,8 +119,7 @@
     }
     else if (indexPath.row == 3)
     {
-        ShowPromotionTrips *controller = (ShowPromotionTrips*)[mainStoryboard instantiateViewControllerWithIdentifier: @"ShowPromotionTrip"];
-        [navigationController pushViewController:controller animated:YES];
+
     }
     else if (indexPath.row == 4)
     {

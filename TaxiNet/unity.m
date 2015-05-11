@@ -7,7 +7,7 @@
 //
 
 #import "unity.h"
-#define URL @"http://192.168.0.102:8080"
+#define URL @"http://192.168.100.11:8080"
 
 #define URL_SIGNIN @"/TN/restServices/riderController/LoginiOS"
 #define CHANGE_PASSWORD_URL @"/TN/restServices/riderController/ChangePassword"

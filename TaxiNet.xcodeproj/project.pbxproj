@@ -91,10 +91,8 @@
 		7772F4451AD7CFCD00467247 /* From.png in Resources */ = {isa = PBXBuildFile; fileRef = 7772F4431AD7CFCD00467247 /* From.png */; };
 		7772F4461AD7CFCD00467247 /* to.png in Resources */ = {isa = PBXBuildFile; fileRef = 7772F4441AD7CFCD00467247 /* to.png */; };
 		77DE944B1AE3EDA20049B2E8 /* call_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DE944A1AE3EDA20049B2E8 /* call_btn.png */; };
-		8F025F2D1ADBF9380044087F /* ShowPromotionTrips.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F025F2C1ADBF9380044087F /* ShowPromotionTrips.m */; };
 		8F025F2F1ADC28DB0044087F /* yourlogohere.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F025F2E1ADC28DB0044087F /* yourlogohere.png */; };
 		8F025F311ADC294A0044087F /* CustomPromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F025F301ADC294A0044087F /* CustomPromotionCell.xib */; };
-		8F025F341ADC2D090044087F /* CustomCellPromotionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F025F331ADC2D090044087F /* CustomCellPromotionTableViewCell.m */; };
 		8F025F371ADC3E3A0044087F /* ShowMyPromotionTrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F025F361ADC3E3A0044087F /* ShowMyPromotionTrip.m */; };
 		8F025F3A1ADC3EA00044087F /* CustomMyPromotionTrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F025F391ADC3EA00044087F /* CustomMyPromotionTrip.m */; };
 		8F025F3C1ADC3EC50044087F /* CustomMyPromotion.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F025F3B1ADC3EC50044087F /* CustomMyPromotion.xib */; };
@@ -263,12 +261,8 @@
 		7772F4431AD7CFCD00467247 /* From.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = From.png; sourceTree = "<group>"; };
 		7772F4441AD7CFCD00467247 /* to.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = to.png; sourceTree = "<group>"; };
 		77DE944A1AE3EDA20049B2E8 /* call_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = call_btn.png; sourceTree = "<group>"; };
-		8F025F2B1ADBF9380044087F /* ShowPromotionTrips.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowPromotionTrips.h; sourceTree = "<group>"; };
-		8F025F2C1ADBF9380044087F /* ShowPromotionTrips.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowPromotionTrips.m; sourceTree = "<group>"; };
 		8F025F2E1ADC28DB0044087F /* yourlogohere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yourlogohere.png; sourceTree = "<group>"; };
 		8F025F301ADC294A0044087F /* CustomPromotionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomPromotionCell.xib; sourceTree = "<group>"; };
-		8F025F321ADC2D090044087F /* CustomCellPromotionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCellPromotionTableViewCell.h; sourceTree = "<group>"; };
-		8F025F331ADC2D090044087F /* CustomCellPromotionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCellPromotionTableViewCell.m; sourceTree = "<group>"; };
 		8F025F351ADC3E3A0044087F /* ShowMyPromotionTrip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowMyPromotionTrip.h; sourceTree = "<group>"; };
 		8F025F361ADC3E3A0044087F /* ShowMyPromotionTrip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowMyPromotionTrip.m; sourceTree = "<group>"; };
 		8F025F381ADC3EA00044087F /* CustomMyPromotionTrip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMyPromotionTrip.h; sourceTree = "<group>"; };
@@ -458,7 +452,6 @@
 				7733C36B1AC6937B007A15ED /* Controller */,
 				772BBE161ABF127E0098AB20 /* Model */,
 				774318F71AAC414C001CF128 /* Lib */,
-				774318C81AA74568001CF128 /* Image */,
 				7743189E1AA73DBA001CF128 /* Supporting Files */,
 			);
 			path = TaxiNet;
@@ -635,10 +628,6 @@
 		8F025F2A1ADBF8580044087F /* promotiontrip */ = {
 			isa = PBXGroup;
 			children = (
-				8F025F2B1ADBF9380044087F /* ShowPromotionTrips.h */,
-				8F025F2C1ADBF9380044087F /* ShowPromotionTrips.m */,
-				8F025F321ADC2D090044087F /* CustomCellPromotionTableViewCell.h */,
-				8F025F331ADC2D090044087F /* CustomCellPromotionTableViewCell.m */,
 				8F025F351ADC3E3A0044087F /* ShowMyPromotionTrip.h */,
 				8F025F361ADC3E3A0044087F /* ShowMyPromotionTrip.m */,
 				8F025F381ADC3EA00044087F /* CustomMyPromotionTrip.h */,
@@ -721,6 +710,7 @@
 		8F7BAD051AF237C3007AE386 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				774318C81AA74568001CF128 /* Image */,
 				8F79333F1AFBCC4200126521 /* CustomCell */,
 				774318AB1AA73DBA001CF128 /* Main.storyboard */,
 				774318D31AA74794001CF128 /* AppLogin.storyboard */,
@@ -925,7 +915,6 @@
 				774319001AAC415A001CF128 /* JPSThumbnailAnnotationView.m in Sources */,
 				772BBE061ABF0EDA0098AB20 /* AFHTTPRequestOperationManager.m in Sources */,
 				772BBE071ABF0EDA0098AB20 /* AFHTTPSessionManager.m in Sources */,
-				8F025F2D1ADBF9380044087F /* ShowPromotionTrips.m in Sources */,
 				776090C61AADD59C00C21D94 /* RECommonFunctions.m in Sources */,
 				772BBE0C1ABF0EDA0098AB20 /* AFURLResponseSerialization.m in Sources */,
 				8F2D60FB1AF90F6000DA064E /* HistoryViewController.m in Sources */,
@@ -945,7 +934,6 @@
 				8F3DC47F1AD97FC9009A2FEF /* ChangeAddressViewController.m in Sources */,
 				8F9D13BF1ADD7A0F00EE8AB4 /* FindPromotionTrip.m in Sources */,
 				772BBE151ABF0EDA0098AB20 /* UIWebView+AFNetworking.m in Sources */,
-				8F025F341ADC2D090044087F /* CustomCellPromotionTableViewCell.m in Sources */,
 				776090C81AADD59C00C21D94 /* REFrostedViewController.m in Sources */,
 				8F025F371ADC3E3A0044087F /* ShowMyPromotionTrip.m in Sources */,
 				772BBE0F1ABF0EDA0098AB20 /* UIActivityIndicatorView+AFNetworking.m in Sources */,

@@ -74,6 +74,8 @@ NSString *a6 = @"";
         a5 = [userDefault valueForKey:@"email"];
         a6 = [userDefault valueForKey:@"phone"];
         NSLog(@"LOG vao:%@",appDelegate.profileFlag);
+    }else{
+        NSLog(@"SOME thing wrong");
     }
 
     // disable to change profiles
