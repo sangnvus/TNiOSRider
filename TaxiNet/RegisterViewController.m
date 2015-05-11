@@ -45,7 +45,7 @@ bool checked=NO;
                                                otherButtonTitles:nil, nil];
         [alertTmp show];
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        ViewController *controller = (ViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"ViewController"];
+        LoginViewController *controller = (LoginViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"LoginViewController"];
         [self.navigationController pushViewController:controller animated:YES];
 
     }
@@ -170,7 +170,7 @@ bool checked=NO;
 }
 
 - (IBAction)doCancel:(id)sender {
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"AppLogin" bundle: nil];
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     LoginViewController *controller = (LoginViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"LoginViewController"];
     
     [self.navigationController pushViewController:controller animated:YES];

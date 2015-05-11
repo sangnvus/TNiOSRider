@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate,CLLocationManagerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
@@ -17,12 +18,15 @@
 @property (nonatomic,strong) NSMutableDictionary *promotionDataDe;
 @property (nonatomic,strong) NSMutableArray *promotionDataArray;
 @property (nonatomic,retain) NSMutableArray *myPromotionTripArr;
+@property (nonatomic,retain) NSString *deviceToken;
+
 @property (nonatomic,strong) NSDictionary *RiderInfo;
 @property (nonatomic,strong) NSString *profileFlag;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (strong, nonatomic) CLLocationManager *locationManager;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

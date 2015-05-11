@@ -91,6 +91,8 @@
 		7772F4451AD7CFCD00467247 /* From.png in Resources */ = {isa = PBXBuildFile; fileRef = 7772F4431AD7CFCD00467247 /* From.png */; };
 		7772F4461AD7CFCD00467247 /* to.png in Resources */ = {isa = PBXBuildFile; fileRef = 7772F4441AD7CFCD00467247 /* to.png */; };
 		77DE944B1AE3EDA20049B2E8 /* call_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 77DE944A1AE3EDA20049B2E8 /* call_btn.png */; };
+		77EB0D6C1AFE548000AF123F /* mylocation.png in Resources */ = {isa = PBXBuildFile; fileRef = 77EB0D6B1AFE548000AF123F /* mylocation.png */; };
+		77EB0D6E1AFE8CE900AF123F /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 77EB0D6D1AFE8CE900AF123F /* search.png */; };
 		8F025F2F1ADC28DB0044087F /* yourlogohere.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F025F2E1ADC28DB0044087F /* yourlogohere.png */; };
 		8F025F311ADC294A0044087F /* CustomPromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8F025F301ADC294A0044087F /* CustomPromotionCell.xib */; };
 		8F025F371ADC3E3A0044087F /* ShowMyPromotionTrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F025F361ADC3E3A0044087F /* ShowMyPromotionTrip.m */; };
@@ -261,6 +263,8 @@
 		7772F4431AD7CFCD00467247 /* From.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = From.png; sourceTree = "<group>"; };
 		7772F4441AD7CFCD00467247 /* to.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = to.png; sourceTree = "<group>"; };
 		77DE944A1AE3EDA20049B2E8 /* call_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = call_btn.png; sourceTree = "<group>"; };
+		77EB0D6B1AFE548000AF123F /* mylocation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mylocation.png; sourceTree = "<group>"; };
+		77EB0D6D1AFE8CE900AF123F /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		8F025F2E1ADC28DB0044087F /* yourlogohere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yourlogohere.png; sourceTree = "<group>"; };
 		8F025F301ADC294A0044087F /* CustomPromotionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomPromotionCell.xib; sourceTree = "<group>"; };
 		8F025F351ADC3E3A0044087F /* ShowMyPromotionTrip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowMyPromotionTrip.h; sourceTree = "<group>"; };
@@ -489,6 +493,8 @@
 		774318C81AA74568001CF128 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				77EB0D6D1AFE8CE900AF123F /* search.png */,
+				77EB0D6B1AFE548000AF123F /* mylocation.png */,
 				8F2D60EC1AF7E61600DA064E /* service.png */,
 				8F2D60EA1AF7DFB800DA064E /* service_icon.png */,
 				77DE944A1AE3EDA20049B2E8 /* call_btn.png */,
@@ -860,10 +866,12 @@
 				774318F31AA9636A001CF128 /* HomeView.storyboard in Resources */,
 				8F025F3C1ADC3EC50044087F /* CustomMyPromotion.xib in Resources */,
 				775B5F741AE02A6100765F4F /* setting_bg.png in Resources */,
+				77EB0D6C1AFE548000AF123F /* mylocation.png in Resources */,
 				775B5F681ADEDA3C00765F4F /* fromMap.png in Resources */,
 				774319031AAC41AD001CF128 /* pinMap.png in Resources */,
 				776090AF1AAD728F00C21D94 /* BarButton.png in Resources */,
 				774318AF1AA73DBA001CF128 /* Images.xcassets in Resources */,
+				77EB0D6E1AFE8CE900AF123F /* search.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

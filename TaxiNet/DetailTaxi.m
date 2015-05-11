@@ -21,8 +21,8 @@
     self.imagedriver.layer.cornerRadius = self.imagedriver.frame.size.height/2;
     NSLog(@"data: %@",self.dataTaxi);
     self.distance.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"distance"];
-    self.to.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"adressFrom"];
-    self.from.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"adressTo"];
+    self.from.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"adressFrom"];
+    self.to.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"adressTo"];
     [self.boder setBackgroundColor: [UIColor colorWithRed:0.784 green:0.78 blue:0.8 alpha:1]];
     [self.boder1 setBackgroundColor: [UIColor colorWithRed:0.784 green:0.78 blue:0.8 alpha:1]];
     [self.boder2 setBackgroundColor: [UIColor colorWithRed:0.784 green:0.78 blue:0.8 alpha:1]];
@@ -31,17 +31,38 @@
     
     NSString *taxiname=[self.dataTaxi objectForKey:@"companyName"];
     NSString *cartype=[self.dataTaxi objectForKey:@"carTypeID"];
-//    if ([self.dataTaxi objectForKey:@"companyName"]!=nil ||[[self.dataTaxi objectForKey:@"companyName"] isEqualToString:@""]) {
-//        self.taxiname.text=[self.dataTaxi objectForKey:@"companyName"];
+//    if (cartype ==NULL || [cartype isEqualToString:@""]) {
+//        
 //    }
+//    else
+//    self.taxisheet.text=cartype;
+    if ([self.dataTaxi objectForKey:@"companyName"]==[NSNull null] ||[[self.dataTaxi objectForKey:@"companyName"] isEqualToString:@""]) {
+    }
+    else
+        self.taxiname.text=[self.dataTaxi objectForKey:@"companyName"];
+
     NSString * name=[NSString stringWithFormat:@"%@ %@",[self.dataTaxi objectForKey:@"lastName"],[self.dataTaxi objectForKey:@"firstName"]];
     self.namedriver.text =name;
-//    if ([self.dataTaxi objectForKey:@"carTypeID"]!=nil ||[[self.dataTaxi objectForKey:@"companyName"] isEqualToString:@""]) {
-//        self.taxisheet.text=[self.dataTaxi objectForKey:@"carTypeID"];
-//    }
-    
-}
+    if ([self.dataTaxi objectForKey:@"carTypeID"]== [NSNull null] ||[[self.dataTaxi objectForKey:@"carTypeID"] isEqualToString:@""]) {
+    }
+    else
+        self.taxisheet.text=[self.dataTaxi objectForKey:@"carTypeID"];
+    if ([self.dataTaxi objectForKey:@"phoneNumber"]== [NSNull null] ||[[self.dataTaxi objectForKey:@"phoneNumber"] isEqualToString:@""]) {
+    }
+    else
+    self.phone.text=[self.dataTaxi objectForKey:@"phoneNumber"];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"dismissDetail" object:nil];
 
+}
+-(void) receiveNotification:(NSNotification *) notification
+{
+    if ([[notification name]isEqualToString:@"dismissDetail"]) {
+        [self.vcParent dismissPopupViewControllerAnimated:YES completion:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"hidenGrayView" object:self];
+
+        }];
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -91,8 +112,8 @@
     }];
 }
 - (IBAction)Call:(id)sender {
-    NSString *phoneNumber=[self.dataTaxi objectForKey:@"phoneNumber"];
-    NSURL *url = [ [ NSURL alloc ] initWithString:[NSString stringWithFormat:@"tel:%@",phoneNumber]];
-    [[UIApplication sharedApplication] openURL:url];
+    NSString *phoneNumber = [@"tel://" stringByAppendingString:[[self.dataTaxi objectForKey:@"phoneNumber"] stringByReplacingOccurrencesOfString:@" " withString:@""]];
+
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
 }
 @end

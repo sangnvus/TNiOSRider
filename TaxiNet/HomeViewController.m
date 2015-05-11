@@ -14,7 +14,7 @@
     CLLocationCoordinate2D coordinateTo;
     MKPlacemark *placeFrom, *placeTo;
     int locationTabPosition;
-    UITapGestureRecognizer *gestureFrom, *gestureTo;
+    UITapGestureRecognizer *gestureFrom, *gestureTo,*gestureGray;
     MKRoute *routeDetails;
     NSMutableArray *arrDataSearched;
     NSInteger selectTo;
@@ -24,7 +24,13 @@
     BOOL GetPoint;
     BOOL clickAnnonation;
     BOOL addAnnonation;
+    BOOL regionSelect;
+    UITableView *mTableViewSuggest;
+    UIView *background;
+
 }
+@property (nonatomic, strong) MKLocalSearch *localSearch;
+
 @end
 @implementation HomeViewController
 @synthesize mLocationFrom,mLocationTo,mImageFocus,mapview,viewLocationFrom,viewLocationTo,homeviewmap;
@@ -34,13 +40,29 @@
     appdelegate=(AppDelegate *)[[UIApplication sharedApplication] delegate];
     //search setup
     fromselect=FALSE;
-    
+    regionSelect=FALSE;
     finTaxi=FALSE;
     GetPoint=FALSE;
     clickAnnonation=FALSE;
     addAnnonation=FALSE;
-    arrDataSearched = [[NSMutableArray alloc] init];
     
+    self.mSearchBar.delegate = self;
+    arrDataSearched = [[NSMutableArray alloc] init];
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    mTableViewSuggest = [[UITableView alloc] initWithFrame:CGRectMake(0, self.mSearchBar.frame.origin.y + self.mSearchBar.frame.size.height, screenWidth,0)];
+    mTableViewSuggest.delegate = self;
+    mTableViewSuggest.dataSource = self;
+    background.hidden=YES;
+
+    [mTableViewSuggest setHidden:YES];
+    mTableViewSuggest.backgroundColor =[UIColor whiteColor];
+    background=[[UIView alloc] initWithFrame: CGRectMake ( 0, 60, 320, 500)];
+    background.backgroundColor =[UIColor colorWithRed:.1 green:.1 blue:.1 alpha: .4];
+    [self.view addSubview:background];
+    [self.view addSubview:mTableViewSuggest];
+    background.hidden=YES;
+
     //set anchor point focus point
     mImageFocus.layer.anchorPoint = CGPointMake(0.5, 1.0);
     mapview.delegate = self;
@@ -56,6 +78,9 @@
     gestureFrom = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                           action:@selector(selectLocationFrom:)];
     [self.viewLocationFrom addGestureRecognizer:gestureFrom];
+    gestureGray = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                        action:@selector(dismissDetail:)];
+    [self.grayView addGestureRecognizer:gestureGray];
     
     gestureTo = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                         action:@selector(selectLocationTo:)];
@@ -78,10 +103,15 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"ShowViewDetail" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"getRiderInfo" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"HidenViewDetail" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"hidenGrayView" object:nil];
+
 
 }
 -(void) receiveNotification:(NSNotification *) notification
 {
+    if ([[notification name]isEqualToString:@"hidenGrayView"]) {
+        self.grayView.hidden=YES;
+    }
     if ([[notification name]isEqualToString:@"ShowViewDetail"]) {
         [self changeViewDetail];
     }
@@ -162,6 +192,152 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
         
     }
 }
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [arrDataSearched count];;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"CellIdentifier";
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    if (cell == nil) {
+        cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    }
+    
+    cell.backgroundColor = [UIColor clearColor];
+    
+    MKMapItem *entity = [arrDataSearched objectAtIndex:indexPath.row];
+    cell.textLabel.text = entity.placemark.title;
+    cell.textLabel.textColor = [UIColor blackColor];
+    
+    return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MKMapItem *mapItem = [arrDataSearched objectAtIndex:indexPath.row];
+    self.mapview.centerCoordinate = mapItem.placemark.coordinate;
+    [UIView beginAnimations:@"animateAddContentView" context:nil];
+    [UIView setAnimationDuration:0.4];
+    CGRect frame=self.ViewtabBar.frame;
+    frame.origin.y=0;
+    self.ViewtabBar.frame=frame;
+    [UIView commitAnimations];
+    background.hidden=YES;
+    [mTableViewSuggest setBounds:CGRectMake(0,
+                                            self.mSearchBar.frame.origin.y + self.mSearchBar.frame.size.height,320,0)];
+    [self.view endEditing:YES];
+}
+- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
+{
+    [searchBar resignFirstResponder];
+    [UIView beginAnimations:@"animateAddContentView" context:nil];
+    [UIView setAnimationDuration:0.4];
+    CGRect frame=self.ViewtabBar.frame;
+    frame.origin.y=0;
+    self.ViewtabBar.frame=frame;
+    [UIView commitAnimations];
+    background.hidden=YES;
+    [mTableViewSuggest setBounds:CGRectMake(0,
+                                            self.mSearchBar.frame.origin.y + self.mSearchBar.frame.size.height,320,0)];
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    [searchBar setShowsCancelButton:YES animated:YES];
+    CATransition *animation = [CATransition animation];
+    animation.type = kCATransitionFade;
+    animation.duration = 0.4;
+    [mTableViewSuggest.layer addAnimation:animation forKey:nil];
+    [mTableViewSuggest setHidden:NO];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    [searchBar setShowsCancelButton:NO animated:YES];
+    CATransition *animation = [CATransition animation];
+    animation.type = kCATransitionFade;
+    animation.duration = 0.4;
+    [mTableViewSuggest.layer addAnimation:animation forKey:nil];
+    [mTableViewSuggest setHidden:YES];
+    [arrDataSearched removeAllObjects];
+    
+    [mTableViewSuggest reloadData];
+    
+    searchBar.text = @"";
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [arrDataSearched removeAllObjects];
+    
+    if (searchText ==NULL || [searchText isEqualToString:@""]) {
+        
+    }
+    else{
+        if (self.localSearch.searching)
+        {
+            [self.localSearch cancel];
+        }
+        MKLocalSearchRequest *request = [[MKLocalSearchRequest alloc] init];
+        
+        request.naturalLanguageQuery = searchText;
+        MKCoordinateRegion newRegion;
+        NSString* longitude = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitude"];
+        NSString* latitude = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitude"];
+        newRegion.center.latitude = [latitude doubleValue];
+        newRegion.center.longitude = [longitude doubleValue];
+        newRegion.span.latitudeDelta = 0.112872;
+        newRegion.span.longitudeDelta = 0.109863;
+        request.region = newRegion;
+        MKLocalSearchCompletionHandler completionHandler = ^(MKLocalSearchResponse *response, NSError *error)
+        {
+            if (error != nil)
+            {
+                NSString *errorStr = [[error userInfo] valueForKey:NSLocalizedDescriptionKey];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not find places"
+                                                                message:errorStr
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            }
+            else
+            {
+                [arrDataSearched addObjectsFromArray:[response mapItems]];
+                
+                CGRect bounds = [mTableViewSuggest bounds];
+                self.boundingRegion = response.boundingRegion;
+                [mTableViewSuggest setBounds:CGRectMake(bounds.origin.x,
+                                                        self.mSearchBar.frame.origin.y + self.mSearchBar.frame.size.height,
+                                                        bounds.size.width,
+                                                        250)];
+                CGRect frame=mTableViewSuggest.frame;
+                frame.origin.y=60;
+                mTableViewSuggest.frame=frame;
+                if (arrDataSearched.count==0) {
+                    mTableViewSuggest.hidden=YES;
+                }
+                else
+                    mTableViewSuggest.hidden=NO;
+                [mTableViewSuggest reloadData];
+            }
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        };
+        if (self.localSearch != nil)
+        {
+            self.localSearch = nil;
+        }
+        self.localSearch = [[MKLocalSearch alloc] initWithRequest:request];
+        
+        [self.localSearch startWithCompletionHandler:completionHandler];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    }
+    
+    
+}
+
 -(void)changeViewDetail
 {
 //    [UIView setAnimationDuration:0.5];
@@ -174,6 +350,11 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
     framedetail.origin.y=5;
     self.ViewDetail.frame=framedetail;
     [UIView commitAnimations];
+}
+-(void)dismissDetail:(UITapGestureRecognizer *)recognizer
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissDetail" object:self];
+
 }
 - (void)selectLocationFrom:(UITapGestureRecognizer *)recognizer {
     [mImageFocus setImage:[UIImage imageNamed:@"fromMap.png"]];
@@ -200,11 +381,11 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
             if (annotation != mapview.userLocation)
                 [toRemove addObject:annotation];
         [mapview removeAnnotations:toRemove];
-        JPSThumbnail *annotation = [[JPSThumbnail alloc] init];
-        annotation.coordinate = CLLocationCoordinate2DMake([latitudeFrom floatValue], [longitudeFrom floatValue]);
-        annotation.image = [UIImage imageNamed:@"fromMap.png"];
-        
-        [self.mapview addAnnotation:[JPSThumbnailAnnotation annotationWithThumbnail:annotation]];
+//        JPSThumbnail *annotation = [[JPSThumbnail alloc] init];
+//        annotation.coordinate = CLLocationCoordinate2DMake([latitudeFrom floatValue], [longitudeFrom floatValue]);
+//        annotation.image = [UIImage imageNamed:@"fromMap.png"];
+//        
+//        [self.mapview addAnnotation:[JPSThumbnailAnnotation annotationWithThumbnail:annotation]];
         
         if (addAnnonation==FALSE) {
             NSString *longitudeTo = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitudeTo"];
@@ -216,6 +397,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
         }
         addAnnonation=FALSE;
     }
+    regionSelect=TRUE;
 
 }
 - (void)selectLocationTo:(UITapGestureRecognizer *)recognizer {
@@ -247,10 +429,10 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
         if (annotation != mapview.userLocation)
             [toRemove addObject:annotation];
     [mapview removeAnnotations:toRemove];
-    JPSThumbnail *annotationTo = [[JPSThumbnail alloc] init];
-    annotationTo.coordinate = CLLocationCoordinate2DMake([latitudeTo floatValue], [longitudeTo floatValue]);
-    annotationTo.image = [UIImage imageNamed:@"toMap.png"];
-    [self.mapview addAnnotation:[JPSThumbnailAnnotation annotationWithThumbnail:annotationTo]];
+//    JPSThumbnail *annotationTo = [[JPSThumbnail alloc] init];
+//    annotationTo.coordinate = CLLocationCoordinate2DMake([latitudeTo floatValue], [longitudeTo floatValue]);
+//    annotationTo.image = [UIImage imageNamed:@"toMap.png"];
+//    [self.mapview addAnnotation:[JPSThumbnailAnnotation annotationWithThumbnail:annotationTo]];
     
     
     NSString *longitudeFrom = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitudeFrom"];
@@ -259,9 +441,23 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
     annotation.coordinate = CLLocationCoordinate2DMake([latitudeFrom floatValue], [longitudeFrom floatValue]);
     annotation.image = [UIImage imageNamed:@"fromMap.png"];
     [self.mapview addAnnotation:[JPSThumbnailAnnotation annotationWithThumbnail:annotation]];
+    regionSelect=FALSE;
 }
 
 - (IBAction)waitingTaxi:(id)sender {
+}
+
+- (IBAction)setMylocation:(id)sender {
+    NSString* longitude = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitude"];
+    NSString* latitude = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitude"];
+    MKCoordinateRegion region = { {0.0, 0.0 }, { 0.0, 0.0 } };
+    region.center.latitude = [latitude doubleValue] ;
+    region.center.longitude = [longitude doubleValue];
+    region.span.longitudeDelta = 0.05f;
+    region.span.latitudeDelta = 0.05f;
+    [[NSUserDefaults standardUserDefaults] setObject:longitude forKey:@"longitudeTo"];
+    [[NSUserDefaults standardUserDefaults] setObject:latitude forKey:@"latitudeTo"];
+    [self.mapview setRegion:region animated:YES];
 }
 
 - (IBAction)BookNow:(id)sender {
@@ -343,27 +539,76 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
         self.mImageFocus.hidden=YES;
         GetPoint=TRUE;
         finTaxi=TRUE;
+        [self.viewLocationFrom removeGestureRecognizer:gestureFrom];
+        [self.viewLocationTo removeGestureRecognizer:gestureTo];
     }
     else if(finTaxi==TRUE)
     {
+        [self.mapview removeOverlays:self.mapview.overlays];
         self.mImageFocus.hidden=NO;
         [self.findMyTaxi setTitle:@"Find My Taxi" forState:UIControlStateNormal];
         finTaxi=FALSE;
         GetPoint=FALSE;
+        [self.viewLocationFrom addGestureRecognizer:gestureFrom];
+        [self.viewLocationTo addGestureRecognizer:gestureTo];
+        
+        NSInteger toRemoveCount = mapview.annotations.count;
+        NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:toRemoveCount];
+        for (id annotation in mapview.annotations)
+            if (annotation != mapview.userLocation)
+                [toRemove addObject:annotation];
+        [mapview removeAnnotations:toRemove];
+        if (regionSelect==TRUE) {
+            NSString *longitudeFrom = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitudeFrom"];
+            NSString *latitudeFrom = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitudeFrom"];
+            MKCoordinateRegion region = { {0.0, 0.0 }, { 0.0, 0.0 } };
+            region.center.latitude = [latitudeFrom floatValue] ;
+            region.center.longitude = [longitudeFrom floatValue];
+            region.span.longitudeDelta = 0.05f;
+            region.span.latitudeDelta = 0.05f;
+            [self.mapview setRegion:region animated:YES];
+            
+            NSString *longitudeTo = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitudeTo"];
+            NSString *latitudeTo = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitudeTo"];
+            JPSThumbnail *annotationTo = [[JPSThumbnail alloc] init];
+            annotationTo.coordinate = CLLocationCoordinate2DMake([latitudeTo floatValue], [longitudeTo floatValue]);
+            annotationTo.image = [UIImage imageNamed:@"toMap.png"];
+            [self.mapview addAnnotation:[JPSThumbnailAnnotation annotationWithThumbnail:annotationTo]];
+        }
+        else
+        {
+            [self.mapview removeOverlays:self.mapview.overlays];
+            NSString *longitudeTo = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitudeTo"];
+            NSString *latitudeTo = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitudeTo"];
+            MKCoordinateRegion region = { {0.0, 0.0 }, { 0.0, 0.0 } };
+            region.center.latitude = [latitudeTo floatValue] ;
+            region.center.longitude = [longitudeTo floatValue];
+            region.span.longitudeDelta = 0.05f;
+            region.span.latitudeDelta = 0.05f;
+            [self.mapview setRegion:region animated:YES];
+            
+            NSString *longitudeFrom = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitudeFrom"];
+            NSString *latitudeFrom = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitudeFrom"];
+            JPSThumbnail *annotation = [[JPSThumbnail alloc] init];
+            annotation.coordinate = CLLocationCoordinate2DMake([latitudeFrom floatValue], [longitudeFrom floatValue]);
+            annotation.image = [UIImage imageNamed:@"fromMap.png"];
+            [self.mapview addAnnotation:[JPSThumbnailAnnotation annotationWithThumbnail:annotation]];
+        }
     }
 }
 
+ 
 -(void)zoomInToMyLocation
 {
-    //    NSString* longitude = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitude"];
-    //    NSString* latitude = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitude"];
+    NSString* longitude = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitude"];
+    NSString* latitude = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitude"];
     MKCoordinateRegion region = { {0.0, 0.0 }, { 0.0, 0.0 } };
-    region.center.latitude = 21.0018385 ;
-    region.center.longitude = 105.80524481;
+    region.center.latitude = [latitude doubleValue] ;
+    region.center.longitude = [longitude doubleValue];
     region.span.longitudeDelta = 0.05f;
     region.span.latitudeDelta = 0.05f;
-    [[NSUserDefaults standardUserDefaults] setObject:@"105.80524481" forKey:@"longitudeTo"];
-    [[NSUserDefaults standardUserDefaults] setObject:@"21.0018385" forKey:@"latitudeTo"];
+    [[NSUserDefaults standardUserDefaults] setObject:longitude forKey:@"longitudeTo"];
+    [[NSUserDefaults standardUserDefaults] setObject:latitude forKey:@"latitudeTo"];
     [self.mapview setRegion:region animated:YES];
     mImageFocus.hidden=NO;
 }
@@ -389,7 +634,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
 //            frame.size.height=510;
 //            mapview.frame=frame;
 //            [UIView commitAnimations];
-            
+            self.grayView.hidden=NO;
             DetailTaxi *detailTaxi = [[DetailTaxi alloc] initWithNibName:@"DetailTaxi" bundle:nil];
             detailTaxi.vcParent = self;
             detailTaxi.dataTaxi=json;
@@ -553,5 +798,19 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
     //add gesture to map
     [viewLocationFrom removeGestureRecognizer:gestureFrom];
     [viewLocationTo removeGestureRecognizer:gestureTo];
+}
+- (IBAction)searchMap:(id)sender {
+    [UIView beginAnimations:@"animateAddContentView" context:nil];
+    [UIView setAnimationDuration:0.4];
+    CGRect frame=self.ViewtabBar.frame;
+    frame.origin.y=-100;
+    self.ViewtabBar.frame=frame;
+    [UIView commitAnimations];
+    [self.mSearchBar becomeFirstResponder];
+//    [self.searchDisplayController setActive:YES animated:YES];
+    background.hidden=NO;
+//    CGRect frame1=background.frame;
+//    frame1.origin.y=65;
+//    background.frame=frame1;
 }
 @end

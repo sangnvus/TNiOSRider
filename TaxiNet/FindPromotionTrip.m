@@ -185,6 +185,7 @@
         
         [registerProData setObject:self.noOfSeatsField.text forKey:@"noOfSeats"];
         [registerProData setObject:@"2015-05-17 12:00:00" forKey:@"dataTime"];
+
         
         
         // goto next screen
