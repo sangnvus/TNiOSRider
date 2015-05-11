@@ -7,19 +7,20 @@
 //
 
 #import "unity.h"
-#define URL @"http://192.168.0.102:8080"
+#define URL @"http://192.168.100.8:8080/TN"
+//#define URL @"http://callingme.info/taxinet"
 
-#define URL_SIGNIN @"/TN/restServices/riderController/LoginiOS"
-#define CHANGE_PASSWORD_URL @"/TN/restServices/riderController/ChangePassword"
-#define REGISTER_URL @"/TN/restServices/riderController/registeriOS"
-#define UPDATE_URL @"/TN/restServices/riderController/UpdateRider"
-#define NEAR_TAXI_URL @"/TN/restServices/DriverController/getNearDriver"
-#define FIND_PROMOTION_TRIP_URL @"/TN/restServices/PromotionTripController/FindPromotionTripiOS"
-#define MY_PROMOTION_URL @"/TN/restServices/PromotionTripController/GetListPromotionTripRideriOS"
-#define CREATETRIP @"/TN/restServices/TripController/CreateTripiOS"
-#define REGISTER_PROMOTION_TRIP_URL @"/TN/restServices/PromotionTripController/RegisterPromotionTripiOS"
-#define UPDATETRIP @"/TN/restServices/TripController/UpdateTripiOS"
-#define HISTORY_URL @"/TN/restServices/TripController/GetListCompleteTripRideriOS"
+#define URL_SIGNIN @"/restServices/riderController/LoginiOS"
+#define CHANGE_PASSWORD_URL @"/restServices/riderController/ChangePassword"
+#define REGISTER_URL @"/restServices/riderController/registeriOS"
+#define UPDATE_URL @"/restServices/riderController/UpdateRider"
+#define NEAR_TAXI_URL @"/restServices/DriverController/getNearDriveriOS"
+#define FIND_PROMOTION_TRIP_URL @"/restServices/PromotionTripController/FindPromotionTripiOS"
+#define MY_PROMOTION_URL @"/restServices/PromotionTripController/GetListPromotionTripRideriOS"
+#define CREATETRIP @"/restServices/TripController/CreateTripiOS"
+#define REGISTER_PROMOTION_TRIP_URL @"/restServices/PromotionTripController/RegisterPromotionTripiOS"
+#define UPDATETRIP @"/restServices/TripController/UpdateTripiOS"
+#define HISTORY_URL @"/restServices/TripController/GetListCompleteTripRideriOS"
 
 
 
@@ -32,10 +33,9 @@
                 owner:(LoginViewController*)owner
 {
     UserInfo *model = [[UserInfo alloc] init];
-    NSString *regId1= @"111";
     NSString *url=[NSString stringWithFormat:@"%@%@",URL,URL_SIGNIN];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *params2 = @ {@"username":email, @"password":pass ,@"regId":regId1, @"deviceType":deviceType};
+    NSDictionary *params2 = @ {@"username":email, @"password":pass ,@"regId":regId, @"deviceType":deviceType};
     
     [manager POST:url parameters:params2
           success:^(AFHTTPRequestOperation *operation, id responseObject)

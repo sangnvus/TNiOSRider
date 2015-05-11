@@ -120,7 +120,7 @@
 
 - (IBAction)doRegisterPromotionTrip:(id)sender {
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-    NSString *promotionTripId = @"77a3575c-8c7d-4b14-afe4-a9147b3036f9";
+    NSString *promotionTripId = [user valueForKey:@"promotionTripId"];
     //notice
     NSString *riderId = [user objectForKey:@"riderId"];
     NSString *fromCity = [user valueForKey:@"fromCityShow1"];

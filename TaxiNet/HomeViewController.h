@@ -12,8 +12,9 @@
 #import "UIViewController+CWPopup.h"
 #import "DetailTaxi.h"
 #import "unity.h"
-@interface HomeViewController : UIViewController<CLLocationManagerDelegate,MKMapViewDelegate,UITextFieldDelegate>
+@interface HomeViewController : UIViewController<CLLocationManagerDelegate,MKMapViewDelegate,UITextFieldDelegate,UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
 - (IBAction)menu:(id)sender;
+@property (weak, nonatomic) IBOutlet UIView *grayView;
 @property (weak, nonatomic) IBOutlet MKMapView *mapview;
 
 @property (weak, nonatomic) IBOutlet UILabel *mLocationTo;
@@ -31,7 +32,13 @@
 @property (weak, nonatomic) IBOutlet UIView *ViewDetail;
 @property (weak, nonatomic) IBOutlet UILabel *mLocationCityFrom;
 @property (weak, nonatomic) IBOutlet UILabel *mLocationCityTo;
+- (IBAction)setMylocation:(id)sender;
 
 - (IBAction)BookNow:(id)sender;
 -(void)checkGetnearTaxi;
+
+@property (weak, nonatomic) IBOutlet UIView *ViewtabBar;
+@property (weak, nonatomic) IBOutlet UISearchBar *mSearchBar;
+- (IBAction)searchMap:(id)sender;
+
 @end

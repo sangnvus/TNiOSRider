@@ -16,6 +16,7 @@
     
 }
 @synthesize yoursefl, promotionDataArray, myPromotionTripArr,profileFlag;
+@synthesize locationManager;
 
 
 
@@ -32,9 +33,41 @@
          (UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
     }
     
-    NSLog(@"%@",launchOptions);
-   // promotionDataArray= [[NSMutableArray alloc]init];
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+        [self.locationManager requestWhenInUseAuthorization];
+    
+    [locationManager startUpdatingLocation];
+    // promotionDataArray= [[NSMutableArray alloc]init];
     return YES;
+}
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"didFailWithError: %@", error);
+    UIAlertView *errorAlert = [[UIAlertView alloc]
+                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [errorAlert show];
+    
+    
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    //        NSLog(@"didUpdateToLocation: %i", updatelocation);
+    
+    CLLocation *currentLocation = newLocation;
+    
+    if (currentLocation != nil) {
+        NSString *latu = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
+        NSString *lati = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
+        [[NSUserDefaults standardUserDefaults] setObject:latu forKey:@"longitude"];
+        [[NSUserDefaults standardUserDefaults] setObject:lati forKey:@"latitude"];
+        
+    }
 }
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
@@ -46,6 +79,7 @@
     
     NSLog(@"%@",deviceToke1n);
     [[NSUserDefaults standardUserDefaults] setObject:deviceToke1n forKey:@"deviceToken"];
+    self.deviceToken=deviceToke1n;
     profileFlag = @"0";
 //    NSLog(@"My token is: %@", deviceToken);
     

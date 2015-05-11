@@ -141,9 +141,17 @@
         [navigationController pushViewController:controller animated:YES];
     }
     else if (indexPath.row == 7 ){
+        NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
+        NSDictionary * dict = [defs dictionaryRepresentation];
+        for (id key in dict) {
+            [defs removeObjectForKey:key];
+        }
+        [defs synchronize];
+        NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+        [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+
         LoginViewController  *controller = (LoginViewController *)[mainStoryboard1 instantiateViewControllerWithIdentifier: @"LoginViewController"];
         [navigationController pushViewController:controller animated:YES];
-
     }
     
     self.frostedViewController.contentViewController = navigationController;

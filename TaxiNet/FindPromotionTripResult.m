@@ -172,13 +172,14 @@
 {
     NSArray *arrFlag = [[NSArray alloc]init];
      arrFlag = [promotionTripResult objectAtIndex:indexPath.row];
-    NSLog(@"arr flag  gg g g :%@",arrFlag);
-    if (indexPath != 0) {
+    //NSLog(@"arr flag  gg g g :%@",arrFlag);
+    //if (indexPath != 0) {
         NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
         
         [user setObject:[arrFlag valueForKey:@"fromCity"] forKey:@"fromCityShow1"];
         [user setObject:[arrFlag valueForKey:@"toCity"] forKey:@"toCityShow1"];
-    }
+    [user setObject:[arrFlag valueForKey:@"id"] forKey:@"promotionTripId"];
+    //}
 
     
     homeStoryBoard = [UIStoryboard storyboardWithName:@"HomeView" bundle:nil];

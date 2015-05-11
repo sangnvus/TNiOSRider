@@ -13,6 +13,7 @@
 @interface DetailTaxi : UIViewController
 - (IBAction)Book:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UILabel *phone;
 - (IBAction)cancel:(id)sender;
 @property (nonatomic, retain) UIViewController *vcParent;
 @property (weak, nonatomic) IBOutlet UILabel *taxiname;
