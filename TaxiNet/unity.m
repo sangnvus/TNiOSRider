@@ -7,9 +7,10 @@
 //
 
 #import "unity.h"
-#define URL @"http://192.168.100.8:8080/TN"
+#define URL @"http://192.168.100.11:8080/TN"
 //#define URL @"http://callingme.info/taxinet"
 
+#define URL_AUTO_LOGIN @"/restServices/riderController/AutoLoginiOS"
 #define URL_SIGNIN @"/restServices/riderController/LoginiOS"
 #define CHANGE_PASSWORD_URL @"/restServices/riderController/ChangePassword"
 #define REGISTER_URL @"/restServices/riderController/registeriOS"
@@ -32,6 +33,9 @@
            deviceType:(NSString *)deviceType
                 owner:(LoginViewController*)owner
 {
+    if ([regId isEqualToString:@""]|| [regId length]==0) {
+        regId = [NSString stringWithFormat:@"TOKENFAILED"];
+    }
     UserInfo *model = [[UserInfo alloc] init];
     NSString *url=[NSString stringWithFormat:@"%@%@",URL,URL_SIGNIN];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -281,6 +285,21 @@
               NSLog(@"ERROR:%@",error);
           }];
     
+    
+}
++(void)automationLogin:(NSString *)tokenDevice deviceType:(NSString *)deviceType
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",URL,URL_AUTO_LOGIN];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *param = @{@"regId":tokenDevice,@"deviceType":deviceType};
+    
+    [manager POST:url
+       parameters:param
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"SUSUSUUS");
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"FIFIFI: %@",error);
+          }];
     
 }
 

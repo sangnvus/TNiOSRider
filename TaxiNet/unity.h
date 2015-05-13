@@ -58,5 +58,5 @@
 
 +(void)getTripHistoryWithRiderId:(NSString*)riderId
                            owner:(HistoryViewController*)owner;
-
++(void)automationLogin:(NSString*)tokenDevice deviceType:(NSString*)deviceType;
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "unity.h"
 
 @interface AppDelegate ()
 
@@ -80,6 +81,7 @@
     NSLog(@"%@",deviceToke1n);
     [[NSUserDefaults standardUserDefaults] setObject:deviceToke1n forKey:@"deviceToken"];
     self.deviceToken=deviceToke1n;
+    
     profileFlag = @"0";
 //    NSLog(@"My token is: %@", deviceToken);
     

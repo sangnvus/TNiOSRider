@@ -119,26 +119,24 @@
     }
     else if (indexPath.row == 3)
     {
-
-    }
-    else if (indexPath.row == 4)
-    {
         //[unity getMyPromotionTrip:@"2" owner:self];
         ShowMyPromotionTrip *controller = (ShowMyPromotionTrip *)[mainStoryboard instantiateViewControllerWithIdentifier: @"ShowMyPromotionTrip"];
         [navigationController pushViewController:controller animated:YES];
     }
-    else if (indexPath.row == 5)
+    else if (indexPath.row == 4)
     {
         AboutUsViewController  *controller = (AboutUsViewController *)[menuStoryboard instantiateViewControllerWithIdentifier: @"AboutUsViewController"];
         [navigationController pushViewController:controller animated:YES];
+    }
+    else if (indexPath.row == 5)
+    {
+        SupportViewController  *controller = (SupportViewController *)[menuStoryboard instantiateViewControllerWithIdentifier: @"SupportViewController"];
+        [navigationController pushViewController:controller animated:YES];
+
 
     }
     else if (indexPath.row == 6)
     {
-        SupportViewController  *controller = (SupportViewController *)[menuStoryboard instantiateViewControllerWithIdentifier: @"SupportViewController"];
-        [navigationController pushViewController:controller animated:YES];
-    }
-    else if (indexPath.row == 7 ){
         NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
         NSDictionary * dict = [defs dictionaryRepresentation];
         for (id key in dict) {
@@ -147,9 +145,12 @@
         [defs synchronize];
         NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
         [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
-
+        
         LoginViewController  *controller = (LoginViewController *)[mainStoryboard1 instantiateViewControllerWithIdentifier: @"LoginViewController"];
         [navigationController pushViewController:controller animated:YES];
+    }
+    else if (indexPath.row == 7 ){
+
     }
     
     self.frostedViewController.contentViewController = navigationController;
@@ -172,7 +173,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return 8;
+    return 7;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -184,7 +185,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-        NSArray *titles = @[@"Home", @"Profile", @"History", @"Promotion Trips",@"My Promotion Trips", @"About Us",@"Support",@"Logout"];
+        NSArray *titles = @[@"Home", @"Profile", @"My Trips",@"My Promotion Trips", @"About Us",@"Support",@"Logout"];
         cell.textLabel.text = titles[indexPath.row];
     
     return cell;
