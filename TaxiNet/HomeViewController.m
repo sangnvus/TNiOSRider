@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "REFrostedViewController.h"
+#import "PaymentViewController.h"
 @interface HomeViewController () {
     CLLocationCoordinate2D coordinateFrom;
     CLLocationCoordinate2D coordinateTo;
@@ -27,7 +28,7 @@
     BOOL regionSelect;
     UITableView *mTableViewSuggest;
     UIView *background;
-
+    BOOL selectPay;
 }
 @property (nonatomic, strong) MKLocalSearch *localSearch;
 
@@ -45,6 +46,7 @@
     GetPoint=FALSE;
     clickAnnonation=FALSE;
     addAnnonation=FALSE;
+    selectPay=FALSE;
     
     self.mSearchBar.delegate = self;
     arrDataSearched = [[NSMutableArray alloc] init];
@@ -57,7 +59,7 @@
 
     [mTableViewSuggest setHidden:YES];
     mTableViewSuggest.backgroundColor =[UIColor whiteColor];
-    background=[[UIView alloc] initWithFrame: CGRectMake ( 0, 60, 320, 500)];
+    background=[[UIView alloc] initWithFrame: CGRectMake ( 0, 60, 320, 560)];
     background.backgroundColor =[UIColor colorWithRed:.1 green:.1 blue:.1 alpha: .4];
     [self.view addSubview:background];
     [self.view addSubview:mTableViewSuggest];
@@ -136,19 +138,13 @@
         }
         else if ([status isEqualToString:@"PI"])
         {
-            UIAlertView *errorAlert = [[UIAlertView alloc]
-                                       initWithTitle:@"Status Request Taxi" message:@"Your request  acepted" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [errorAlert show];
-            [self.btnWaiting setTitle:@"Waiting Taxi ......" forState:UIControlStateNormal];
+            [self.btnWaiting setTitle:@"Please Wait Taxi ......" forState:UIControlStateNormal];
             [self.btnWaiting addTarget:self
                                 action:@selector(CancelReques)
              forControlEvents:UIControlEventTouchUpInside];
         }
-        else if ([status isEqualToString:@"TC"])
+        else if ([status isEqualToString:@"PD"])
         {
-            UIAlertView *errorAlert = [[UIAlertView alloc]
-                                       initWithTitle:@"Status Request Taxi" message:@"Your Trip Complete" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [errorAlert show];
             self.btnWaiting.hidden=YES;
             clickAnnonation=FALSE;
             [self changeViewDetail];
@@ -165,6 +161,20 @@
             addAnnonation=TRUE;
             [self selectLocationFrom:gestureFrom];
             [self.mapview removeOverlays:self.mapview.overlays];
+            [self.viewLocationFrom addGestureRecognizer:gestureFrom];
+            [self.viewLocationTo addGestureRecognizer:gestureTo];
+
+        }
+        else if ([status isEqualToString:@"TC"])
+        {
+            PaymentViewController *payment = [[PaymentViewController alloc] initWithNibName:@"PaymentViewController" bundle:nil];
+            payment.vcParent = self;
+            [self presentPopupViewController:payment animated:YES completion:^(void) {
+                NSLog(@"popup view presented");
+            }];
+            selectPay=TRUE;
+            self.grayView.hidden=NO;
+
         }
     }
 
@@ -193,151 +203,6 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
     }
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [arrDataSearched count];;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 50;
-}
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"CellIdentifier";
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-    if (cell == nil) {
-        cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    }
-    
-    cell.backgroundColor = [UIColor clearColor];
-    
-    MKMapItem *entity = [arrDataSearched objectAtIndex:indexPath.row];
-    cell.textLabel.text = entity.placemark.title;
-    cell.textLabel.textColor = [UIColor blackColor];
-    
-    return cell;
-}
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    MKMapItem *mapItem = [arrDataSearched objectAtIndex:indexPath.row];
-    self.mapview.centerCoordinate = mapItem.placemark.coordinate;
-    [UIView beginAnimations:@"animateAddContentView" context:nil];
-    [UIView setAnimationDuration:0.4];
-    CGRect frame=self.ViewtabBar.frame;
-    frame.origin.y=0;
-    self.ViewtabBar.frame=frame;
-    [UIView commitAnimations];
-    background.hidden=YES;
-    [mTableViewSuggest setBounds:CGRectMake(0,
-                                            self.mSearchBar.frame.origin.y + self.mSearchBar.frame.size.height,320,0)];
-    [self.view endEditing:YES];
-}
-- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
-{
-    [searchBar resignFirstResponder];
-    [UIView beginAnimations:@"animateAddContentView" context:nil];
-    [UIView setAnimationDuration:0.4];
-    CGRect frame=self.ViewtabBar.frame;
-    frame.origin.y=0;
-    self.ViewtabBar.frame=frame;
-    [UIView commitAnimations];
-    background.hidden=YES;
-    [mTableViewSuggest setBounds:CGRectMake(0,
-                                            self.mSearchBar.frame.origin.y + self.mSearchBar.frame.size.height,320,0)];
-}
-
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-{
-    [searchBar setShowsCancelButton:YES animated:YES];
-    CATransition *animation = [CATransition animation];
-    animation.type = kCATransitionFade;
-    animation.duration = 0.4;
-    [mTableViewSuggest.layer addAnimation:animation forKey:nil];
-    [mTableViewSuggest setHidden:NO];
-}
-
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
-{
-    [searchBar setShowsCancelButton:NO animated:YES];
-    CATransition *animation = [CATransition animation];
-    animation.type = kCATransitionFade;
-    animation.duration = 0.4;
-    [mTableViewSuggest.layer addAnimation:animation forKey:nil];
-    [mTableViewSuggest setHidden:YES];
-    [arrDataSearched removeAllObjects];
-    
-    [mTableViewSuggest reloadData];
-    
-    searchBar.text = @"";
-}
-
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    [arrDataSearched removeAllObjects];
-    
-    if (searchText ==NULL || [searchText isEqualToString:@""]) {
-        
-    }
-    else{
-        if (self.localSearch.searching)
-        {
-            [self.localSearch cancel];
-        }
-        MKLocalSearchRequest *request = [[MKLocalSearchRequest alloc] init];
-        
-        request.naturalLanguageQuery = searchText;
-        MKCoordinateRegion newRegion;
-        NSString* longitude = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitude"];
-        NSString* latitude = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitude"];
-        newRegion.center.latitude = [latitude doubleValue];
-        newRegion.center.longitude = [longitude doubleValue];
-        newRegion.span.latitudeDelta = 0.112872;
-        newRegion.span.longitudeDelta = 0.109863;
-        request.region = newRegion;
-        MKLocalSearchCompletionHandler completionHandler = ^(MKLocalSearchResponse *response, NSError *error)
-        {
-            if (error != nil)
-            {
-                NSString *errorStr = [[error userInfo] valueForKey:NSLocalizedDescriptionKey];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not find places"
-                                                                message:errorStr
-                                                               delegate:nil
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil];
-                [alert show];
-            }
-            else
-            {
-                [arrDataSearched addObjectsFromArray:[response mapItems]];
-                
-                CGRect bounds = [mTableViewSuggest bounds];
-                self.boundingRegion = response.boundingRegion;
-                [mTableViewSuggest setBounds:CGRectMake(bounds.origin.x,
-                                                        self.mSearchBar.frame.origin.y + self.mSearchBar.frame.size.height,
-                                                        bounds.size.width,
-                                                        250)];
-                CGRect frame=mTableViewSuggest.frame;
-                frame.origin.y=60;
-                mTableViewSuggest.frame=frame;
-                if (arrDataSearched.count==0) {
-                    mTableViewSuggest.hidden=YES;
-                }
-                else
-                    mTableViewSuggest.hidden=NO;
-                [mTableViewSuggest reloadData];
-            }
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        };
-        if (self.localSearch != nil)
-        {
-            self.localSearch = nil;
-        }
-        self.localSearch = [[MKLocalSearch alloc] initWithRequest:request];
-        
-        [self.localSearch startWithCompletionHandler:completionHandler];
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    }
-    
-    
-}
-
 -(void)changeViewDetail
 {
 //    [UIView setAnimationDuration:0.5];
@@ -353,7 +218,11 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
 }
 -(void)dismissDetail:(UITapGestureRecognizer *)recognizer
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissDetail" object:self];
+    if (selectPay==TRUE) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"paymentdetail" object:self];
+    }
+    else
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissDetail" object:self];
 
 }
 - (void)selectLocationFrom:(UITapGestureRecognizer *)recognizer {
@@ -533,8 +402,10 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
                                     longitude:placeTo.coordinate.longitude];
         
         CLLocationDistance distance = [pinLocation distanceFromLocation:userLocation];
-        NSLog(@"distance: %4.0f m",distance);
-        [[NSUserDefaults standardUserDefaults] setFloat:distance forKey:@"distance"];
+        NSLog(@"distance: %.1f km",distance/1000);
+        NSString *distanceString = [NSString stringWithFormat:@"%.1f km", distance/1000];
+
+        [[NSUserDefaults standardUserDefaults] setValue:distanceString forKey:@"distance"];
         [self.findMyTaxi setTitle:@"Change Trip" forState:UIControlStateNormal];
         self.mImageFocus.hidden=YES;
         GetPoint=TRUE;
@@ -813,4 +684,150 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
 //    frame1.origin.y=65;
 //    background.frame=frame1;
 }
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [arrDataSearched count];;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"CellIdentifier";
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    if (cell == nil) {
+        cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    }
+    
+    cell.backgroundColor = [UIColor clearColor];
+    
+    MKMapItem *entity = [arrDataSearched objectAtIndex:indexPath.row];
+    cell.textLabel.text = entity.placemark.title;
+    cell.textLabel.textColor = [UIColor blackColor];
+    
+    return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MKMapItem *mapItem = [arrDataSearched objectAtIndex:indexPath.row];
+    self.mapview.centerCoordinate = mapItem.placemark.coordinate;
+    [UIView beginAnimations:@"animateAddContentView" context:nil];
+    [UIView setAnimationDuration:0.4];
+    CGRect frame=self.ViewtabBar.frame;
+    frame.origin.y=0;
+    self.ViewtabBar.frame=frame;
+    [UIView commitAnimations];
+    background.hidden=YES;
+    [mTableViewSuggest setBounds:CGRectMake(0,
+                                            self.mSearchBar.frame.origin.y + self.mSearchBar.frame.size.height,320,0)];
+    [self.view endEditing:YES];
+}
+- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
+{
+    [searchBar resignFirstResponder];
+    [UIView beginAnimations:@"animateAddContentView" context:nil];
+    [UIView setAnimationDuration:0.4];
+    CGRect frame=self.ViewtabBar.frame;
+    frame.origin.y=0;
+    self.ViewtabBar.frame=frame;
+    [UIView commitAnimations];
+    background.hidden=YES;
+    [mTableViewSuggest setBounds:CGRectMake(0,
+                                            self.mSearchBar.frame.origin.y + self.mSearchBar.frame.size.height,320,0)];
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    [searchBar setShowsCancelButton:YES animated:YES];
+    CATransition *animation = [CATransition animation];
+    animation.type = kCATransitionFade;
+    animation.duration = 0.4;
+    [mTableViewSuggest.layer addAnimation:animation forKey:nil];
+    [mTableViewSuggest setHidden:NO];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    [searchBar setShowsCancelButton:NO animated:YES];
+    CATransition *animation = [CATransition animation];
+    animation.type = kCATransitionFade;
+    animation.duration = 0.4;
+    [mTableViewSuggest.layer addAnimation:animation forKey:nil];
+    [mTableViewSuggest setHidden:YES];
+    [arrDataSearched removeAllObjects];
+    
+    [mTableViewSuggest reloadData];
+    
+    searchBar.text = @"";
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    [arrDataSearched removeAllObjects];
+    
+    if (searchText ==NULL || [searchText isEqualToString:@""]) {
+        
+    }
+    else{
+        if (self.localSearch.searching)
+        {
+            [self.localSearch cancel];
+        }
+        MKLocalSearchRequest *request = [[MKLocalSearchRequest alloc] init];
+        
+        request.naturalLanguageQuery = searchText;
+        MKCoordinateRegion newRegion;
+        NSString* longitude = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitude"];
+        NSString* latitude = [[NSUserDefaults standardUserDefaults] stringForKey:@"latitude"];
+        newRegion.center.latitude = [latitude doubleValue];
+        newRegion.center.longitude = [longitude doubleValue];
+        newRegion.span.latitudeDelta = 0.112872;
+        newRegion.span.longitudeDelta = 0.109863;
+        request.region = newRegion;
+        MKLocalSearchCompletionHandler completionHandler = ^(MKLocalSearchResponse *response, NSError *error)
+        {
+            if (error != nil)
+            {
+                NSString *errorStr = [[error userInfo] valueForKey:NSLocalizedDescriptionKey];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could not find places"
+                                                                message:errorStr
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            }
+            else
+            {
+                [arrDataSearched addObjectsFromArray:[response mapItems]];
+                
+                CGRect bounds = [mTableViewSuggest bounds];
+                self.boundingRegion = response.boundingRegion;
+                [mTableViewSuggest setBounds:CGRectMake(bounds.origin.x,
+                                                        self.mSearchBar.frame.origin.y + self.mSearchBar.frame.size.height,
+                                                        bounds.size.width,
+                                                        250)];
+                CGRect frame=mTableViewSuggest.frame;
+                frame.origin.y=60;
+                mTableViewSuggest.frame=frame;
+                if (arrDataSearched.count==0) {
+                    mTableViewSuggest.hidden=YES;
+                }
+                else
+                    mTableViewSuggest.hidden=NO;
+                [mTableViewSuggest reloadData];
+            }
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        };
+        if (self.localSearch != nil)
+        {
+            self.localSearch = nil;
+        }
+        self.localSearch = [[MKLocalSearch alloc] initWithRequest:request];
+        
+        [self.localSearch startWithCompletionHandler:completionHandler];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    }
+    
+    
+}
+
 @end

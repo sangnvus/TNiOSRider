@@ -113,9 +113,7 @@
 
 
 - (IBAction)doBack:(id)sender {
-    UIStoryboard *homeStoryboard = [UIStoryboard storyboardWithName:@"HomeView" bundle:nil];
-    FindPromotionTripResult *controller = (FindPromotionTripResult*)[homeStoryboard instantiateViewControllerWithIdentifier:@"FindPromotionTripResult"];
-    [self.navigationController pushViewController:controller animated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)doRegisterPromotionTrip:(id)sender {

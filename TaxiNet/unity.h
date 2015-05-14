@@ -14,7 +14,6 @@
 #import "MyPromotionTrip.h"
 #import "AppDelegate.h"
 #import "ShowMyPromotionTrip.h"
-#import "FindPromotionTrip.h"
 #import "HomeViewController.h"
 #import "DetailTaxi.h"
 #import "ProfileViewController.h"

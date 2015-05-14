@@ -7,7 +7,6 @@
 //
 
 #import "FindPromotionTripResult.h"
-#import "FindPromotionTrip.h"
 #import "AppDelegate.h"
 #import "CustomMyPromotionTrip.h"
 #import "unity.h"
@@ -103,9 +102,7 @@
 */
 
 - (IBAction)backPromotionBtn:(id)sender {
-    homeStoryBoard = [UIStoryboard storyboardWithName:@"HomeView" bundle:nil];
-    FindPromotionTrip *controller = (FindPromotionTrip*)[homeStoryBoard instantiateViewControllerWithIdentifier:@"FindPromotionTrip"];
-    [self.navigationController pushViewController:controller animated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (IBAction)menuBtn:(id)sender {
     
@@ -185,7 +182,23 @@
     homeStoryBoard = [UIStoryboard storyboardWithName:@"HomeView" bundle:nil];
     RegisterPromotionTrip *controller = (RegisterPromotionTrip*)[homeStoryBoard instantiateViewControllerWithIdentifier:@"RegisterPromotionTrip"];
     [self.navigationController pushViewController:controller animated:YES];
-
-
 }
+-(void)CancelReques
+{
+    UIAlertView *errorAlert = [[UIAlertView alloc]
+                               initWithTitle:@"Request Taxi" message:@"Do you want cancel Taxi" delegate:self
+                               cancelButtonTitle:@"Cancel"
+                               otherButtonTitles:@"OK", nil];
+    [errorAlert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView
+clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == [alertView cancelButtonIndex]){
+        //cancel clicked ...do your action
+    }else{
+        
+    }
+}
+
 @end

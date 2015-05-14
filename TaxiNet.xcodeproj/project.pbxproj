@@ -28,6 +28,14 @@
 		772BBE191ABF12BA0098AB20 /* unity.m in Sources */ = {isa = PBXBuildFile; fileRef = 772BBE181ABF12BA0098AB20 /* unity.m */; };
 		7733C36E1AC6938F007A15ED /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7733C36D1AC6938F007A15ED /* UserInfo.m */; };
 		7733C3721AC6956C007A15ED /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 7733C3711AC6956C007A15ED /* MBProgressHUD.m */; };
+		77380C5E1B012EEE00D7DF44 /* icon80.png in Resources */ = {isa = PBXBuildFile; fileRef = 77380C5C1B012EEE00D7DF44 /* icon80.png */; };
+		77380C5F1B012EEE00D7DF44 /* icon120.png in Resources */ = {isa = PBXBuildFile; fileRef = 77380C5D1B012EEE00D7DF44 /* icon120.png */; };
+		77380C641B01392C00D7DF44 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77380C621B01392C00D7DF44 /* PaymentViewController.m */; };
+		77380C651B01392C00D7DF44 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77380C631B01392C00D7DF44 /* PaymentViewController.xib */; };
+		77380C681B013E8C00D7DF44 /* starnon.png in Resources */ = {isa = PBXBuildFile; fileRef = 77380C661B013E8C00D7DF44 /* starnon.png */; };
+		77380C691B013E8C00D7DF44 /* starselect.png in Resources */ = {isa = PBXBuildFile; fileRef = 77380C671B013E8C00D7DF44 /* starselect.png */; };
+		77380C6C1B03C33F00D7DF44 /* AddTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77380C6B1B03C33F00D7DF44 /* AddTripViewController.m */; };
+		77380C6E1B03CAEF00D7DF44 /* backwhile.png in Resources */ = {isa = PBXBuildFile; fileRef = 77380C6D1B03CAEF00D7DF44 /* backwhile.png */; };
 		7741833D1AC9CC8F00ABC5E6 /* UIViewController+CWPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 7741833C1AC9CC8F00ABC5E6 /* UIViewController+CWPopup.m */; };
 		774183411AC9CCFE00ABC5E6 /* DetailTaxi.m in Sources */ = {isa = PBXBuildFile; fileRef = 7741833F1AC9CCFE00ABC5E6 /* DetailTaxi.m */; };
 		774183421AC9CCFE00ABC5E6 /* DetailTaxi.xib in Resources */ = {isa = PBXBuildFile; fileRef = 774183401AC9CCFE00ABC5E6 /* DetailTaxi.xib */; };
@@ -117,7 +125,6 @@
 		8F9D13B71ADD5FDC00EE8AB4 /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F9D13B51ADD5FDC00EE8AB4 /* like.png */; };
 		8F9D13B81ADD5FDC00EE8AB4 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F9D13B61ADD5FDC00EE8AB4 /* star.png */; };
 		8F9D13BC1ADD70F900EE8AB4 /* PromotionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F9D13BB1ADD70F900EE8AB4 /* PromotionInfo.m */; };
-		8F9D13BF1ADD7A0F00EE8AB4 /* FindPromotionTrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F9D13BE1ADD7A0F00EE8AB4 /* FindPromotionTrip.m */; };
 		8F9D13C21ADD8ED300EE8AB4 /* FindPromotionTripResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F9D13C11ADD8ED300EE8AB4 /* FindPromotionTripResult.m */; };
 /* End PBXBuildFile section */
 
@@ -176,6 +183,16 @@
 		7733C36D1AC6938F007A15ED /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
 		7733C3701AC6956C007A15ED /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		7733C3711AC6956C007A15ED /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		77380C5C1B012EEE00D7DF44 /* icon80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon80.png; sourceTree = "<group>"; };
+		77380C5D1B012EEE00D7DF44 /* icon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon120.png; sourceTree = "<group>"; };
+		77380C611B01392C00D7DF44 /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
+		77380C621B01392C00D7DF44 /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
+		77380C631B01392C00D7DF44 /* PaymentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentViewController.xib; sourceTree = "<group>"; };
+		77380C661B013E8C00D7DF44 /* starnon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starnon.png; sourceTree = "<group>"; };
+		77380C671B013E8C00D7DF44 /* starselect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starselect.png; sourceTree = "<group>"; };
+		77380C6A1B03C33F00D7DF44 /* AddTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTripViewController.h; sourceTree = "<group>"; };
+		77380C6B1B03C33F00D7DF44 /* AddTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTripViewController.m; sourceTree = "<group>"; };
+		77380C6D1B03CAEF00D7DF44 /* backwhile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backwhile.png; sourceTree = "<group>"; };
 		7741833B1AC9CC8F00ABC5E6 /* UIViewController+CWPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CWPopup.h"; sourceTree = "<group>"; };
 		7741833C1AC9CC8F00ABC5E6 /* UIViewController+CWPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CWPopup.m"; sourceTree = "<group>"; };
 		7741833E1AC9CCFE00ABC5E6 /* DetailTaxi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTaxi.h; sourceTree = "<group>"; };
@@ -305,8 +322,6 @@
 		8F9D13B61ADD5FDC00EE8AB4 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		8F9D13BA1ADD70F900EE8AB4 /* PromotionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromotionInfo.h; sourceTree = "<group>"; };
 		8F9D13BB1ADD70F900EE8AB4 /* PromotionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromotionInfo.m; sourceTree = "<group>"; };
-		8F9D13BD1ADD7A0F00EE8AB4 /* FindPromotionTrip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindPromotionTrip.h; sourceTree = "<group>"; };
-		8F9D13BE1ADD7A0F00EE8AB4 /* FindPromotionTrip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindPromotionTrip.m; sourceTree = "<group>"; };
 		8F9D13C01ADD8ED300EE8AB4 /* FindPromotionTripResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindPromotionTripResult.h; sourceTree = "<group>"; };
 		8F9D13C11ADD8ED300EE8AB4 /* FindPromotionTripResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindPromotionTripResult.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -399,6 +414,7 @@
 		7733C36B1AC6937B007A15ED /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				77380C601B0135C700D7DF44 /* Payment */,
 				8F2D60F21AF90EBF00DA064E /* History */,
 				8F2D60F11AF90EA200DA064E /* AboutUs */,
 				8F2D60F01AF90E8A00DA064E /* Support */,
@@ -419,6 +435,15 @@
 				7733C3711AC6956C007A15ED /* MBProgressHUD.m */,
 			);
 			name = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		77380C601B0135C700D7DF44 /* Payment */ = {
+			isa = PBXGroup;
+			children = (
+				77380C611B01392C00D7DF44 /* PaymentViewController.h */,
+				77380C621B01392C00D7DF44 /* PaymentViewController.m */,
+			);
+			name = Payment;
 			sourceTree = "<group>";
 		};
 		7741833A1AC9CC7F00ABC5E6 /* Popup */ = {
@@ -494,6 +519,11 @@
 		774318C81AA74568001CF128 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				77380C6D1B03CAEF00D7DF44 /* backwhile.png */,
+				77380C661B013E8C00D7DF44 /* starnon.png */,
+				77380C671B013E8C00D7DF44 /* starselect.png */,
+				77380C5C1B012EEE00D7DF44 /* icon80.png */,
+				77380C5D1B012EEE00D7DF44 /* icon120.png */,
 				77EB0D6D1AFE8CE900AF123F /* search.png */,
 				77EB0D6B1AFE548000AF123F /* mylocation.png */,
 				8F2D60EC1AF7E61600DA064E /* service.png */,
@@ -635,12 +665,12 @@
 		8F025F2A1ADBF8580044087F /* promotiontrip */ = {
 			isa = PBXGroup;
 			children = (
+				77380C6A1B03C33F00D7DF44 /* AddTripViewController.h */,
+				77380C6B1B03C33F00D7DF44 /* AddTripViewController.m */,
 				8F025F351ADC3E3A0044087F /* ShowMyPromotionTrip.h */,
 				8F025F361ADC3E3A0044087F /* ShowMyPromotionTrip.m */,
 				8F025F381ADC3EA00044087F /* CustomMyPromotionTrip.h */,
 				8F025F391ADC3EA00044087F /* CustomMyPromotionTrip.m */,
-				8F9D13BD1ADD7A0F00EE8AB4 /* FindPromotionTrip.h */,
-				8F9D13BE1ADD7A0F00EE8AB4 /* FindPromotionTrip.m */,
 				8F9D13C01ADD8ED300EE8AB4 /* FindPromotionTripResult.h */,
 				8F9D13C11ADD8ED300EE8AB4 /* FindPromotionTripResult.m */,
 				8F1CA0311ADED18900FD7405 /* RegisterPromotionTrip.h */,
@@ -723,6 +753,7 @@
 				774318F21AA9636A001CF128 /* HomeView.storyboard */,
 				774183401AC9CCFE00ABC5E6 /* DetailTaxi.xib */,
 				8F2D60EE1AF90B3300DA064E /* Menu.storyboard */,
+				77380C631B01392C00D7DF44 /* PaymentViewController.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -835,6 +866,7 @@
 				774318ED1AA96029001CF128 /* checkBox.png in Resources */,
 				774318AD1AA73DBA001CF128 /* Main.storyboard in Resources */,
 				8F025F2F1ADC28DB0044087F /* yourlogohere.png in Resources */,
+				77380C691B013E8C00D7DF44 /* starselect.png in Resources */,
 				775B5F651ADE33EB00765F4F /* locatorTaxi.png in Resources */,
 				77DE944B1AE3EDA20049B2E8 /* call_btn.png in Resources */,
 				774318CE1AA7465A001CF128 /* btn_login.png in Resources */,
@@ -847,12 +879,16 @@
 				8F025F311ADC294A0044087F /* CustomPromotionCell.xib in Resources */,
 				775B5F6C1ADEDE2F00765F4F /* inputMap.png in Resources */,
 				775B5F751AE02A6100765F4F /* setting_button.png in Resources */,
+				77380C6E1B03CAEF00D7DF44 /* backwhile.png in Resources */,
 				8F2D60EB1AF7DFB800DA064E /* service_icon.png in Resources */,
 				7772F4451AD7CFCD00467247 /* From.png in Resources */,
 				774318EC1AA96029001CF128 /* checkbox_non.png in Resources */,
+				77380C5E1B012EEE00D7DF44 /* icon80.png in Resources */,
 				774318D01AA7465A001CF128 /* splast.png in Resources */,
+				77380C5F1B012EEE00D7DF44 /* icon120.png in Resources */,
 				774318DB1AA74DAE001CF128 /* Button_fb.png in Resources */,
 				774318CF1AA7465A001CF128 /* btn_regis.png in Resources */,
+				77380C681B013E8C00D7DF44 /* starnon.png in Resources */,
 				774318D41AA74794001CF128 /* AppLogin.storyboard in Resources */,
 				774318DD1AA74DAE001CF128 /* text_pass.png in Resources */,
 				774318F01AA961C4001CF128 /* Back.png in Resources */,
@@ -861,6 +897,7 @@
 				774183421AC9CCFE00ABC5E6 /* DetailTaxi.xib in Resources */,
 				776090D91AADDA4F00C21D94 /* 10487216_687099491374102_218448137921331276_n.jpg in Resources */,
 				775B5F6D1ADEDE2F00765F4F /* inputmap2.png in Resources */,
+				77380C651B01392C00D7DF44 /* PaymentViewController.xib in Resources */,
 				8F7933411AFBCCB100126521 /* CustomHistoryCell.xib in Resources */,
 				774318B21AA73DBA001CF128 /* LaunchScreen.xib in Resources */,
 				774318F31AA9636A001CF128 /* HomeView.storyboard in Resources */,
@@ -932,6 +969,7 @@
 				772BBE191ABF12BA0098AB20 /* unity.m in Sources */,
 				774319011AAC415A001CF128 /* JPSThumnail.m in Sources */,
 				772BBE121ABF0EDA0098AB20 /* UIImageView+AFNetworking.m in Sources */,
+				77380C641B01392C00D7DF44 /* PaymentViewController.m in Sources */,
 				776090D41AADD7F100C21D94 /* ProfileViewController.m in Sources */,
 				774318A11AA73DBA001CF128 /* main.m in Sources */,
 				774318D71AA747C1001CF128 /* LoginViewController.m in Sources */,
@@ -940,10 +978,10 @@
 				774318F61AA9637D001CF128 /* HomeViewController.m in Sources */,
 				7733C3721AC6956C007A15ED /* MBProgressHUD.m in Sources */,
 				8F3DC47F1AD97FC9009A2FEF /* ChangeAddressViewController.m in Sources */,
-				8F9D13BF1ADD7A0F00EE8AB4 /* FindPromotionTrip.m in Sources */,
 				772BBE151ABF0EDA0098AB20 /* UIWebView+AFNetworking.m in Sources */,
 				776090C81AADD59C00C21D94 /* REFrostedViewController.m in Sources */,
 				8F025F371ADC3E3A0044087F /* ShowMyPromotionTrip.m in Sources */,
+				77380C6C1B03C33F00D7DF44 /* AddTripViewController.m in Sources */,
 				772BBE0F1ABF0EDA0098AB20 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				776090D01AADD61A00C21D94 /* DEMORootViewController.m in Sources */,
 			);

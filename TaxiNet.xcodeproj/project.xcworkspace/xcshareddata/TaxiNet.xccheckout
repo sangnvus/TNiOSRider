@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>F878DEB9-F763-4312-8757-D0D26F948799</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>TaxiNet</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>088433697D58883BCE27DAB38747B1F21D1253A7</key>
 		<string>https://github.com/sangnvus/TNiOSRider.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>TaxiNet.xcodeproj/project.xcworkspace</string>
+	<string>TaxiNet.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>088433697D58883BCE27DAB38747B1F21D1253A7</key>

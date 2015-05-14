@@ -10,8 +10,7 @@
 #import "CustomMyPromotionTrip.h"
 #import "AppDelegate.h"
 #import "HomeViewController.h"
-#import "FindPromotionTrip.h"
-
+#import "AddTripViewController.h"
 @interface ShowMyPromotionTrip ()
 {
     AppDelegate *appDelegate;
@@ -124,7 +123,8 @@
 }
 
 - (IBAction)findPromotion:(id)sender {
-    FindPromotionTrip *viewcontroller = [homeStoryboard instantiateViewControllerWithIdentifier:@"FindPromotionTrip"];
-    [self.navigationController pushViewController:viewcontroller animated:YES];
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"HomeView" bundle: nil];
+    AddTripViewController *controller = (AddTripViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"AddTripViewController"];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 @end
