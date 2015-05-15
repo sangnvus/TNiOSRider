@@ -66,6 +66,14 @@
                                                otherButtonTitles:nil, nil];
         [alertTmp show];
     }
+    else if([self.PasswordField.text length] < 6 || [self.PasswordField.text length] >= 20) {
+        UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
+                                                         message:NSLocalizedString(@"Your new password must be greater than 6 and smaller than 20 characters",nil)
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"OK",nil)
+                                               otherButtonTitles:nil, nil];
+        [alertTmp show];
+    }
     else if(![self.PasswordField.text isEqualToString:self.confirmPasswordField.text]) {
         UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
                                                          message:NSLocalizedString(@"Confirm password does not match the password.",nil)

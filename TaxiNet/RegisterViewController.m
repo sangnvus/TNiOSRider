@@ -72,6 +72,13 @@ bool checked=NO;
                                                cancelButtonTitle:NSLocalizedString(@"OK",nil)
                                                otherButtonTitles:nil, nil];
         [alertTmp show];
+    }else if ([self.EmailUser.text length] > 50){
+        UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
+                                                         message:NSLocalizedString(@"Your e-mail too long.(less than or equal to 50 characters)",nil)
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"OK",nil)
+                                               otherButtonTitles:nil, nil];
+        [alertTmp show];
     }else if([self.PassUser.text isEqualToString:@""]|| self.PassUser.text==nil){
         UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
                                                          message:NSLocalizedString(@"Please enter your password",nil)
@@ -82,6 +89,13 @@ bool checked=NO;
 
         
         
+    }else if ([self.PassUser.text length] > 20 || [self.PassUser.text length] < 6){
+        UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
+                                                         message:NSLocalizedString(@"Your password must be greater than 5 characters and less than or equal to 20 characters)",nil)
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"OK",nil)
+                                               otherButtonTitles:nil, nil];
+        [alertTmp show];
     } else if (![self.PassUser.text isEqualToString:self.RepassUser.text]){
         UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
                                                          message:NSLocalizedString(@"Password not match",nil)
@@ -98,6 +112,13 @@ bool checked=NO;
                                                cancelButtonTitle:NSLocalizedString(@"OK",nil)
                                                otherButtonTitles:nil, nil];
         [alertTmp show];
+    }else if ([self.NameUser.text length] > 30){
+        UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
+                                                         message:NSLocalizedString(@"Your first name too long( less than or equal to 30 characters).",nil)
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"OK",nil)
+                                               otherButtonTitles:nil, nil];
+        [alertTmp show];
     }else if ([self.lastName.text isEqualToString:@""] || self.lastName.text == nil ){
         UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
                                                          message:NSLocalizedString(@"Please enter your last name",nil)
@@ -106,38 +127,18 @@ bool checked=NO;
                                                otherButtonTitles:nil, nil];
         [alertTmp show];
         
+    }
+    else if ([self.lastName.text length] > 50){
+        UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
+                                                         message:NSLocalizedString(@"Your last name too long.(less than or equal to 50 characters)",nil)
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"OK",nil)
+                                               otherButtonTitles:nil, nil];
+        [alertTmp show];
     }else if ([self.PhoneUser.text isEqualToString:@""] || self.PhoneUser.text == nil){
         
         UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
                                                          message:NSLocalizedString(@"Please enter your phone number",nil)
-                                                        delegate:self
-                                               cancelButtonTitle:NSLocalizedString(@"OK",nil)
-                                               otherButtonTitles:nil, nil];
-        [alertTmp show];
-    }else if ([self.EmailUser.text length] > 50){
-        UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
-                                                         message:NSLocalizedString(@"Your e-mail too long.(less than or equal to 50 characters)",nil)
-                                                        delegate:self
-                                               cancelButtonTitle:NSLocalizedString(@"OK",nil)
-                                               otherButtonTitles:nil, nil];
-        [alertTmp show];
-    }else if ([self.PassUser.text length] > 20){
-        UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
-                                                         message:NSLocalizedString(@"Your password too long.(less than or equal to 20 characters)",nil)
-                                                        delegate:self
-                                               cancelButtonTitle:NSLocalizedString(@"OK",nil)
-                                               otherButtonTitles:nil, nil];
-        [alertTmp show];
-    }else if ([self.NameUser.text length] > 30){
-        UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
-                                                         message:NSLocalizedString(@"Your first name too long(less than or equal to 30 characters).",nil)
-                                                        delegate:self
-                                               cancelButtonTitle:NSLocalizedString(@"OK",nil)
-                                               otherButtonTitles:nil, nil];
-        [alertTmp show];
-    }else if ([self.lastName.text length] > 50){
-        UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
-                                                         message:NSLocalizedString(@"Your last name too long.(lesst than or equal to 50 characters)",nil)
                                                         delegate:self
                                                cancelButtonTitle:NSLocalizedString(@"OK",nil)
                                                otherButtonTitles:nil, nil];

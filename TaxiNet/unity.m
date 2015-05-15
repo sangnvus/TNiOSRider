@@ -269,12 +269,12 @@
 +(void)getTripHistoryWithRiderId:(NSString *)riderId owner:(HistoryViewController *)owner
 {
     TripHistory *history = [[TripHistory alloc]init];
-    NSString *url = [NSString stringWithFormat:@"%@%@?id=%@",URL,HISTORY_URL,riderId];
+    NSString *url = [NSString stringWithFormat:@"%@%@",URL,HISTORY_URL];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-   // NSDictionary *param = @{@"id":riderId};
+    NSDictionary *param = @{@"id":riderId};
     
     [manager POST:url
-       parameters:nil
+       parameters:param
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               history.myTripsHistory = [NSArray arrayWithArray:responseObject];
               owner.myHistoryTrips = history.myTripsHistory;
