@@ -10,8 +10,7 @@
 #import "AppDelegate.h"
 #import "CustomMyPromotionTrip.h"
 #import "unity.h"
-#import "RegisterPromotionTrip.h"
-
+#import "ShowMyPromotionTrip.h"
 @interface FindPromotionTripResult ()
 
 
@@ -168,28 +167,20 @@
 
 {
     NSArray *arrFlag = [[NSArray alloc]init];
-     arrFlag = [promotionTripResult objectAtIndex:indexPath.row];
-    //NSLog(@"arr flag  gg g g :%@",arrFlag);
-    //if (indexPath != 0) {
-        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-        
-        [user setObject:[arrFlag valueForKey:@"fromCity"] forKey:@"fromCityShow1"];
-        [user setObject:[arrFlag valueForKey:@"toCity"] forKey:@"toCityShow1"];
-    [user setObject:[arrFlag valueForKey:@"id"] forKey:@"promotionTripId"];
-    //}
-
+    arrFlag = [promotionTripResult objectAtIndex:indexPath.row];
     
-    homeStoryBoard = [UIStoryboard storyboardWithName:@"HomeView" bundle:nil];
-    RegisterPromotionTrip *controller = (RegisterPromotionTrip*)[homeStoryBoard instantiateViewControllerWithIdentifier:@"RegisterPromotionTrip"];
-    [self.navigationController pushViewController:controller animated:YES];
-}
--(void)CancelReques
-{
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    
+    [user setObject:[arrFlag valueForKey:@"fromCity"] forKey:@"fromCityShow1"];
+    [user setObject:[arrFlag valueForKey:@"toCity"] forKey:@"toCityShow1"];
+    [user setObject:[arrFlag valueForKey:@"id"] forKey:@"promotionTripId"];
+    
     UIAlertView *errorAlert = [[UIAlertView alloc]
-                               initWithTitle:@"Request Taxi" message:@"Do you want cancel Taxi" delegate:self
+                               initWithTitle:@"Register Promitontrip" message:@"Do you want register trip" delegate:self
                                cancelButtonTitle:@"Cancel"
                                otherButtonTitles:@"OK", nil];
     [errorAlert show];
+
 }
 
 - (void)alertView:(UIAlertView *)alertView
@@ -197,8 +188,31 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == [alertView cancelButtonIndex]){
         //cancel clicked ...do your action
     }else{
+        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+        NSString *promotionTripId = [user valueForKey:@"promotionTripId"];
+        //notice
+        NSString *riderId1 = [user objectForKey:@"riderId"];
+        NSString *fromCity1 = [user valueForKey:@"fromCityShow1"];
+        NSString *fromAddress1 = [user objectForKey:@"registerProFromAdd"];
+        NSString *toCity1 = [user valueForKey:@"toCityShow1"];
+        NSString *toAddress1 = [user objectForKey:@"registerProToAdd"];
+        NSString *time = [user objectForKey:@"dataTime"];
+        NSString *numberOfSeats1 = [user objectForKey:@"noOfSeats"];
         
+        NSString *data = [NSString stringWithFormat:   @"{\"promotionTripId\":\"%@\",\"riderId\":\"%@\",\"fromCity\":\"%@\",\"fromAddress\":\"%@\",\"toCity\":\"%@\",\"toAddress\":\"%@\",\"time\":\"%@\",\"numberOfSeat\":\"%@\"}",promotionTripId,riderId1,fromCity1,fromAddress1,toCity1,toAddress1,time,numberOfSeats1];
+        
+        NSLog(@"%@", data);
+        
+        NSData *plainData = [data dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+        NSLog(@"BASE%@,",base64String);
+        [unity registerPromotionTrip:base64String owner:self];
     }
 }
-
+-(void)registerSuccess
+{
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"HomeView" bundle: nil];
+    ShowMyPromotionTrip *controller = (ShowMyPromotionTrip*)[mainStoryboard instantiateViewControllerWithIdentifier: @"ShowMyPromotionTrip"];
+    [self.navigationController pushViewController:controller animated:YES];
+}
 @end

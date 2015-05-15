@@ -18,26 +18,21 @@
 #import "DetailTaxi.h"
 #import "ProfileViewController.h"
 #import "DEMOMenuViewController.h"
-#import "RegisterPromotionTrip.h"
 #import "FindPromotionTripResult.h"
 #import "RegisterViewController.h"
 #import "HistoryViewController.h"
 #import "TripHistory.h"
-
+#import "ViewController.h"
 
 @class HomeViewController;
 @class DetailTaxi;
 @interface unity : NSObject
-
++(void)AutoLogin:(NSString *)regId  owner:(ViewController*)owner;
 +(void)login_by_email : (NSString*)email pass:(NSString *)pass regId:(NSString*)regId deviceType:(NSString*)deviceType owner:(LoginViewController*)owner;
 
 +(void)registerByEmail:(NSString*)jsonData owner:(RegisterViewController*)owner;
 
-+(void)updateByRiderById : (NSString*)riderId
-                firstName:(NSString*)firstName
-                 lastName:(NSString*)lastName
-                    email:(NSString*)email
-                  phoneNo:(NSString*)phoneNo owner:(ProfileViewController*)owner;
++(void)updateByRiderById:(NSString*)dataEncode owner:(ProfileViewController*)owner;
 
 +(void)getNearTaxi:(NSString*)latitude
      andLongtitude:(NSString*)longtitude owner:(HomeViewController *)owner;
@@ -50,7 +45,7 @@
                  startTime:(NSString*)startDate
                      owner: (FindPromotionTripResult*)owner;
 
-+(void)registerPromotionTrip:(NSString*)dataEncode owner:(RegisterPromotionTrip*)owner;
++(void)registerPromotionTrip:(NSString*)dataEncode owner: (FindPromotionTripResult *)owner;
 
 +(void)CreateTrip:(NSString*)param owner:(DetailTaxi *)owner;
 
@@ -61,5 +56,7 @@
 
 +(void)getTripHistoryWithRiderId:(NSString*)riderId
                            owner:(HistoryViewController*)owner;
++(void)automationLogin:(NSString*)tokenDevice deviceType:(NSString*)deviceType;
++(void)LogOut:(NSString*)riderId;
 
 @end

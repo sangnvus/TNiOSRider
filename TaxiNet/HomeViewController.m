@@ -47,7 +47,8 @@
     clickAnnonation=FALSE;
     addAnnonation=FALSE;
     selectPay=FALSE;
-    
+    [[NSUserDefaults standardUserDefaults] setObject:appdelegate.lontitude forKey:@"longitude"];
+    [[NSUserDefaults standardUserDefaults] setObject:appdelegate.latitude forKey:@"latitude"];
     self.mSearchBar.delegate = self;
     arrDataSearched = [[NSMutableArray alloc] init];
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -106,11 +107,14 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"getRiderInfo" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"HidenViewDetail" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"hidenGrayView" object:nil];
-
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveNotification:) name:@"KICK_OUT" object:nil];
 
 }
 -(void) receiveNotification:(NSNotification *) notification
 {
+    if ([[notification name]isEqualToString:@"KICK_OUT"]) {
+        [self kickOut];
+    }
     if ([[notification name]isEqualToString:@"hidenGrayView"]) {
         self.grayView.hidden=YES;
     }
@@ -178,6 +182,22 @@
         }
     }
 
+}
+-(void)kickOut
+{
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"AppLogin" bundle: nil];
+    LoginViewController  *controller = (LoginViewController *)[mainStoryboard instantiateViewControllerWithIdentifier: @"LoginViewController"];
+    [self.navigationController pushViewController:controller animated:YES];
+    NSString* riderId = [[NSUserDefaults standardUserDefaults] stringForKey:@"riderId"];
+    NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
+    NSDictionary * dict = [defs dictionaryRepresentation];
+    for (id key in dict) {
+        [defs removeObjectForKey:key];
+    }
+    [defs synchronize];
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+    [unity LogOut:riderId];
 }
 -(void)CancelReques
 {

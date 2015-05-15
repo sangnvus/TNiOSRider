@@ -68,13 +68,17 @@
     }
     else if(![self.PasswordField.text isEqualToString:self.confirmPasswordField.text]) {
         UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
-                                                         message:NSLocalizedString(@"Password does not match the confirm password",nil)
+                                                         message:NSLocalizedString(@"Confirm password does not match the password.",nil)
                                                         delegate:self
                                                cancelButtonTitle:NSLocalizedString(@"OK",nil)
                                                otherButtonTitles:nil, nil];
         [alertTmp show];
     }else{
         NSLog(@"DONE");
+        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+        [unity changePasswordByRiderId:[user valueForKey:@"riderId"]
+                           oldPassword:self.oldPasswordField.text
+                             nPassword:self.PasswordField.text];
     }
 }
 
@@ -85,10 +89,8 @@
 }
 
 - (IBAction)doSave:(id)sender {
-    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-    [unity changePasswordByRiderId:[user valueForKey:@"riderId"]
-                       oldPassword:self.oldPasswordField.text
-                         nPassword:self.PasswordField.text];
+    [self checkPassword];
+    
     
 }
 @end

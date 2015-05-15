@@ -74,6 +74,8 @@ NSString *a6 = @"";
         a5 = [userDefault valueForKey:@"email"];
         a6 = [userDefault valueForKey:@"phone"];
         NSLog(@"LOG vao:%@",appDelegate.profileFlag);
+    }else{
+        NSLog(@"SOME thing wrong");
     }
 
     // disable to change profiles
@@ -225,13 +227,17 @@ NSString *a6 = @"";
                                                        otherButtonTitles:nil, nil];
                 [alertTmp show];
             }else{
+                NSUserDefaults *userData = [NSUserDefaults standardUserDefaults];
+                NSString *riderId = [NSString stringWithFormat:@"%@",[userData objectForKey:@"riderId"]];
+                NSString *data = [NSString stringWithFormat:   @"{\"id\":\"%@\",\"email\":\"%@\",\"firstname\":\"%@\",\"lastname\":\"%@\",\"phone\":\"%@\"}",riderId,self.firstNameField.text,self.lastNameField.text,self.phoneNoField.text,self.emailField.text];
                 
+                NSLog(@"%@", data);
                 
-                [unity updateByRiderById:[appDelegate.yoursefl objectForKey:@"riderId"]
-                               firstName:self.firstNameField.text
-                                lastName:self.lastNameField.text
-                                   email:self.emailField.text
-                                 phoneNo:self.phoneNoField.text owner:self];
+                NSData *plainData = [data dataUsingEncoding:NSUTF8StringEncoding];
+                NSString *base64String = [plainData base64EncodedStringWithOptions:0];
+                NSLog(@"BASE%@,",base64String);
+                
+                [unity updateByRiderById:base64String owner:self];
                 NSLog(@"COUNT done:%d",countBtnClicked);
             }
         }
@@ -259,9 +265,9 @@ NSString *a6 = @"";
 
 - (IBAction)addAddress:(id)sender {
     
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"HomeView" bundle: nil];
-    ChangeAddressViewController *controller = (ChangeAddressViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"ChangeAddress"];
-    [self.navigationController pushViewController:controller animated:YES];
+//    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"HomeView" bundle: nil];
+//    ChangeAddressViewController *controller = (ChangeAddressViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"ChangeAddress"];
+//    [self.navigationController pushViewController:controller animated:YES];
     
     
 }

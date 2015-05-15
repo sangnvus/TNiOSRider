@@ -98,23 +98,7 @@
     // Remove the row from data model
     //[self.tableView removeObjectAtIndex:indexPath.row];
 }
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    // Remove the row from data model
-//    [tableData removeObjectAtIndex:indexPath.row];
-//    
-//    // Request table view to reload
-//    [tableView reloadData];
-//}
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (IBAction)backBtn:(id)sender {
     [self.view endEditing:YES];

@@ -20,6 +20,8 @@
 @property (nonatomic,retain) NSMutableArray *myPromotionTripArr;
 @property (nonatomic,retain) NSString *deviceToken;
 @property (nonatomic,strong) NSMutableDictionary *dataDriver;
+@property (nonatomic,strong) NSString *latitude;
+@property (nonatomic,strong) NSString *lontitude;
 
 @property (nonatomic,strong) NSDictionary *RiderInfo;
 

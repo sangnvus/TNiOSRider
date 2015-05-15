@@ -20,9 +20,8 @@
 @property (strong, nonatomic) NSArray *driverArray;
 @property (copy, nonatomic) NSString *nOfS;
 
--(int)countFlag:(NSMutableArray*)array withFlag:(int)flag;
 -(void)checkAndSetData;
-
+-(void)registerSuccess;
 
 
 

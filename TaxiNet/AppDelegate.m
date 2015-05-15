@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "unity.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,7 @@
     
 }
 @synthesize yoursefl, promotionDataArray, myPromotionTripArr,profileFlag;
-@synthesize locationManager;
+@synthesize locationManager,latitude,lontitude;
 
 
 
@@ -62,11 +63,9 @@
     CLLocation *currentLocation = newLocation;
     
     if (currentLocation != nil) {
-        NSString *latu = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
-        NSString *lati = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
-        [[NSUserDefaults standardUserDefaults] setObject:latu forKey:@"longitude"];
-        [[NSUserDefaults standardUserDefaults] setObject:lati forKey:@"latitude"];
-        
+        lontitude = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
+        latitude = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
+
     }
 }
 
@@ -80,6 +79,8 @@
     NSLog(@"%@",deviceToke1n);
     [[NSUserDefaults standardUserDefaults] setObject:deviceToke1n forKey:@"deviceToken"];
     self.deviceToken=deviceToke1n;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"GetDevideToken" object:self];
+
     profileFlag = @"0";
 //    NSLog(@"My token is: %@", deviceToken);
     
@@ -92,10 +93,15 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:
 (NSDictionary *)userInfo {
     NSLog(@"push APNS: %@", userInfo);
-
-    
-    self.RiderInfo=userInfo;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"getRiderInfo" object:self];
+    if ([[userInfo objectForKey:@"notificationType"]isEqualToString:@"KICK_OUT"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"KICK_OUT" object:self];
+    }
+    else
+    {
+        self.RiderInfo=userInfo;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"getRiderInfo" object:self];
+    }
+   
 }
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

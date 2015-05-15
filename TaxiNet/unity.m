@@ -7,13 +7,15 @@
 //
 
 #import "unity.h"
-#define URL @"http://192.168.100.8:8080/TN"
+//#define URL @"http://192.168.100.5:8080/TN"
 //#define URL @"http://callingme.info/taxinet"
+#define URL @"http://112.78.6.159:8080/taxinet"
 
+#define URL_AUTO_LOGIN @"/restServices/riderController/AutoLoginiOS"
 #define URL_SIGNIN @"/restServices/riderController/LoginiOS"
 #define CHANGE_PASSWORD_URL @"/restServices/riderController/ChangePassword"
 #define REGISTER_URL @"/restServices/riderController/registeriOS"
-#define UPDATE_URL @"/restServices/riderController/UpdateRider"
+#define UPDATE_URL @"/restServices/riderController/UpdateRideriOS"
 #define NEAR_TAXI_URL @"/restServices/DriverController/getNearDriveriOS"
 #define FIND_PROMOTION_TRIP_URL @"/restServices/PromotionTripController/FindPromotionTripiOS"
 #define MY_PROMOTION_URL @"/restServices/PromotionTripController/GetListPromotionTripRideriOS"
@@ -21,6 +23,8 @@
 #define REGISTER_PROMOTION_TRIP_URL @"/restServices/PromotionTripController/RegisterPromotionTripiOS"
 #define UPDATETRIP @"/restServices/TripController/UpdateTripiOS"
 #define HISTORY_URL @"/restServices/TripController/GetListCompleteTripRideriOS"
+#define LOGOUT @"/restServices/riderController/Logout"
+#define AUTOLOGIN @"/restServices/riderController/AutoLoginiOS"
 
 
 
@@ -32,6 +36,9 @@
            deviceType:(NSString *)deviceType
                 owner:(LoginViewController*)owner
 {
+    if ([regId isEqualToString:@""]|| [regId length]==0) {
+        regId = [NSString stringWithFormat:@"TOKENFAILED"];
+    }
     UserInfo *model = [[UserInfo alloc] init];
     NSString *url=[NSString stringWithFormat:@"%@%@",URL,URL_SIGNIN];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -83,16 +90,12 @@
           }];
 }
 
-+(void)updateByRiderById:(NSString *)riderId
-               firstName:(NSString *)firstName
-                lastName:(NSString *)lastName
-                   email:(NSString *)email
-                 phoneNo:(NSString *)phoneNo
++(void)updateByRiderById:(NSString*)dataEncode
                    owner:(ProfileViewController *)owner
 {
     NSString *url=[NSString stringWithFormat:@"%@%@",URL,UPDATE_URL];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *params2 = @ {@"id":riderId, @"firstname":firstName, @"lastname":lastName, @"phoneNumber":phoneNo, @"email":email};
+    NSDictionary *params2 = @ {@"json":dataEncode};
     [manager POST:url
        parameters:params2  success:^(AFHTTPRequestOperation *operation, id responseObject) {
            
@@ -189,7 +192,7 @@
 //         }];
 }
 
-+(void)registerPromotionTrip:(NSString *)dataEncode owner:(RegisterPromotionTrip *)owner
++(void)registerPromotionTrip:(NSString *)dataEncode owner: (FindPromotionTripResult *)owner
 {
     
     NSString *url=[NSString stringWithFormat:@"%@%@",URL,REGISTER_PROMOTION_TRIP_URL];
@@ -198,7 +201,7 @@
     [manager POST:url
        parameters:param1
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
+              [owner registerSuccess];
               NSLog(@"Succesfull, %@",responseObject);
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -287,7 +290,60 @@
     
     
 }
-
-
++(void)automationLogin:(NSString *)tokenDevice deviceType:(NSString *)deviceType
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",URL,URL_AUTO_LOGIN];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *param = @{@"regId":tokenDevice,@"deviceType":deviceType};
+    
+    [manager POST:url
+       parameters:param
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"SUSUSUUS");
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"FIFIFI: %@",error);
+          }];
+    
+}
++(void)LogOut:(NSString*)riderId
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",URL,LOGOUT];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *param = @{@"id":riderId};
+    
+    [manager POST:url
+       parameters:param
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"success");
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"failse");
+              
+          }];
+}
++(void)AutoLogin:(NSString *)regId  owner:(ViewController*)owner
+{
+    UserInfo *user=[[UserInfo alloc]init];
+    NSString *url = [NSString stringWithFormat:@"%@%@",URL,AUTOLOGIN];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{@"regId":regId,@"deviceType":@"iOS"};
+    [manager POST:url
+       parameters:parameters
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              user.dataUser=[NSDictionary dictionaryWithDictionary:responseObject];
+              owner.dataAutoLogin=user.dataUser;
+              [owner CheckLogin];
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
+                                                               message:NSLocalizedString(@"Please check your internet connection",nil)
+                                                              delegate:self
+                                                     cancelButtonTitle:NSLocalizedString(@"OK",nil)
+                                                     otherButtonTitles:nil, nil];
+              [alertTmp show];
+              [[NSNotificationCenter defaultCenter] postNotificationName:@"offAutoLoginloading" object:self];
+              
+          }];
+}
 
 @end

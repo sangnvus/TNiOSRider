@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="50V-A0-BRw" kind="relationship" relationship="rootViewController" id="Fbm-nn-Tro"/>
+                        <segue destination="CWj-YB-xrP" kind="relationship" relationship="rootViewController" id="bDI-5Q-nek"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JY7-Hh-LfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -94,20 +94,14 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WKK-7l-c0h">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="text_email.png" translatesAutoresizingMaskIntoConstraints="NO" id="Of9-d9-sZq">
                                 <rect key="frame" x="33" y="159" width="255" height="40"/>
-                                <state key="normal" backgroundImage="text_email.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PIa-Rh-cr1">
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="text_pass.png" translatesAutoresizingMaskIntoConstraints="NO" id="n4i-7G-zfl">
                                 <rect key="frame" x="33" y="199" width="255" height="40"/>
-                                <state key="normal" backgroundImage="text_pass.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
+                            </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tLk-fW-KqC">
-                                <rect key="frame" x="65" y="166" width="208" height="30"/>
+                                <rect key="frame" x="65" y="165" width="208" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -123,7 +117,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="09h-BV-ryv">
-                                <rect key="frame" x="65" y="207" width="213" height="30"/>
+                                <rect key="frame" x="65" y="204" width="213" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -160,13 +154,45 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DUy-Og-jiL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="443" y="224"/>
+            <point key="canvasLocation" x="766" y="224"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="gwV-mA-1p8">
+            <objects>
+                <viewController storyboardIdentifier="ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CWj-YB-xrP" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Rb0-d7-dxs"/>
+                        <viewControllerLayoutGuide type="bottom" id="N34-MH-azB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QbK-hO-uEu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tAa-90-kDU">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="splast.png" translatesAutoresizingMaskIntoConstraints="NO" id="qeQ-jA-mPd">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="zhq-V3-Dot"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o5S-gV-8Pm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="429" y="224"/>
         </scene>
     </scenes>
     <resources>
         <image name="Button_fb.png" width="895" height="138"/>
         <image name="backgro_login.png" width="1080" height="1824"/>
         <image name="btn_regis.png" width="691" height="147"/>
+        <image name="splast.png" width="1080" height="1824"/>
         <image name="text_email.png" width="895" height="140"/>
         <image name="text_pass.png" width="895" height="140"/>
     </resources>
