@@ -99,7 +99,6 @@
     appdelegate.yoursefl=(NSMutableDictionary*)self.dataUser;
     NSString *rFirstName = [appdelegate.yoursefl objectForKey:@"firstName"];
     NSString *rLastName = [appdelegate.yoursefl objectForKey:@"lastName"];
-    NSLog(@"%@,%@ ",rFirstName,rLastName);
     [loginInfo setObject:[NSString stringWithFormat:@"%@ %@",rFirstName,rLastName] forKey:@"RiderFullName"];
     
     if ([[appdelegate.yoursefl objectForKey:@"message"] isEqualToString:@"1"] ) {
@@ -125,7 +124,6 @@
 
          [[NSUserDefaults standardUserDefaults] setObject:[self.dataUser objectForKey:@"riderId"] forKey:@"riderId"];
         
-        NSLog(@"Test login data: %@",self.dataUser);
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"HomeView" bundle: nil];
         HomeViewController *controller = (HomeViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"HomeViewController"];
         [self.navigationController pushViewController:controller animated:YES];

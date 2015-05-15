@@ -7,15 +7,19 @@
 //
 
 #import "DetailTaxi.h"
-
+#import "AppDelegate.h"
 @interface DetailTaxi ()
 
 @end
 
 @implementation DetailTaxi
+{
+    AppDelegate*appdelegate;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    appdelegate=(AppDelegate *)[[UIApplication sharedApplication] delegate];
     // Do any additional setup after loading the view from its nib.
     self.imagedriver.layer.masksToBounds = YES;
     self.imagedriver.layer.cornerRadius = self.imagedriver.frame.size.height/2;
@@ -59,6 +63,7 @@
     if ([[notification name]isEqualToString:@"dismissDetail"]) {
         [self.vcParent dismissPopupViewControllerAnimated:YES completion:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:@"hidenGrayView" object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowViewDetail" object:self];
 
         }];
     }
@@ -69,6 +74,7 @@
 }
 
 - (IBAction)Book:(id)sender {
+    appdelegate.dataDriver=self.dataTaxi;
     NSString *RiderID = [[NSUserDefaults standardUserDefaults] stringForKey:@"riderId"];
     NSString *DriverID=[self.dataTaxi objectForKey:@"id"];
     NSString *LongitudeFrom = [[NSUserDefaults standardUserDefaults] stringForKey:@"longitudeFrom"];
@@ -91,6 +97,7 @@
     createtrip.fromCity=@"Ha Noi";
     createtrip.toCity=@"Ha Noi";
     [[NSNotificationCenter defaultCenter] postNotificationName:@"HidenViewDetail" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"hidenGrayView" object:self];
 
     NSString *data = [NSString stringWithFormat:@"{\"riderId\":\"%@\",\"driverId\":\"%@\",\"fromlongitude\":\"%@\",\"fromlatitude\":\"%@\",\"tolongitude\":\"%@\",\"tolatitude\":\"%@\",\"paymentMethod\":\"cash\",\"fromAddress\":\"%@\",\"toAddress\":\"%@\",\"fromCity\":\"Ha Noi\",\"toCity\":\"Ha Noi\"}",RiderID,DriverID,LongitudeFrom,LatitudeFrom,LongitudeTo,LatitudeTo,AdressFrom,AdressTo];
     
@@ -107,8 +114,11 @@
 }
 
 - (IBAction)cancel:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowViewDetail" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"hidenGrayView" object:self];
+
     [self.vcParent dismissPopupViewControllerAnimated:YES completion:^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowViewDetail" object:self];
+
     }];
 }
 - (IBAction)Call:(id)sender {

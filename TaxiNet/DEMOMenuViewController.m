@@ -137,6 +137,9 @@
     }
     else if (indexPath.row == 6)
     {
+        LoginViewController  *controller = (LoginViewController *)[mainStoryboard1 instantiateViewControllerWithIdentifier: @"LoginViewController"];
+        [navigationController pushViewController:controller animated:YES];
+        NSString* riderId = [[NSUserDefaults standardUserDefaults] stringForKey:@"riderId"];
         NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
         NSDictionary * dict = [defs dictionaryRepresentation];
         for (id key in dict) {
@@ -145,12 +148,7 @@
         [defs synchronize];
         NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
         [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
-        
-        LoginViewController  *controller = (LoginViewController *)[mainStoryboard1 instantiateViewControllerWithIdentifier: @"LoginViewController"];
-        [navigationController pushViewController:controller animated:YES];
-    }
-    else if (indexPath.row == 7 ){
-
+        [unity LogOut:riderId];
     }
     
     self.frostedViewController.contentViewController = navigationController;

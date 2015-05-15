@@ -21,7 +21,7 @@
 @property (copy, nonatomic) NSString *nOfS;
 
 -(void)checkAndSetData;
-
+-(void)registerSuccess;
 
 
 
