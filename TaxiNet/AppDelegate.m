@@ -16,7 +16,7 @@
 @implementation AppDelegate{
     
 }
-@synthesize yoursefl, promotionDataArray, myPromotionTripArr,profileFlag;
+@synthesize yoursefl, promotionDataArray, myPromotionTripArr,profileFlag,tripInfoArray;
 @synthesize locationManager,latitude,lontitude;
 
 
@@ -89,6 +89,9 @@
 {
     profileFlag = @"0";
     NSLog(@"Failed to get token, error: %@", error);
+    //[[NSUserDefaults standardUserDefaults] setObject:@"123" forKey:@"deviceToken"];
+    //self.deviceToken=deviceToke1n;
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"GetDevideToken" object:self];
 }
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:
 (NSDictionary *)userInfo {

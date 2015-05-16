@@ -10,6 +10,7 @@
 #import "unity.h"
 #import "ViewController.h"
 #import "LoginViewController.h"
+#import "TermsViewController.h"
 @interface RegisterViewController ()
 
 @end
@@ -21,6 +22,20 @@ bool checked=NO;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.scroolview setContentSize:CGSizeMake(320,700)];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.view addGestureRecognizer:tapGesture];
+    
+}
+
+-(void)hideKeyboard{
+    [self.EmailUser resignFirstResponder];
+    [self.PassUser resignFirstResponder];
+    [self.RepassUser resignFirstResponder];
+    [self.NameUser resignFirstResponder];
+    [self.lastName resignFirstResponder];
+    [self.PhoneUser resignFirstResponder];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -72,7 +87,7 @@ bool checked=NO;
                                                cancelButtonTitle:NSLocalizedString(@"OK",nil)
                                                otherButtonTitles:nil, nil];
         [alertTmp show];
-    }else if ([self.EmailUser.text length] > 50){
+    }else if ([self.EmailUser.text length] >= 50){
         UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
                                                          message:NSLocalizedString(@"Your e-mail too long.(less than or equal to 50 characters)",nil)
                                                         delegate:self
@@ -89,7 +104,7 @@ bool checked=NO;
 
         
         
-    }else if ([self.PassUser.text length] > 20 || [self.PassUser.text length] < 6){
+    }else if ([self.PassUser.text length] >= 20 || [self.PassUser.text length] < 6){
         UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
                                                          message:NSLocalizedString(@"Your password must be greater than 5 characters and less than or equal to 20 characters)",nil)
                                                         delegate:self
@@ -112,7 +127,7 @@ bool checked=NO;
                                                cancelButtonTitle:NSLocalizedString(@"OK",nil)
                                                otherButtonTitles:nil, nil];
         [alertTmp show];
-    }else if ([self.NameUser.text length] > 30){
+    }else if ([self.NameUser.text length] >= 30){
         UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
                                                          message:NSLocalizedString(@"Your first name too long( less than or equal to 30 characters).",nil)
                                                         delegate:self
@@ -128,7 +143,7 @@ bool checked=NO;
         [alertTmp show];
         
     }
-    else if ([self.lastName.text length] > 50){
+    else if ([self.lastName.text length] >= 50){
         UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
                                                          message:NSLocalizedString(@"Your last name too long.(less than or equal to 50 characters)",nil)
                                                         delegate:self
@@ -143,9 +158,16 @@ bool checked=NO;
                                                cancelButtonTitle:NSLocalizedString(@"OK",nil)
                                                otherButtonTitles:nil, nil];
         [alertTmp show];
-    }else if ([self.PhoneUser.text length] > 20){
+    }else if ([self.PhoneUser.text length] >= 20){
         UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
                                                          message:NSLocalizedString(@"Your phone number too long.(less than or equal to 20",nil)
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"OK",nil)
+                                               otherButtonTitles:nil, nil];
+        [alertTmp show];
+    }else if (checked==NO){
+        UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
+                                                         message:NSLocalizedString(@"Please tap the checkbox to continue",nil)
                                                         delegate:self
                                                cancelButtonTitle:NSLocalizedString(@"OK",nil)
                                                otherButtonTitles:nil, nil];
@@ -175,6 +197,15 @@ bool checked=NO;
     LoginViewController *controller = (LoginViewController*)[mainStoryboard instantiateViewControllerWithIdentifier: @"LoginViewController"];
     
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (IBAction)goToTermsScreen:(id)sender {
+    UIStoryboard *story = [UIStoryboard storyboardWithName:@"AppLogin" bundle:nil];
+    TermsViewController *controller = (TermsViewController*)[story instantiateViewControllerWithIdentifier:@"TermsViewController"];
+    
+    [self.navigationController pushViewController:controller animated:YES];
+    
+    
 }
 - (IBAction)checkRule:(id)sender {
     if (!checked) {

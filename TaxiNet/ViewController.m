@@ -33,11 +33,14 @@
 {
     if ([[notification name]isEqualToString:@"GetDevideToken"]) {
         [unity AutoLogin:appdelegate.deviceToken owner:self];
+//        [unity AutoLogin:@"123" owner:self];
+
     }
 }
 -(void)CheckLogin
 {
     NSLog(@"auto:%@",dataAutoLogin);
+    appdelegate.yoursefl = (NSMutableDictionary*)dataAutoLogin;
     NSString *idDriver=[dataAutoLogin objectForKey:@"riderId"];
     if ([idDriver isEqual:[NSNull null]]) {
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];

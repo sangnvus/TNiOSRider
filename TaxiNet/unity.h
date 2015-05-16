@@ -23,6 +23,7 @@
 #import "HistoryViewController.h"
 #import "TripHistory.h"
 #import "ViewController.h"
+#import "ChangePasswordViewController.h"
 
 @class HomeViewController;
 @class DetailTaxi;
@@ -52,7 +53,7 @@
 +(void)updateTrip:(NSString*)RequestID userID:(NSString *)userID status:(NSString *)status owner : (HomeViewController *)owner;
 
 +(void)getMyPromotionTrip: (NSString*)riderId owner:(ShowMyPromotionTrip*)owner;
-+(void)changePasswordByRiderId:(NSString*)riderId oldPassword:(NSString*)oldPassword nPassword:(NSString*)nPassword;
++(void)changePasswordByRiderId:(NSString*)riderId oldPassword:(NSString*)oldPassword nPassword:(NSString*)nPassword owner:(ChangePasswordViewController*)owner;
 
 +(void)getTripHistoryWithRiderId:(NSString*)riderId
                            owner:(HistoryViewController*)owner;

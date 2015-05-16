@@ -12,6 +12,7 @@
 
 - (IBAction)save:(id)sender;
 - (IBAction)doCancel:(id)sender;
+- (IBAction)goToTermsScreen:(id)sender;
 
 
 @property (weak, nonatomic) IBOutlet UITextField *NameUser;

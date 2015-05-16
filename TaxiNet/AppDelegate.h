@@ -18,6 +18,7 @@
 @property (nonatomic,strong) NSMutableDictionary *promotionDataDe;
 @property (nonatomic,strong) NSMutableArray *promotionDataArray;
 @property (nonatomic,retain) NSMutableArray *myPromotionTripArr;
+@property (nonatomic,retain) NSMutableArray *tripInfoArray;
 @property (nonatomic,retain) NSString *deviceToken;
 @property (nonatomic,strong) NSMutableDictionary *dataDriver;
 @property (nonatomic,strong) NSString *latitude;

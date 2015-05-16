@@ -47,9 +47,50 @@
     // Pass the selected object to the new view controller.
 }
 */
--(void)checkPassword
+-(void)checkPassword:(NSString*)message
 {
 
+    if ([message isEqualToString:@"PASSWORD_ERROR"]) {
+        UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@"ERROR"
+                                                         message:NSLocalizedString(@"Your old password is not correct.",nil)
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"OK",nil)
+                                               otherButtonTitles:nil, nil];
+        [alertTmp show];
+    }
+    else{
+        UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
+                                                         message:NSLocalizedString(@"Password successfully changed.",nil)
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"OK",nil)
+                                               otherButtonTitles:nil, nil];
+        [alertTmp show];
+        UIStoryboard *story = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+        
+        LoginViewController  *controller = (LoginViewController *)[story instantiateViewControllerWithIdentifier: @"LoginViewController"];
+        [self.navigationController pushViewController:controller animated:YES];
+        NSString* riderId = [[NSUserDefaults standardUserDefaults] stringForKey:@"riderId"];
+        NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
+        NSDictionary * dict = [defs dictionaryRepresentation];
+        for (id key in dict) {
+            [defs removeObjectForKey:key];
+        }
+        [defs synchronize];
+        NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+        [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+        [unity LogOut:riderId];
+        
+    }
+}
+
+- (IBAction)doBack:(id)sender {
+    UIStoryboard *homeStoryBoard = [UIStoryboard storyboardWithName:@"HomeView" bundle:nil];
+    ProfileViewController *controller = (ProfileViewController*)[homeStoryBoard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (IBAction)doSave:(id)sender {
     if ([self.oldPasswordField.text  isEqual: @""] || [self.oldPasswordField.text length]==0) {
         UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
                                                          message:NSLocalizedString(@"Please enter your old password",nil)
@@ -86,19 +127,10 @@
         NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
         [unity changePasswordByRiderId:[user valueForKey:@"riderId"]
                            oldPassword:self.oldPasswordField.text
-                             nPassword:self.PasswordField.text];
+                             nPassword:self.PasswordField.text owner:self];
     }
-}
-
-- (IBAction)doBack:(id)sender {
-    UIStoryboard *homeStoryBoard = [UIStoryboard storyboardWithName:@"HomeView" bundle:nil];
-    ProfileViewController *controller = (ProfileViewController*)[homeStoryBoard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
-    [self.navigationController pushViewController:controller animated:YES];
-}
-
-- (IBAction)doSave:(id)sender {
-    [self checkPassword];
     
     
 }
+
 @end

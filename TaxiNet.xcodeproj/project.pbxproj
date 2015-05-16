@@ -121,6 +121,7 @@
 		8F79334A1AFBE24F00126521 /* TripHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7933491AFBE24F00126521 /* TripHistory.m */; };
 		8F7C57F81B0546CF00C25062 /* backwhile.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F7C57F71B0546CF00C25062 /* backwhile.png */; };
 		8F7C57FB1B05484300C25062 /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7C57FA1B05484300C25062 /* TermsViewController.m */; };
+		8F7C57FE1B068F1700C25062 /* TripInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7C57FD1B068F1700C25062 /* TripInfoViewController.m */; };
 		8F9D13B31ADD56AD00EE8AB4 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F9D13B11ADD56AD00EE8AB4 /* FBSDKCoreKit.framework */; };
 		8F9D13B41ADD56AD00EE8AB4 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F9D13B21ADD56AD00EE8AB4 /* FBSDKLoginKit.framework */; };
 		8F9D13B71ADD5FDC00EE8AB4 /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F9D13B51ADD5FDC00EE8AB4 /* like.png */; };
@@ -318,6 +319,8 @@
 		8F7C57F71B0546CF00C25062 /* backwhile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backwhile.png; sourceTree = "<group>"; };
 		8F7C57F91B05484300C25062 /* TermsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsViewController.h; sourceTree = "<group>"; };
 		8F7C57FA1B05484300C25062 /* TermsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsViewController.m; sourceTree = "<group>"; };
+		8F7C57FC1B068F1700C25062 /* TripInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripInfoViewController.h; sourceTree = "<group>"; };
+		8F7C57FD1B068F1700C25062 /* TripInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripInfoViewController.m; sourceTree = "<group>"; };
 		8F9D13B11ADD56AD00EE8AB4 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = TaxiNet/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		8F9D13B21ADD56AD00EE8AB4 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = TaxiNet/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		8F9D13B51ADD5FDC00EE8AB4 /* like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like.png; sourceTree = "<group>"; };
@@ -706,6 +709,8 @@
 				8F2D60FA1AF90F6000DA064E /* HistoryViewController.m */,
 				8F7933451AFBD0FF00126521 /* CustomHistoryTableViewCell.h */,
 				8F7933461AFBD0FF00126521 /* CustomHistoryTableViewCell.m */,
+				8F7C57FC1B068F1700C25062 /* TripInfoViewController.h */,
+				8F7C57FD1B068F1700C25062 /* TripInfoViewController.m */,
 			);
 			name = History;
 			sourceTree = "<group>";
@@ -962,6 +967,7 @@
 				774183411AC9CCFE00ABC5E6 /* DetailTaxi.m in Sources */,
 				774319001AAC415A001CF128 /* JPSThumbnailAnnotationView.m in Sources */,
 				772BBE061ABF0EDA0098AB20 /* AFHTTPRequestOperationManager.m in Sources */,
+				8F7C57FE1B068F1700C25062 /* TripInfoViewController.m in Sources */,
 				772BBE071ABF0EDA0098AB20 /* AFHTTPSessionManager.m in Sources */,
 				776090C61AADD59C00C21D94 /* RECommonFunctions.m in Sources */,
 				772BBE0C1ABF0EDA0098AB20 /* AFURLResponseSerialization.m in Sources */,

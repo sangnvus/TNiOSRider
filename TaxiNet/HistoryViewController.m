@@ -10,6 +10,7 @@
 #import "REFrostedViewController.h"
 #import "CustomHistoryTableViewCell.h"
 #import "unity.h"
+#import "TripInfoViewController.h"
 
 @interface HistoryViewController ()
 
@@ -19,12 +20,14 @@
 {
     NSArray *dataArr;
     NSArray *driverArr;
+    AppDelegate *appDelegate;
 }
 @synthesize myHistoryTrips;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     [unity getTripHistoryWithRiderId:[user objectForKey:@"riderId"] owner:self];
     // init array
     dataArr = [[NSArray alloc] init];
@@ -93,6 +96,21 @@
 {
     // Remove the row from data model
     //[self.tableView removeObjectAtIndex:indexPath.row];
+}
+// catch event swipe
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TripInfoViewController *tripDetails;
+    dataArr = [self.myHistoryTrips objectAtIndex:indexPath.row];
+    appDelegate.tripInfoArray = (NSMutableArray*)dataArr;
+   // NSLog(@"DELEGATE TRIP:  %@",appDelegate.tripInfoArray);
+    [tripDetails showData:appDelegate.tripInfoArray];
+    
+    if (!([dataArr count]==0)) {
+        UIStoryboard *homeStoryBoard = [UIStoryboard storyboardWithName:@"Menu" bundle:nil];
+        TripInfoViewController *controller = (TripInfoViewController*)[homeStoryBoard instantiateViewControllerWithIdentifier:@"TripInfoViewController"];
+        [self.navigationController pushViewController:controller animated:YES];
+    
+    }
 }
 
 

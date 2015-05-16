@@ -110,7 +110,8 @@
                                                cancelButtonTitle:NSLocalizedString(@"OK",nil)
                                                otherButtonTitles:nil, nil];
         [alertTmp show];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"offLoginloading" object:self];
+        [[NSNotificationCenter
+          defaultCenter] postNotificationName:@"offLoginloading" object:self];
     }else if([[appdelegate.yoursefl objectForKey:@"message"] isEqualToString:@"0"]){
         UIAlertView *alertTmp =[[UIAlertView alloc]initWithTitle:@""
                                                          message:NSLocalizedString(@"Wrong password!",nil)

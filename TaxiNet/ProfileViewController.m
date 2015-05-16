@@ -229,7 +229,7 @@ NSString *a6 = @"";
             }else{
                 NSUserDefaults *userData = [NSUserDefaults standardUserDefaults];
                 NSString *riderId = [NSString stringWithFormat:@"%@",[userData objectForKey:@"riderId"]];
-                NSString *data = [NSString stringWithFormat:   @"{\"id\":\"%@\",\"email\":\"%@\",\"firstname\":\"%@\",\"lastname\":\"%@\",\"phone\":\"%@\"}",riderId,self.firstNameField.text,self.lastNameField.text,self.phoneNoField.text,self.emailField.text];
+                NSString *data = [NSString stringWithFormat:   @"{\"id\":\"%@\",\"email\":\"%@\",\"firstname\":\"%@\",\"lastname\":\"%@\",\"phone\":\"%@\"}",riderId,self.emailField.text,self.firstNameField.text,self.lastNameField.text,self.phoneNoField.text];
                 
                 NSLog(@"%@", data);
                 

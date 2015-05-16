@@ -15,7 +15,7 @@
 #define URL_SIGNIN @"/restServices/riderController/LoginiOS"
 #define CHANGE_PASSWORD_URL @"/restServices/riderController/ChangePassword"
 #define REGISTER_URL @"/restServices/riderController/registeriOS"
-#define UPDATE_URL @"/restServices/riderController/UpdateRideriOS"
+#define UPDATE_URL @"/restServices/riderController/updateRideriOS"
 #define NEAR_TAXI_URL @"/restServices/DriverController/getNearDriveriOS"
 #define FIND_PROMOTION_TRIP_URL @"/restServices/PromotionTripController/FindPromotionTripiOS"
 #define MY_PROMOTION_URL @"/restServices/PromotionTripController/GetListPromotionTripRideriOS"
@@ -37,7 +37,7 @@
                 owner:(LoginViewController*)owner
 {
     if ([regId isEqualToString:@""]|| [regId length]==0) {
-        regId = [NSString stringWithFormat:@"TOKENFAILED"];
+        regId = [NSString stringWithFormat:@"123"];
     }
     UserInfo *model = [[UserInfo alloc] init];
     NSString *url=[NSString stringWithFormat:@"%@%@",URL,URL_SIGNIN];
@@ -254,7 +254,10 @@
           }];
 }
 
-+(void)changePasswordByRiderId:(NSString *)riderId oldPassword:(NSString *)oldPassword nPassword:(NSString *)nPassword
++(void)changePasswordByRiderId:(NSString *)riderId
+                   oldPassword:(NSString *)oldPassword
+                     nPassword:(NSString *)nPassword
+                         owner:(ChangePasswordViewController *)owner
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",URL,CHANGE_PASSWORD_URL];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -264,6 +267,7 @@
        parameters:param
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               NSLog(@"response:%@",responseObject);
+              [owner checkPassword:[responseObject objectForKey:@"message"]];
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               NSLog(@"ERROR:%@",error);
           }];
@@ -282,7 +286,7 @@
               history.myTripsHistory = [NSArray arrayWithArray:responseObject];
               owner.myHistoryTrips = history.myTripsHistory;
               [owner showResponseData];
-              NSLog(@"response:%@",responseObject);
+              NSLog(@"SUCC");
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               NSLog(@"ERROR:%@",error);

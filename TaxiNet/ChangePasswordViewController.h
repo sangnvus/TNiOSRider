@@ -32,6 +32,6 @@
 
 - (IBAction)doBack:(id)sender;
 - (IBAction)doSave:(id)sender;
--(void)checkPassword;
+-(void)checkPassword:(NSString*)message;
 
 @end
